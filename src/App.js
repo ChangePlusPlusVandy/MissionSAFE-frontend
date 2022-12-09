@@ -14,9 +14,7 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<div>Hello from localhost:3000!</div>}/>
-          <Route path="/next" element={<div>Hello from localhost:3000/next!</div>}/>
-          <Route path="/last" element={<div>Hello from localhost:3000/last!</div>}/>
+          <Route path="/" element={<div>coming soon ...</div>}/>
         </Routes>
       </BrowserRouter>
     )

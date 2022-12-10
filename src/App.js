@@ -1,18 +1,26 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import LandingPage from "./pages/LandingPage/LandingPage";
+import "./App.scss"
+import React from "react";
 
-import Home from "./pages/Home/Home";
-import NotHome from "./pages/NotHome/NotHome";
+class App extends React.Component {
+  constructor(props) {
+    super(props);
 
-function App() {
-  
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/not-home" element={<NotHome/>}/>
-      </Routes>
-    </BrowserRouter>
-  );
+    this.state = {
+      user: null,
+    };
+  }
+
+  render() {
+    return (
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LandingPage/>}/>
+        </Routes>
+      </BrowserRouter>
+    )
+  }
 }
 
 export default App;

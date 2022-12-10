@@ -1,4 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import LandingPage from "./pages/LandingPage/LandingPage";
+import "./App.scss"
 import React from "react";
 
 class App extends React.Component {
@@ -14,7 +16,7 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<div>coming soon ...</div>}/>
+          <Route path="/" element={<LandingPage/>}/>
         </Routes>
       </BrowserRouter>
     )

@@ -1,18 +1,19 @@
 import './NavigationBar.scss'
+import { Link } from 'react-router-dom';
 import React from "react"
 
 
 class NavigationBar extends React.Component {
     render () {
-        if (this.props.admin === "true"){
+        if (this.props.admin){
             return(
                 <div className = "navContainer">
                     <ul>
-                        <li><a href = "/AdminHome">Home</a></li>
-                        <li><a href = "/Reports">Reports</a></li>
-                        <li><a href = "/Management">Management</a></li>
-                        <li><a href = "/Search">Search</a></li>
-                        <li><a href = "/Forms">Forms</a></li>
+                        <li><Link to="/AdminHome">Home</Link></li>
+                        <li><Link to= "/Reports">Reports</Link></li>
+                        <li><Link to = "/Management">Management</Link></li>
+                        <li><Link to= "/Search">Search</Link></li>
+                        <li><Link to= "/Forms">Forms</Link></li>
                     </ul>
                     <div className = "backdrop"/>
                 </div>
@@ -22,9 +23,9 @@ class NavigationBar extends React.Component {
             return (
                 <div className = "navContainer">
                     <ul>
-                        <li><a href = "/StaffHome">Home</a></li>
-                        <li><a href = "/Search">Search</a></li>
-                        <li><a href = "/Forms">Forms</a></li>
+                        <li><Link to= "/StaffHome">Home</Link></li>
+                        <li><Link to= "/Search">Search</Link></li>
+                        <li><Link to= "/Forms">Forms</Link></li>
                     </ul>
                     <div className='backdrop'/>
                 </div>

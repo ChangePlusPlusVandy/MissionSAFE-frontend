@@ -1,6 +1,7 @@
 import React from "react";
 import "./StaffRegistration.scss"
 import Firebase from "../../util/Firebase";
+import RegistrationHelpers from "../../util/RegistrationHelpers";
 
 class StaffRegistration extends React.Component {
     constructor(props) {

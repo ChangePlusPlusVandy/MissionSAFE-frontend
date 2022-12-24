@@ -21,3 +21,5 @@ const RegistrationHelpers = {
         return phoneNumberInput.match(/^(\+0?1\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]\d{4}$/);
     } 
 }
+
+export default RegistrationHelpers;

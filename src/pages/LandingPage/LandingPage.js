@@ -8,7 +8,7 @@ class LandingPage extends React.Component {
         return (
             <div className="column-container">
                 <p>Welcome to MissionSAFE</p>
-                <ProgressionButton text="Login" direction="forward" available="available"/>
+                <ProgressionButton text="Login" direction="forward" available="available" link="/login"/>
                 <ProgressionButton text="Register" direction="forward" available="available"/>
             </div>
         )

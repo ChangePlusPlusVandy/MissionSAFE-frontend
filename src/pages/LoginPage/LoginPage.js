@@ -17,6 +17,7 @@ class LoginPage extends React.Component {
     handleLogin = async (event) => {
         event.preventDefault();
         const { email, password } = this.state;
+        console.log(email, password); // check if the state is updated, debug for PR
         try {
             const user = await Firebase.loginUser(email, password);
             this.context.onLogin(user); // update user info at the top level

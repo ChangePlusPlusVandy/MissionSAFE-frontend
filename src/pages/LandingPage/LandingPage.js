@@ -1,5 +1,5 @@
 import React from "react";
-import ProgressionButton from "../../components/ProgressionButton/ProgressionButton";
+import NavButton from "../../components/NavButton/NavButton";
 import "./LandingPage.scss"
 import "../../App.scss"
 
@@ -8,8 +8,8 @@ class LandingPage extends React.Component {
         return (
             <div className="column-container">
                 <p>Welcome to MissionSAFE</p>
-                <ProgressionButton text="Login" direction="forward" available="available" link="/login"/>
-                <ProgressionButton text="Register" direction="forward" available="available"/>
+                <NavButton text="Login" available="available" link="/login"/>
+                <NavButton text="Register" available="available"/>
             </div>
         )
     }

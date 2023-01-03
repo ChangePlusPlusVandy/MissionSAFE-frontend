@@ -1,0 +1,38 @@
+.button-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    min-width: 100px;
+}
+
+.available {
+    cursor: pointer;
+    background-color: #B0D1F5;
+    border: 2px solid #a1cbff;
+    color: black;
+}
+
+.unavailable {
+    cursor: default;
+    background-color: #b2b7bb;
+    border: 2px solid #b2b7bb;
+    color: gray;
+}
+
+.available:hover {
+    background-color: #a1cbff;
+}
+
+.filler {
+    height: 24px;
+    width: 24px;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.button-text {
+    padding: 6px;
+    font-weight: 500;
+}

@@ -1,0 +1,21 @@
+.search-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    // background-color: blue;
+    // height: 50px;
+}
+
+.search-icon{
+    height: 50px;
+    // margin: auto;
+}
+
+.search-for{
+    margin: 5px;
+}
+
+.search-by{
+    margin: 5px;
+}

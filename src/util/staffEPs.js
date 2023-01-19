@@ -32,7 +32,7 @@ async function getStaff () {
 
     try {
    response = await fetch(`${BACKEND_ROUTE}/api/users/staff`);
-   await checkResponseStatus(response);
+   return await checkResponseStatus(response);
 
     }
 
@@ -59,7 +59,7 @@ async function postStaff (newStaff) {
     body: JSON.stringify(newStaff),
     headers: {'Content-Type' : 'application/json'}
     })
-    await checkResponseStatus(response);
+    return await checkResponseStatus(response);
     }
 
     catch(error) {
@@ -81,7 +81,7 @@ async function getActiveStaff () {
 
     try { 
         response = await fetch(`${BACKEND_ROUTE}/api/users/staff/active`);
-        await checkResponseStatus(response);
+        return await checkResponseStatus(response);
     }
 
     catch(error) {
@@ -94,7 +94,7 @@ async function getInactiveStaff () {
 
     try {
         response = await fetch (`${BACKEND_ROUTE}/api/users/staff/inactive`);
-        await checkResponseStatus(response);
+        return await checkResponseStatus(response);
     }
 
     catch (error) {
@@ -106,7 +106,7 @@ async function getInactiveStaff () {
 async function getStaffByEmail (email) {
     try {
         response = await fetch(`${BACKEND_ROUTE}/api/users/staff/?byEmail=${email}`)
-        await checkResponseStatus(response);
+        return await checkResponseStatus(response);
     }
     catch (error) {
         console.log(error);
@@ -116,7 +116,7 @@ async function getStaffByEmail (email) {
 async function getStaffbyProgram (program) {
     try {
         response = await fetch (`${BACKEND_ROUTE}/api/users/staff/?byProgram=${program}`)
-        await checkResponseStatus(response);
+        return await checkResponseStatus(response);
     }
 
     catch (error) {
@@ -129,7 +129,7 @@ async function getStaffByID (fireID) {
 
     try {
         response = await fetch(`${BACKEND_ROUTE}/api/users/staff/?byID=${fireID}`)
-        await checkResponseStatus(response);
+        return await checkResponseStatus(response);
     }
 
     catch (error) {
@@ -144,7 +144,7 @@ async function activateStaffWithID (fireID) {
         method: 'PUT',
         headers: {'Content Type': 'application/json' }
     })
-    await checkResponseStatus(response)
+    return await checkResponseStatus(response)
 }
 
 catch (error) {
@@ -160,7 +160,7 @@ async function deactiveStaffWithID (fireID) {
         method: 'PUT',
         headers: {'Content Type': 'application/json' }
     })
-    await checkResponseStatus(response)
+    return await checkResponseStatus(response)
 }
 
 catch (error) {
@@ -176,7 +176,7 @@ async function createEvent (event) {
         method: 'POST',
         body: JSON.stringify(event)
         })
-        await checkResponseStatus(response);
+        return await checkResponseStatus(response);
     }
 
     catch(error) {
@@ -190,7 +190,7 @@ async function addStaffToEvent (eventCode, staff) {
         method: 'PUT',
         body: JSON.stringify(staff)
         })
-        await checkResponseStatus(response)
+        return await checkResponseStatus(response)
     }
 
     catch (error) {

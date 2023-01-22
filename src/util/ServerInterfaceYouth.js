@@ -2,12 +2,12 @@ import fetch from 'node-fetch';
 import UserContext from "../context/UserContext"
 
 const BACKENDROUTE = 'http://localhost:4000/api/users/youth'
-// const contextType = UserContext
+const contextType = UserContext
 
 // Status checker
 async function checkResponseStatus(res) {
     if (res.ok) {
-        return JSON.stringify(res)
+        return res.JSON()
     } else {
         throw new Error(`The HTTP status of the response: ${res.status} (${res.statusText})`);
     }
@@ -17,13 +17,13 @@ async function checkResponseStatus(res) {
 async function getAllYouth() {
     try {
         let res = await fetch(`${BACKENDROUTE}`, {
-            // headers: {
-            //     'Authorization': `Bearer ${this.context.token}`
-            // }
+            headers: {
+                'Authorization': `Bearer ${this.context.token}`
+            }
         })
         return await checkResponseStatus(res)
     } catch (err) {
-        console.log(err)
+        res.send(err)
     }
 }
 
@@ -35,9 +35,9 @@ async function createYouth(newYouth) {
             body: JSON.stringify(newYouth),
             headers: { 'Content-Type': 'application/json' }
         })
-        await checkResponseStatus(res)
+        return await checkResponseStatus(res)
     } catch (err) {
-        console.log(err)
+        res.send(err)
     }   
 }
 
@@ -49,9 +49,9 @@ async function getAllActiveYouth() {
                 'Authorization': `Bearer ${this.context.token}`
             }
         })
-        checkResponseStatus(res)
+        return await checkResponseStatus(res)
     } catch (err) {
-        console.log(err)
+        res.send(err)
     }
 }
 
@@ -63,9 +63,9 @@ async function getAllInactiveYouth() {
                 'Authorization': `Bearer ${this.context.token}`
             }
         })
-        await checkResponseStatus(res)
+        return await checkResponseStatus(res)
     } catch (err) {
-        console.log(err)
+        res.send(err)
     }
 }
 
@@ -77,9 +77,9 @@ async function getYouthByEmail(email) {
                 'Authorization': `Bearer ${this.context.token}`
             }
         })
-        await checkResponseStatus(res)
+        return await checkResponseStatus(res)
     } catch (err) {
-        console.log(err)
+        res.send(err)
     }
 }
 
@@ -92,9 +92,9 @@ async function getAllYouthInProgram(program) {
                 'Authorization': `Bearer ${this.context.token}`
             }
         })
-        await checkResponseStatus(res)
+        return await checkResponseStatus(res)
     } catch (err) {
-        console.log(err)
+        res.send(err)
     }
 }
 
@@ -106,9 +106,9 @@ async function getYouthByFireID(fireID) {
                 'Authorization': `Bearer ${this.context.token}`
             }
         })
-        await checkResponseStatus(res)
+        return await checkResponseStatus(res)
     } catch (err) {
-        console.log(err)
+        res.send(err)
     }
 }
 
@@ -120,9 +120,9 @@ async function getFormsByFireID(fireID) {
                 'Authorization': `Bearer ${this.context.token}`
             }
         })
-        await checkResponseStatus(res)
+        return await checkResponseStatus(res)
     } catch (err) {
-        console.log(err)
+        res.send(err)
     }
 }
 
@@ -134,9 +134,9 @@ async function getEventsByFireID(fireID) {
                 'Authorization': `Bearer ${this.context.token}`
             }
         })
-        await checkResponseStatus(res)
+        return await checkResponseStatus(res)
     } catch (err) {
-        console.log(err)
+        res.send(err)
     }
 }
 
@@ -149,9 +149,9 @@ async function activateYouth(fireID) {
                 'Authorization': `Bearer ${this.context.token}`
             }
         })
-        await checkResponseStatus(res)
+        return await checkResponseStatus(res)
     } catch (err) {
-        console.log(err)
+        res.send(err)
     }
 }
 
@@ -164,9 +164,9 @@ async function deactivateYouth(fireID) {
                 'Authorization': `Bearer ${this.context.token}`
             }
         })
-        await checkResponseStatus(res)
+        return await checkResponseStatus(res)
     } catch (err) {
-        console.log(err)
+        res.send(err)
     }
 }
 
@@ -180,9 +180,9 @@ async function addFormToYouth(params) {
                 'Authorization': `Bearer ${this.context.token}`
             }
         })
-        await checkResponseStatus(res)
+        return await checkResponseStatus(res)
     } catch (err) {
-        console.log(err)
+        res.send(err)
     }
 }
 

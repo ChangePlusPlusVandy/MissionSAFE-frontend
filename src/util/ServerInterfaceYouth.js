@@ -1,13 +1,13 @@
 import fetch from 'node-fetch';
 import UserContext from "../context/UserContext"
 
-const BACKENDROUTE = 'http://localhost://4000/api/users/youth'
-const contextType = UserContext
+const BACKENDROUTE = 'http://localhost:4000/api/users/youth'
+// const contextType = UserContext
 
 // Status checker
 async function checkResponseStatus(res) {
-    if(res.ok){
-        return res.JSON()
+    if (res.ok) {
+        return JSON.stringify(res)
     } else {
         throw new Error(`The HTTP status of the response: ${res.status} (${res.statusText})`);
     }
@@ -16,70 +16,70 @@ async function checkResponseStatus(res) {
 // GET Get all Youth
 async function getAllYouth() {
     try {
-        res = await fetch(`${BACKENDROUTE}`, {
-            headers: {
-                'Authorization': `Bearer ${this.context.token}`
-            }
+        let res = await fetch(`${BACKENDROUTE}`, {
+            // headers: {
+            //     'Authorization': `Bearer ${this.context.token}`
+            // }
         })
-        await checkResponseStatus(res)
+        return await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
     }
 }
 
 // POST Create Youth
 async function createYouth(newYouth) {
     try {    
-        res = await fetch(`${BACKENDROUTE}`, {
+        let res = await fetch(`${BACKENDROUTE}`, {
             method: 'POST',
             body: JSON.stringify(newYouth),
             headers: { 'Content-Type': 'application/json' }
         })
         await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
     }   
 }
 
 // GET Get all active Youth
 async function getAllActiveYouth() {
     try {
-        res = await fetch(`${BACKENDROUTE}/active`, {
+        let res = await fetch(`${BACKENDROUTE}/active`, {
             headers: {
                 'Authorization': `Bearer ${this.context.token}`
             }
         })
         checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
     }
 }
 
 // GET Get all inactive Youth
 async function getAllInactiveYouth() {
     try {
-        res = await fetch(`${BACKENDROUTE}/inactive`, {
+        let res = await fetch(`${BACKENDROUTE}/inactive`, {
             headers: {
                 'Authorization': `Bearer ${this.context.token}`
             }
         })
         await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
     }
 }
 
 // GET Get Youth with email
 async function getYouthByEmail(email) {
     try {
-        res = await fetch(`${BACKENDROUTE}/?byEmail=${email}`, {
+        let res = await fetch(`${BACKENDROUTE}/?byEmail=${email}`, {
             headers: {
                 'Authorization': `Bearer ${this.context.token}`
             }
         })
         await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
     }
 }
 
@@ -87,63 +87,63 @@ async function getYouthByEmail(email) {
 // GET Get all Youth in program
 async function getAllYouthInProgram(program) {
     try {
-        res = await fetch(`${BACKENDROUTE}/?byProgram=${program}`, {
+        let res = await fetch(`${BACKENDROUTE}/?byProgram=${program}`, {
             headers: {
                 'Authorization': `Bearer ${this.context.token}`
             }
         })
         await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
     }
 }
 
 // GET Get Youth with fireID
 async function getYouthByFireID(fireID) {
     try {
-        res = await fetch(`${BACKENDROUTE}/?byID=${fireID}`, {
+        let res = await fetch(`${BACKENDROUTE}/?byID=${fireID}`, {
             headers: {
                 'Authorization': `Bearer ${this.context.token}`
             }
         })
         await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
     }
 }
 
 // GET Get Forms for Youth with fireID
 async function getFormsByFireID(fireID) {
     try {
-        res = await fetch(`${BACKENDROUTE}/?forms=${fireID}`, {
+        let res = await fetch(`${BACKENDROUTE}/?forms=${fireID}`, {
             headers: {
                 'Authorization': `Bearer ${this.context.token}`
             }
         })
         await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
     }
 }
 
 // GET Get Events for Youth with fireID
 async function getEventsByFireID(fireID) {
     try {
-        res = await fetch(`${BACKENDROUTE}/?events=${fireID}`, {
+        let res = await fetch(`${BACKENDROUTE}/?events=${fireID}`, {
             headers: {
                 'Authorization': `Bearer ${this.context.token}`
             }
         })
         await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
     }
 }
 
 // PUT Activate Youth with fireID
 async function activateYouth(fireID) { 
     try {    
-        res = await fetch(`${BACKENDROUTE}/?activate=${fireID}`, {
+        let res = await fetch(`${BACKENDROUTE}/?activate=${fireID}`, {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${this.context.token}`
@@ -151,14 +151,14 @@ async function activateYouth(fireID) {
         })
         await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
     }
 }
 
 // PUT Deactivate Youth with fireID
 async function deactivateYouth(fireID) { 
     try {    
-        res = await fetch(`${BACKENDROUTE}/?deactivate=${fireID}`, {
+        let res = await fetch(`${BACKENDROUTE}/?deactivate=${fireID}`, {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${this.context.token}`
@@ -166,14 +166,14 @@ async function deactivateYouth(fireID) {
         })
         await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
     }
 }
 
 // PUT Add Form to Youth with fireID
 async function addFormToYouth(params) {
     try {
-        res = await fetch(`${BACKENDROUTE}/?form=${params.fireID}`, {
+        let res = await fetch(`${BACKENDROUTE}/?form=${params.fireID}`, {
             method: 'PUT',
             body: JSON.stringify(params.Form),
             headers: {
@@ -182,11 +182,11 @@ async function addFormToYouth(params) {
         })
         await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
     }
 }
 
-export default {
+export {
     getAllYouth,
     createYouth,
     getAllActiveYouth,

@@ -1,7 +1,6 @@
 import './FormResult.scss';
 import React from "react";
 
-
 class FormResult extends React.Component {
     render() {
         return (

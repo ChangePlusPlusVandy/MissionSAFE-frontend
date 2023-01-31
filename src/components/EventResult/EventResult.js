@@ -1,7 +1,6 @@
 import './EventResult.scss';
 import React from "react";
 
-
 class EventResult extends React.Component {
     render() {
         return (

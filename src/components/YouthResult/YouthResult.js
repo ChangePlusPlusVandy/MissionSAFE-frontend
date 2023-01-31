@@ -1,7 +1,6 @@
 import './YouthResult.scss';
 import React from "react";
 
-
 class YouthResult extends React.Component {
     render() {
         return (

@@ -18,7 +18,7 @@ class SearchResults extends React.Component {
             return (
                 <div className="search-results">
                     {this.props.eventResults.map(eventResult => {
-                        return <EventResult key={eventResult._id} youth={eventResult}/>
+                        return <EventResult key={eventResult._id} event={eventResult}/>
                     })}
                 </div>
             )
@@ -26,7 +26,7 @@ class SearchResults extends React.Component {
             return (
                 <div className="search-results">
                     {this.props.formResults.map(formResult => {
-                        return <FormResult key={formResult._id} youth={formResult}/>
+                        return <FormResult key={formResult._id} form={formResult}/>
                     })}
                 </div>
             )

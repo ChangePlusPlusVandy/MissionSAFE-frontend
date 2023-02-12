@@ -16,16 +16,16 @@ class SearchBar extends React.Component{
         //Calls correct update function based on what user is searching for
         switch(this.state.category){
             case "Youth":
-                
-                this.props.updateYouthResults();
+                console.log("Called Youth" + this.state.criteria + " " + this.state.text);
+                this.props.updateYouthResults(this.state.criteria, this.state.text);
                 break;
             case "Form":
-                // console.log("Called form" + this.state.criteria + " " + this.state.text);
-                this.props.updateFormResults();
+                console.log("Called form" + this.state.criteria + " " + this.state.text);
+                this.props.updateFormResults(this.state.criteria, this.state.text);
                  break;
             case "Event":
-                // console.log("Called event" + this.state.criteria + " " + this.state.text);
-                this.props.updateEventResults();
+                console.log("Called event" + this.state.criteria + " " + this.state.text);
+                this.props.updateEventResults(this.state.criteria, this.state.text);
                 break;
         }
     }
@@ -53,8 +53,9 @@ class SearchBar extends React.Component{
             <div>
             <label htmlFor = 'dropdown'>By:</label>
              <select id = 'dropdown' className = 'search-by' value = {this.state.criteria}  onChange={(e)=>{
-                this.setState({criteria: e.target.value}, this.updateResults);
+                this.setState({criteria: e.target.value}, () =>{ this.updateResults();});
                 }}>
+            <option value = ""></option>
             <option value = "Email">Email</option>
             <option value = "Program">Program</option>
             <option value = "ID">Youth ID</option>
@@ -66,7 +67,7 @@ class SearchBar extends React.Component{
              <div>
              <label htmlFor = 'dropdown'>By:</label>
              <select id = 'dropdown' className = 'search-by' value = {this.state.criteria}  onChange={(e)=>{
-                this.setState({criteria: e.target.value}, this.updateResults);
+                this.setState({criteria: e.target.value},() =>{ this.updateResults();});
                 }}>
             <option value = ""></option>
             <option value = "ID">Youth ID</option>

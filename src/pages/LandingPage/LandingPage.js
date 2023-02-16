@@ -9,7 +9,7 @@ class LandingPage extends React.Component {
             <div className="column-container">
                 <p>Welcome to MissionSAFE</p>
                 <NavButton text="Login" available="available" link="/login"/>
-                <NavButton text="Register" available="available"/>
+                <NavButton text="Register" available="available" link="/register"/>
             </div>
         )
     }

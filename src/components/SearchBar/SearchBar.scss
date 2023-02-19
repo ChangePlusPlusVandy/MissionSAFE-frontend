@@ -25,11 +25,9 @@
 
 .text-search{
     position: absolute;
-    top: 27.96%;
-    bottom: 68.36%;
     background: #F4F4F4;
     border-radius: 12px;
-    margin-top: 10px;
+    margin-top: 0px;
     left: 40%;
     right: 40%;
     height: 25px;
@@ -47,7 +45,7 @@
 .both-dropdowns{
     display: flex;
     flex-direction: row;
-    margin-top: 10%;
+    margin-top: 70px;
     font-family: 'Arial';
     font-style: normal;
     font-weight: 400;

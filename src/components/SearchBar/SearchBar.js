@@ -87,38 +87,6 @@ class SearchBar extends React.Component {
                 }
 
                 </div>
-
-              {/* if Search for youth: search by email, program, or ID */}  
-            {
-            this.state.category === "Youth" &&
-            <div>
-            <label htmlFor = 'dropdown'>By:</label>
-             <select id = 'dropdown' className = 'search-by' value = {this.state.criteria}  onChange={(e)=>{
-                this.setState({criteria: e.target.value}, () =>{ this.updateResults();});
-                }}>
-            <option value = ""></option>
-            <option value = "Email">Email</option>
-            <option value = "Program">Program</option>
-            <option value = "ID">Youth ID</option>
-            </select>
-            </div>
-            }
-            {/* if Search for Form or event: search by Youth ID or Event Code*/}  
-             {(this.state.category === "Form" || this.state.category === "Event")   &&
-             <div>
-             <label htmlFor = 'dropdown'>By:</label>
-             <select id = 'dropdown' className = 'search-by' value = {this.state.criteria}  onChange={(e)=>{
-                this.setState({criteria: e.target.value},() =>{ this.updateResults();});
-                }}>
-            <option value = ""></option>
-            <option value = "ID">Youth ID</option>
-            <option value = "Event-Code">Event Code</option>
-            </select>
-            </div>
-            }
-            <input type='text' className='text-search' onChange={(e)=>{
-                this.setState({text: e.target.value}, this.updateResults);
-            }}/>   
         </div>
         );
     }

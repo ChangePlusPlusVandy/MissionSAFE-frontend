@@ -1,0 +1,48 @@
+.youth-result-left{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.youth-result{
+    background-color: #FFFFFF;
+    font-family: 'Arial';
+    border-bottom-style: groove;
+    justify-content: center;
+}
+
+.det-button{
+    border-radius: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 0px;
+    margin-top: 10px;
+    border-width: thin;
+}
+
+.youth-name{
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+.user-icon{
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 0px;
+    margin-top: 10px;
+}
+
+.category-youth {
+    width: 21px;
+    height: 11px;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 11px;
+    letter-spacing: 0.01em;
+    color: #AFAFAF;
+    margin-left: 45px;
+    margin-bottom: 10px;
+}

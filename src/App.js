@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import SearchPage from "./pages/SearchPage/SearchPage";
 import "./App.scss"
 import React from "react";
 import StaffRegistration from "./pages/StaffRegistration/StaffRegistration";
@@ -29,6 +30,7 @@ class App extends React.Component {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/staffreg" element={<StaffRegistration />} />
             <Route path="/youthreg" element={<YouthRegistration />} />
+            <Route path="/search" element={<SearchPage/>}/>
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>

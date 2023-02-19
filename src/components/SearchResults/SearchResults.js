@@ -1,8 +1,8 @@
 import './SearchResults.scss'
 import React from "react"
-import YouthResult from "../../YouthResult/YouthResult";
-import EventResult from "../../EventResult/EventResult";
-import FormResult from "../../FormResult/FormResult";
+import YouthResult from "../YouthResult/YouthResult"
+import EventResult from "../EventResult/EventResult";
+import FormResult from "../FormResult/FormResult";
 
 class SearchResults extends React.Component {
     render() {
@@ -14,7 +14,7 @@ class SearchResults extends React.Component {
                     })}
                 </div>
             )
-        } else if (this.props.eventResults.length() > 0) {
+        } else if (this.props.eventResults.length > 0) {
             return (
                 <div className="search-results">
                     {this.props.eventResults.map(eventResult => {
@@ -22,7 +22,7 @@ class SearchResults extends React.Component {
                     })}
                 </div>
             )
-        } else if (this.props.formResults.length() > 0) {
+        } else if (this.props.formResults.length > 0) {
             return (
                 <div className="search-results">
                     {this.props.formResults.map(formResult => {

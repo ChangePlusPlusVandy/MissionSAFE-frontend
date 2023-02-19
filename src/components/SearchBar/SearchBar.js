@@ -18,16 +18,14 @@ class SearchBar extends React.Component {
         //Calls correct update function based on what user is searching for
         switch (this.state.category) {
             case "Youth":
-
-                this.props.updateYouthResults();
+                this.props.updateYouthResults(this.state.criteria, this.state.text);
                 break;
             case "Form":
-                // console.log("Called form" + this.state.criteria + " " + this.state.text);
-                this.props.updateFormResults();
+                this.props.updateFormResults(this.state.criteria, this.state.text);
                 break;
             case "Event":
-                // console.log("Called event" + this.state.criteria + " " + this.state.text);
-                this.props.updateEventResults();
+                console.log("Called event" + this.state.criteria + " " + this.state.text);
+                this.props.updateEventResults(this.state.criteria, this.state.text);
                 break;
         }
     }
@@ -90,7 +88,38 @@ class SearchBar extends React.Component {
 
                 </div>
 
+              {/* if Search for youth: search by email, program, or ID */}  
+            {
+            this.state.category === "Youth" &&
+            <div>
+            <label htmlFor = 'dropdown'>By:</label>
+             <select id = 'dropdown' className = 'search-by' value = {this.state.criteria}  onChange={(e)=>{
+                this.setState({criteria: e.target.value}, () =>{ this.updateResults();});
+                }}>
+            <option value = ""></option>
+            <option value = "Email">Email</option>
+            <option value = "Program">Program</option>
+            <option value = "ID">Youth ID</option>
+            </select>
             </div>
+            }
+            {/* if Search for Form or event: search by Youth ID or Event Code*/}  
+             {(this.state.category === "Form" || this.state.category === "Event")   &&
+             <div>
+             <label htmlFor = 'dropdown'>By:</label>
+             <select id = 'dropdown' className = 'search-by' value = {this.state.criteria}  onChange={(e)=>{
+                this.setState({criteria: e.target.value},() =>{ this.updateResults();});
+                }}>
+            <option value = ""></option>
+            <option value = "ID">Youth ID</option>
+            <option value = "Event-Code">Event Code</option>
+            </select>
+            </div>
+            }
+            <input type='text' className='text-search' onChange={(e)=>{
+                this.setState({text: e.target.value}, this.updateResults);
+            }}/>   
+        </div>
         );
     }
 } export default SearchBar;

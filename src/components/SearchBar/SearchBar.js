@@ -3,10 +3,10 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { faCoffee} from '@fortawesome/free-solid-svg-icons'
 import React from "react"
 
+
 class SearchBar extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             //Defaults for search for, search by, and text-search
             category: "Youth",
@@ -14,6 +14,11 @@ class SearchBar extends React.Component {
             text: ""
         };
     }
+    
+    componentDidMount() {
+        this.props.updateYouthResults("","");
+      }
+
     updateResults() {
         //Calls correct update function based on what user is searching for
         switch (this.state.category) {
@@ -24,7 +29,6 @@ class SearchBar extends React.Component {
                 this.props.updateFormResults(this.state.criteria, this.state.text);
                 break;
             case "Event":
-                console.log("Called event" + this.state.criteria + " " + this.state.text);
                 this.props.updateEventResults(this.state.criteria, this.state.text);
                 break;
         }
@@ -33,21 +37,15 @@ class SearchBar extends React.Component {
         return (
             <div className='search-container'>
                 
-                <input type='text' className='text-search' placeholder = 'john' onChange={(e) => {
-                    this.setState({ text: e.target.value }, this.updateResults);
-                }}
-                />
-
-                {/* Select what you are searching for: Forms, Events, or Youth */}
-
+                <input type='text' className='text-search'  onChange={(e) => {
+                    this.setState({ text: e.target.value }, this.updateResults)}}/>
                 <div className='both-dropdowns'>
                     <div>
-                    <label htmlFor='dropdown'>Search For:</label>
+                    <label htmlFor='dropdown'>For:</label>
                     <select id='dropdown' className='search-for' value={this.state.category} onChange={(e) => {
                         this.setState({ category: e.target.value, criteria: "" }, () => {
-                            this.updateResults();
+                            this.updateResults()
                         });
-
                     }}>
                         <option value="Youth">Youth</option>
                         <option value="Form">Form</option>
@@ -55,9 +53,6 @@ class SearchBar extends React.Component {
                     </select>
 
                 </div>
-                
-
-
                 {/* if Search for youth: search by email, program, or ID */}
                 {
                     this.state.category === "Youth" &&
@@ -66,13 +61,14 @@ class SearchBar extends React.Component {
                         <select id='dropdown' className='search-by' value={this.state.criteria} onChange={(e) => {
                             this.setState({ criteria: e.target.value }, this.updateResults);
                         }}>
+                            <option value=""></option>
                             <option value="Email">Email</option>
                             <option value="Program">Program</option>
                             <option value="ID">Youth ID</option>
                         </select>
                     </div>
                 }
-                {/* if Search for Form or event: search by Youth ID or Event Code*/}
+                {/* if Search for Form or event: search by Youth ID or Code*/}
                 {(this.state.category === "Form" || this.state.category === "Event") &&
                     <div>
                         <label htmlFor='dropdown'>By:</label>
@@ -85,7 +81,6 @@ class SearchBar extends React.Component {
                         </select>
                     </div>
                 }
-
                 </div>
         </div>
         );

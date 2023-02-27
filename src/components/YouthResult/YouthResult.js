@@ -9,13 +9,13 @@ class YouthResult extends React.Component {
       <div className="youth-result">
         <div className="youth-result-left">
           <div className='user-icon'>
-          <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+            <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
           </div>
-          
+
           <div>
             <p className="youth-name">{this.props.youth.firstName} {this.props.youth.lastName}</p>
           </div>
-          
+
           {/* <p className="youth-email">{this.props.youth.email}</p>
           <p className="youth-programs">{this.props.youth.programs.join(", ")}</p>
         </div>
@@ -28,7 +28,7 @@ class YouthResult extends React.Component {
               Details
             </button>
           </a>
-          
+
         </div>
 
         <div className='category-youth'>

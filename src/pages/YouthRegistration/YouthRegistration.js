@@ -44,42 +44,44 @@ class YouthRegistration extends React.Component {
         return (
             <div className="column-container">
                 <h1>Youth Registration Page</h1>
-                <div className="aligned-row-container">
-                    <div className="input-field">
-                        <label htmlFor="first-name">First Name*</label>
-                        <input type="text" id="first-name" />
+                <form onSubmit={this.handleRegister}>
+                    <div className="aligned-row-container">
+                        <div className="input-field">
+                            <label htmlFor="first-name">First Name*</label>
+                            <input type="text" id="first-name" />
+                        </div>
+                        <div className="input-field">
+                            <label htmlFor="last-name">Last Name*</label>
+                            <input type="text" id="last-name" />
+                        </div>
                     </div>
-                    <div className="input-field">
-                        <label htmlFor="last-name">Last Name*</label>
-                        <input type="text" id="last-name" />
+                    <div className="input-field full-width">
+                        <label htmlFor="email">Email*</label>
+                        <input type="email" id="email" />
                     </div>
-                </div>
-                <div className="input-field full-width">
-                    <label htmlFor="email">Email*</label>
-                    <input type="email" id="email" />
-                </div>
-                <div className="aligned-row-container full-width">
-                    <div className="input-field">
-                        <label htmlFor="birthday">Birthday*</label>
-                        <input type="date" id="birthday" />
+                    <div className="aligned-row-container full-width">
+                        <div className="input-field">
+                            <label htmlFor="birthday">Birthday*</label>
+                            <input type="date" id="birthday" />
+                        </div>
+                        <div className="input-field">
+                            <label htmlFor="phone">Phone Number</label>
+                            <input type="text" id="phone" />
+                        </div>
                     </div>
-                    <div className="input-field">
-                        <label htmlFor="phone">Phone Number</label>
-                        <input type="text" id="phone" />
+                    {/* <input type="text" id="zip" placeholder="Enter zipcode"/> */}
+                    {/* <input type="text" id="ssn" placeholder="Enter SSN"/> */}
+                    <div className="input-field full-width">
+                        <label htmlFor="password">Password*</label>
+                        <input type="password" id="password" />
                     </div>
-                </div>
-                {/* <input type="text" id="zip" placeholder="Enter zipcode"/> */}
-                {/* <input type="text" id="ssn" placeholder="Enter SSN"/> */}
-                <div className="input-field full-width">
-                    <label htmlFor="password">Password*</label>
-                    <input type="password" id="password" />
-                </div>
-                <div className="input-field full-width">
-                    <label htmlFor="confirm-password">Confirm Password*</label>
-                    <input type="password" id="confirm-password" />
-                </div>
-                {/* TODO: format this */}
-                <button onClick={this.handleRegister} text="Submit" available="available" link="" />
+                    <div className="input-field full-width">
+                        <label htmlFor="confirm-password">Confirm Password*</label>
+                        <input type="password" id="confirm-password" />
+                    </div>
+                    {/* TODO: format this */}
+                    <button type="submit">Create Account</button>
+                </form>
             </div>
         )
     }

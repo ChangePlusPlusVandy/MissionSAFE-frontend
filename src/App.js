@@ -30,7 +30,7 @@ class App extends React.Component {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/staffreg" element={<StaffRegistration />} />
             <Route path="/youthreg" element={<YouthRegistration />} />
-            <Route path="/search" element={<SearchPage/>}/>
+            <Route path="/search" element={<SearchPage />} />
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>

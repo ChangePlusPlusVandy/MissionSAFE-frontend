@@ -13,20 +13,13 @@ class YouthResult extends React.Component {
       <div className="youth-result">
         <div className="youth-result-left">
           <div className='user-icon'>
-            <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+            <FontAwesomeIcon icon={faCircleUser}></FontAwesomeIcon>
           </div>
 
           <div>
             <p className="youth-name">{this.props.youth.firstName} {this.props.youth.lastName}</p>
             <p className='description'>Youth</p>
           </div>
-          {/* <p className="youth-email">{this.props.youth.email}</p>
-          <p className="youth-programs">{this.props.youth.programs.join(", ")}</p>
-        </div>
-        <div className="youth-result-right">
-          <p className="youth-active">{this.props.youth.active ? "Active" : "Inactive"}</p> */}
-
-          {/* put page link in the quotation */}
           <a href=''>
             <button class="det-button">
               Details

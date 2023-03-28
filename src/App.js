@@ -1,14 +1,14 @@
+import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import SearchPage from "./pages/SearchPage/SearchPage";
-import "./App.scss"
-import React from "react";
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
 import StaffHome from "./pages/StaffHome/StaffHome";
 import StaffRegistration from "./pages/StaffRegistration/StaffRegistration";
 import YouthRegistration from "./pages/YouthRegistration/YouthRegistration";
 import UserContext from "./context/UserContext";
+import "./App.scss"
 
 class App extends React.Component {
   constructor(props) {

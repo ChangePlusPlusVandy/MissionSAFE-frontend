@@ -1,6 +1,6 @@
 import './SearchBar.scss'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import { faCoffee} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import React from "react"
 
 
@@ -31,12 +31,14 @@ class SearchBar extends React.Component {
             case "Event":
                 this.props.updateEventResults(this.state.criteria, this.state.text);
                 break;
+            default:
+                console.log("Error: Invalid category");
+                break;
         }
     }
     render() {
         return (
             <div className='search-container'>
-                
                 <input type='text' className='text-search'  onChange={(e) => {
                     this.setState({ text: e.target.value }, this.updateResults)}}/>
                 <div className='both-dropdowns'>
@@ -79,10 +81,10 @@ class SearchBar extends React.Component {
                             <option value="ID">Youth ID</option>
                             <option value="Event-Code">Event Code</option>
                         </select>
+
                     </div>
-                }
                 </div>
-        </div>
+            </div>
         );
     }
 } export default SearchBar;

@@ -1,7 +1,7 @@
 const RegistrationHelpers = {
     // Returns true/false if input matches pattern for valid email
     validateEmail(emailInput) {
-        return emailInput.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+        return emailInput.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/);
     },
 
     // Returns true/false if input matches pattern for valid password:
@@ -19,7 +19,7 @@ const RegistrationHelpers = {
     // Returns true/false if input matches pattern for valid US phone number
     validatePhoneNumber(phoneNumberInput) {
         return phoneNumberInput.match(/^(\+0?1\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]\d{4}$/);
-    } 
+    }
 }
 
 export default RegistrationHelpers;

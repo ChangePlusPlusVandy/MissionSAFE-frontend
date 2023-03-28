@@ -1,14 +1,31 @@
 import './FormResult.scss';
 import React from "react";
+import {Link} from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faClipboard } from '@fortawesome/free-solid-svg-icons'
 
 class FormResult extends React.Component {
+  state = {
+    url: "/form/" + this.props.form._id
+  }
   render() {
     return (
       <div className="form-result">
-        <div className="form-result-left">
-          <p className="form-title">Form filed {this.props.form.date}</p>
-          <p className="form-programs">Regarding {this.props.form.programs.join(", ")}</p>
+        <div className='form-icon'>
+          <FontAwesomeIcon icon={faClipboard} size="3x" ></FontAwesomeIcon>
         </div>
+          
+          <div className='text-holder'>
+            <p className="form-name">{this.props.form.name}</p>
+            <p className='description'>{"For " + this.props.form.staff}</p>
+          </div>
+          <div className='button-holder'>
+          <Link to = {this.state.url} target = "_blank">
+            <button className="det-button">
+              Details
+            </button>
+          </Link>
+          </div>
       </div>
     );
   }

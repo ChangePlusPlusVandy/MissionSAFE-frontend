@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Logo from "./assets/mission-safe-logo.png"
+import Logo from "../../assets/mission-safe-logo.png"
 import "./LandingPage.scss"
 
 class LandingPage extends React.Component {

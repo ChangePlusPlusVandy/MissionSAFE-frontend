@@ -17,6 +17,8 @@ class App extends React.Component {
     this.state = {
       user: null,
     };
+
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
   handleLogin = (user) => {
@@ -29,7 +31,7 @@ class App extends React.Component {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/login" element={<LoginPage />} />
+            <Route path="/login" element={<LoginPage handleLogin={this.handleLogin}/>} />
             <Route path="/register" element={<RegistrationPage />} />
             <Route path="/staffreg" element={<StaffRegistration />} />
             <Route path="/youthreg" element={<YouthRegistration />} />

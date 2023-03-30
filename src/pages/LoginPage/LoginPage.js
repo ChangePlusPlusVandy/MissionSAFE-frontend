@@ -1,65 +1,80 @@
 import React from "react"
 import Firebase from "../../util/Firebase"
-import "./LoginPage.scss"
-import "../../App.scss"
-import UserContext from "../../context/UserContext"
+import RegistrationHelpers from "../../util/RegistrationHelpers"
 import { Navigate } from "react-router-dom"
+import { Link } from "react-router-dom"
+import { getStaffByID } from "../../util/staffEPs";
+import "./LoginPage.scss"
+
+import Logo from "../../assets/mission-safe-logo.png";
 
 class LoginPage extends React.Component {
-
-    static Context = UserContext;
-
-    state = {
-        email: "",
-        password: "",
-        redirect: false
-    };
-
-    handleLogin = async (event) => {
-        event.preventDefault();
-        const { email, password } = this.state;
-        console.log(email, password); // check if the state is updated, debug for PR
-        try {
-            const user = await Firebase.loginUser(email, password);
-            this.context.onLogin(user); // update user info at the top level
-            console.log(user); // debug for PR
-            this.setState({ redirect: true });
-        } catch (err) {
-            console.log(err);
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: "",
+            password: "",
+            redirect: false,
+            errorMessage: "",
         }
-    };
 
-    handleChange = (event) => {
-        event.preventDefault();
-        this.setState({ [event.target.name]: event.target.value });
+        this.handleUpdate = this.handleUpdate.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
+    
+    handleUpdate(event) {
+        event.preventDefault();
+        this.setState({
+            [event.target.name]: event.target.value,
+            errorMessage: "",
+        });
+    };
 
-    render() {
-        if (this.state.redirect) {
-            return <Navigate to="/staffhome" />
+    async handleSubmit(event) {
+        event.preventDefault();
+        try {
+            const staffID = await Firebase.loginUser(this.state.email, this.state.password);
+            const staff = await getStaffByID(staffID);
+            this.props.handleLogin(staff);
+            this.setState({
+                redirect: true,
+            })
+        } catch(err) {
+            this.setState({
+                errorMessage: "No staff found with that email/password",
+            })
+            document.getElementById("login-email").value = "";
+            document.getElementById("login-password").value = "";
         }
-        return (
-            <div className="column-container">
-                <p>Login</p>
-                <form onSubmit={this.handleLogin}>
-                    <input
-                        type="email"
-                        name="email"
-                        value={this.state.email}
-                        onChange={this.handleChange}
-                        placeholder="Email"
-                    />
-                    <input
-                        type="password"
-                        name="password"
-                        value={this.state.password}
-                        onChange={this.handleChange}
-                        placeholder="Password"
-                    />
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
-        )
+    }
+    
+    render() {
+        if(this.state.redirect) {
+            return <Navigate to="/staffhome"/>
+        } else {
+            return (
+                <div className="page-container" id="login-page">
+                    <div id="login-header">
+                        <img src={Logo} alt="MissionSAFE logo"/>
+                        <p id="login-title">Login</p>
+                        <p id="login-subtitle">Please sign in to continue.</p>
+                    </div>
+                    <div id="login-form">
+                        <div className="login-form-input">
+                            <p className="login-form-label">Email</p>
+                            <input id="login-email" name="email" onChange={this.handleUpdate} type="email"/>
+                        </div>
+                        <div className="login-form-input">
+                            <p className="login-form-label">Password</p>
+                            <input id="login-password" name="password" onChange={this.handleUpdate} type="password"/>
+                        </div>
+                        <p id="login-error-message">{this.state.errorMessage}</p>
+                        <p id="login-button" onClick={this.handleSubmit}>Login</p>
+                    </div>
+                    <p id="login-redirect">Don't have an account? <Link to="/register">Create one here.</Link></p>
+                </div>
+            )
+        }
     }
 }
 

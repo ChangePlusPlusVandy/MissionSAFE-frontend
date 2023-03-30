@@ -1,37 +1,25 @@
 
 // Server-client interface for Staff Endpoints 
-
-BACKEND_ROUTE = "http://localhost:4000";
-
-
+const BACKEND_ROUTE = "http://localhost:4000";
 const fetch = require('node-fetch');
 
-function checkResponseStatus(res) {
-    if (res.ok) {
-        console.log(json);
-        return res.JSON();
+async function checkResponseStatus(response) {
+    if(!response.ok) {
+        throw new Error(response.statusText);
     }
-
-    else {
-        throw new Error(`The HTTP status of the response: ${res.status} (${res.statusText})`);
-    }
+    let parsedResponse = await response.json();
+    return parsedResponse;
 }
 
-
-// GET all Staff documents
-/* staffRouter.get('/', async(_req, res) => {
-    try {
-        let allStaff = await getAllStaff();
-        res.status(200).send(allStaff);
-    } catch (err) {
-        res.status(404).send(err);
-    }
-}) */
+async function getStaffByID (fireID) {
+    let response = await fetch(`${BACKEND_ROUTE}/api/users/staff/byID/${fireID}`);
+    return await checkResponseStatus(response);
+}
 
 async function getStaff () {
 
     try {
-   response = await fetch(`${BACKEND_ROUTE}/api/users/staff`);
+   let response = await fetch(`${BACKEND_ROUTE}/api/users/staff`);
    return await checkResponseStatus(response);
 
     }
@@ -54,7 +42,7 @@ async function getStaff () {
 async function postStaff (newStaff) {
 
     try {
-    response = await fetch(`${BACKEND_ROUTE}/api/users/staff`, {
+        let response = await fetch(`${BACKEND_ROUTE}/api/users/staff`, {
     method: 'POST',
     body: JSON.stringify(newStaff),
     headers: {'Content-Type' : 'application/json'}
@@ -80,7 +68,7 @@ staffRouter.get('/active', async(_req, res) => {
 async function getActiveStaff () {
 
     try { 
-        response = await fetch(`${BACKEND_ROUTE}/api/users/staff/active`);
+        let response = await fetch(`${BACKEND_ROUTE}/api/users/staff/active`);
         return await checkResponseStatus(response);
     }
 
@@ -93,7 +81,7 @@ async function getActiveStaff () {
 async function getInactiveStaff () {
 
     try {
-        response = await fetch (`${BACKEND_ROUTE}/api/users/staff/inactive`);
+        let response = await fetch (`${BACKEND_ROUTE}/api/users/staff/inactive`);
         return await checkResponseStatus(response);
     }
 
@@ -105,7 +93,7 @@ async function getInactiveStaff () {
 
 async function getStaffByEmail (email) {
     try {
-        response = await fetch(`${BACKEND_ROUTE}/api/users/staff/?byEmail=${email}`)
+        let response = await fetch(`${BACKEND_ROUTE}/api/users/staff/?byEmail=${email}`)
         return await checkResponseStatus(response);
     }
     catch (error) {
@@ -115,20 +103,7 @@ async function getStaffByEmail (email) {
 
 async function getStaffbyProgram (program) {
     try {
-        response = await fetch (`${BACKEND_ROUTE}/api/users/staff/?byProgram=${program}`)
-        return await checkResponseStatus(response);
-    }
-
-    catch (error) {
-        console.log(error);
-    }
-}
-
-
-async function getStaffByID (fireID) {
-
-    try {
-        response = await fetch(`${BACKEND_ROUTE}/api/users/staff/?byID=${fireID}`)
+        let response = await fetch (`${BACKEND_ROUTE}/api/users/staff/?byProgram=${program}`)
         return await checkResponseStatus(response);
     }
 
@@ -140,7 +115,7 @@ async function getStaffByID (fireID) {
 async function activateStaffWithID (fireID) {
     
     try {
-        response = await fetch(`${BACKEND_ROUTE}/api/users/staff/?activate=${fireID}`, {
+        let response = await fetch(`${BACKEND_ROUTE}/api/users/staff/?activate=${fireID}`, {
         method: 'PUT',
         headers: {'Content Type': 'application/json' }
     })
@@ -156,7 +131,7 @@ catch (error) {
 async function deactiveStaffWithID (fireID) {
 
     try {
-        response = await fetch(`${BACKEND_ROUTE}/api/users/staff/?deactivate=${fireID}`, {
+        let response = await fetch(`${BACKEND_ROUTE}/api/users/staff/?deactivate=${fireID}`, {
         method: 'PUT',
         headers: {'Content Type': 'application/json' }
     })
@@ -172,7 +147,7 @@ catch (error) {
 
 async function createEvent (event) {
     try {
-        response = await fetch(`${BACKEND_ROUTE}/api/users/events`, {
+        let response = await fetch(`${BACKEND_ROUTE}/api/users/events`, {
         method: 'POST',
         body: JSON.stringify(event)
         })
@@ -186,7 +161,7 @@ async function createEvent (event) {
 
 async function addStaffToEvent (eventCode, staff) {
     try {
-        response = await fetch(`${BACKEND_ROUTE}/api/users/events/?addStaff=${eventCode}`,{
+        let response = await fetch(`${BACKEND_ROUTE}/api/users/events/?addStaff=${eventCode}`,{
         method: 'PUT',
         body: JSON.stringify(staff)
         })
@@ -196,4 +171,8 @@ async function addStaffToEvent (eventCode, staff) {
     catch (error) {
         console.log(error)
     }
+}
+
+export {
+    getStaffByID
 }

@@ -33,8 +33,8 @@ class App extends React.Component {
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage handleLogin={this.handleLogin}/>} />
             <Route path="/register" element={<RegistrationPage />} />
-            <Route path="/staffreg" element={<StaffRegistration />} />
-            <Route path="/youthreg" element={<YouthRegistration />} />
+            <Route path="/staff-register" element={<StaffRegistration />} />
+            <Route path="/youth-register" element={<YouthRegistration />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/staffhome" element={<StaffHome />} />
           </Routes>

@@ -14,11 +14,11 @@ class RegistrationPage extends React.Component {
                 <img id="registration-choice-logo" src={Logo} alt="MissionSAFE logo"/>
                 <p id="registration-choice-prompt">Choose Account Type:</p>
                 <div id="registration-choices" className="centered-row-container">
-                    <Link to="/youthreg" id="youth-choice" className="registration-choice">
+                    <Link to="/youth-register" id="youth-choice" className="registration-choice">
                         <img src={Youth} alt="Youth icon"/>
                         <p className="registration-choice-name">Youth</p>
                     </Link>
-                    <Link to="/staffreg" className="registration-choice">
+                    <Link to="/staff-register" className="registration-choice">
                         <img src={Staff} alt="Staff icon"/>
                         <p className="registration-choice-name">Staff</p>
                     </Link>

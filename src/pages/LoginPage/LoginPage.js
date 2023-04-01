@@ -1,6 +1,5 @@
 import React from "react"
 import Firebase from "../../util/Firebase"
-import RegistrationHelpers from "../../util/RegistrationHelpers"
 import { Navigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { getStaffByID } from "../../util/staffEPs";

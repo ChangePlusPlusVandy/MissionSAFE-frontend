@@ -1,6 +1,6 @@
 import './SearchBar.scss'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import { faCoffee} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import React from "react"
 
 
@@ -41,6 +41,9 @@ class SearchBar extends React.Component {
                 break;
             case "Event":
                 this.props.updateEventResults(this.state.criteria, this.state.text, startTime, endTime);
+                break;
+            default:
+                console.log("Error: Invalid category");
                 break;
         }
     }
@@ -107,10 +110,9 @@ class SearchBar extends React.Component {
                             this.setState({ endDate: e.target.value }, this.updateResults)
                             //otherwise log error
                             :this.setState({ endDate: "" }, this.updateResults);  }}/>
-                    </div>
-                }
+                    </div>}
                 </div>
-        </div>
+            </div>
         );
     }
 } export default SearchBar;

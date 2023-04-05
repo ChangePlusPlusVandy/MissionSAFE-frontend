@@ -1,10 +1,90 @@
 import React from "react";
 import Firebase from "../../util/Firebase";
 import "./YouthRegistration.scss"
-import "../../util/Firebase"
-import NavButton from "../../components/NavButton/NavButton";
+import { Navigate } from "react-router";
+
+import Logo from "../../assets/mission-safe-logo.png";
+
 
 class YouthRegistration extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            firstName: "",
+            lastName: "",
+            email: "",
+            birthday: "",
+            phoneNumber: "",
+            redirect: false,
+            errorMessage: "",
+        }
+
+        this.handleUpdate = this.handleUpdate.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleUpdate(event) {
+        event.preventDefault();
+        this.setState({
+            [event.target.name]: event.target.value,
+            errorMessage: "",
+        });
+    };
+
+    handleSubmit(event) {
+        event.preventDefault();
+        console.log(this.state);
+    }
+
+    render() {
+        if(this.state.redirect) {
+            return <Navigate to="/youth-success"/>;
+        } else {
+            return (
+                <div className="page-container" id="youth-registration-page">
+                    <div className="registration-header">
+                        <img src={Logo} alt="MissionSAFE logo"/>
+                        <p className="registration-title">Register</p>
+                        <p className="registration-subtitle">Register a youth account in the system.</p>
+                    </div>
+                    <div className="registration-form" id="youth-registration-form">
+                        <div className="registration-input-row">
+                            <div className="registration-input">
+                                <p className="registration-label">First Name</p>
+                                <input type="text" onChange={this.handleUpdate} name="firstName"/>
+                            </div>
+                            <div className="registration-input">
+                                <p className="registration-label">Last Name</p>
+                                <input type="text" onChange={this.handleUpdate} name="lastName"/>
+                            </div>
+                        </div>
+                        <div className="registration-input-row">
+                            <div className="registration-input" id="email-input-container">
+                                <p className="registration-label">Email</p>
+                                <input id="email-input" type="text" onChange={this.handleUpdate} name="email"/>
+                            </div>
+                        </div>
+                        <div className="registration-input-row">
+                            <div className="registration-input">
+                                <p className="registration-label">Birthday</p>
+                                <input type="text" onChange={this.handleUpdate} placeholder="MM/DD/YYYY" name="birthday"/>
+                            </div>
+                            <div className="registration-input">
+                                <p className="registration-label">Phone Number</p>
+                                <input type="text" onChange={this.handleUpdate} placeholder="(123) 456-7890" name="phoneNumber"/>
+                            </div>
+                        </div>
+                        <p className="register-button" onClick={this.handleSubmit}>Register</p>
+                    </div>
+                </div>
+            )
+        }
+    }
+}
+
+
+/*class YouthRegistration extends React.Component {
     constructor(props) {
         super(props);
 
@@ -69,8 +149,6 @@ class YouthRegistration extends React.Component {
                             <input type="text" id="phone" />
                         </div>
                     </div>
-                    {/* <input type="text" id="zip" placeholder="Enter zipcode"/> */}
-                    {/* <input type="text" id="ssn" placeholder="Enter SSN"/> */}
                     <div className="input-field full-width">
                         <label htmlFor="password">Password*</label>
                         <input type="password" id="password" />
@@ -79,13 +157,11 @@ class YouthRegistration extends React.Component {
                         <label htmlFor="confirm-password">Confirm Password*</label>
                         <input type="password" id="confirm-password" />
                     </div>
-                    {/* TODO: format this */}
                     <button type="submit">Create Account</button>
                 </form>
             </div>
         )
     }
-}
-
+}*/
 
 export default YouthRegistration;

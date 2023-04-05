@@ -36,7 +36,7 @@ class App extends React.Component {
             <Route path="/staff-register" element={<StaffRegistration />} />
             <Route path="/youth-register" element={<YouthRegistration />} />
             <Route path="/search" element={<SearchPage />} />
-            <Route path="/staffhome" element={<StaffHome />} />
+            <Route path="/staff-home" element={<StaffHome />} />
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>

@@ -7,6 +7,7 @@ import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
 import StaffHome from "./pages/StaffHome/StaffHome";
 import StaffRegistration from "./pages/StaffRegistration/StaffRegistration";
 import YouthRegistration from "./pages/YouthRegistration/YouthRegistration";
+import YouthSuccess from "./pages/YouthSuccess/YouthSuccess";
 import UserContext from "./context/UserContext";
 import "./App.scss"
 
@@ -36,7 +37,7 @@ class App extends React.Component {
             <Route path="/register" element={<RegistrationPage />} />
             <Route path="/staff-register" element={<StaffRegistration handleLogin={this.handleLogin}/>} />
             <Route path="/youth-register" element={<YouthRegistration />} />
-            <Route path="/youth-success" element={<LandingPage />} />
+            <Route path="/youth-success" element={<YouthSuccess />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/staff-home" element={<StaffHome />} />
           </Routes>

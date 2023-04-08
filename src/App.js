@@ -23,6 +23,7 @@ class App extends React.Component {
 
   handleLogin = (user) => {
     this.setState({ user });
+    console.log(this.state.user);
   };
 
   render() {
@@ -33,8 +34,9 @@ class App extends React.Component {
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage handleLogin={this.handleLogin}/>} />
             <Route path="/register" element={<RegistrationPage />} />
-            <Route path="/staff-register" element={<StaffRegistration />} />
+            <Route path="/staff-register" element={<StaffRegistration handleLogin={this.handleLogin}/>} />
             <Route path="/youth-register" element={<YouthRegistration />} />
+            <Route path="/youth-success" element={<LandingPage />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/staff-home" element={<StaffHome />} />
           </Routes>

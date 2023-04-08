@@ -34,6 +34,7 @@ class LoginPage extends React.Component {
         try {
             const staffID = await Firebase.loginUser(this.state.email, this.state.password);
             const staff = await getStaffByID(staffID);
+            console.log(staff);
             this.props.handleLogin(staff);
             this.setState({
                 redirect: true,

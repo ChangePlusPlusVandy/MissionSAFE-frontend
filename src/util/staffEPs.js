@@ -16,7 +16,16 @@ async function getStaffByID (fireID) {
     return await checkResponseStatus(response);
 }
 
-async function getStaff () {
+async function createStaff(newStaff) {
+    let response = await fetch(`${BACKEND_ROUTE}/api/users/staff`, {
+        method: 'POST',
+        body: JSON.stringify(newStaff),
+        headers: { 'Content-Type': 'application/json' }
+    });
+    return await checkResponseStatus(response);
+}
+
+/*async function getStaff () {
 
     try {
    let response = await fetch(`${BACKEND_ROUTE}/api/users/staff`);
@@ -28,16 +37,6 @@ async function getStaff () {
         console.log(error);
     }
 }
-
-
-/* staffRouter.post("/", async (req, res) => {
-    try {
-        let newStaff = await createStaff(req.body);
-        res.status(201).send(newStaff);
-    } catch (err) {
-        res.status(500).send(err);
-    }
-}) */
 
 async function postStaff (newStaff) {
 
@@ -54,16 +53,6 @@ async function postStaff (newStaff) {
     console.log(error);
     }
 }
-
-/* // GET active Staff
-staffRouter.get('/active', async(_req, res) => {
-    try {
-        let activeStaff = await getStaffByActive(true);
-        res.status(200).send(activeStaff);
-    } catch (err) {
-        res.status(404).send(err);
-    }
-}) */
 
 async function getActiveStaff () {
 
@@ -171,8 +160,9 @@ async function addStaffToEvent (eventCode, staff) {
     catch (error) {
         console.log(error)
     }
-}
+}*/
 
 export {
-    getStaffByID
+    getStaffByID,
+    createStaff,
 }

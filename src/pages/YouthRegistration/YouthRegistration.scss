@@ -1,45 +1,3 @@
-/*@import '../../variables.scss';
-
-.column-container {
-    width: 300px;
-    margin: auto;
-}
-
-.aligned-row-container {
-    width: 100%;
-    justify-content: space-between;
-}
-
-h1 {
-    font-size: 24px;
-    font-weight: 400;
-    line-height: 24px;
-    letter-spacing: 0.01em;
-    color: $primary-text-color;
-    margin: 0px 0px 16px 0px;
-}
-
-.input-field {
-    display: flex;
-    flex-direction: column;
-    label {
-        font-size: 12px;
-        font-weight: 400;
-        line-height: 12px;
-        letter-spacing: 0.01em;
-        color: $primary-text-color;
-        margin: 4px 0px 2px 0px;
-    }
-}
-
-.full-width {
-    width: 100%;
-}
-
-.last-item {
-    flex: 1;
-}*/
-
 .registration-header {
     width: 100%;
     display: flex;
@@ -129,4 +87,8 @@ h1 {
     font-size: 16px;
     padding: 12px 0 12px 0;
     cursor: pointer;
+}
+
+#registration-error-message {
+    color: #CF2329;
 }

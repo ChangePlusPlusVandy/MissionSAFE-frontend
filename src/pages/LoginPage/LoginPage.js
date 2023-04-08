@@ -50,7 +50,7 @@ class LoginPage extends React.Component {
     
     render() {
         if(this.state.redirect) {
-            return <Navigate to="/staff-home"/>
+            return <Navigate to="/search"/>
         } else {
             return (
                 <div className="page-container" id="login-page">

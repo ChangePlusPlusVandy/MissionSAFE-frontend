@@ -39,7 +39,6 @@ class App extends React.Component {
             <Route path="/youth-register" element={<YouthRegistration />} />
             <Route path="/youth-success" element={<YouthSuccess />} />
             <Route path="/search" element={<SearchPage />} />
-            <Route path="/staff-home" element={<StaffHome />} />
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>

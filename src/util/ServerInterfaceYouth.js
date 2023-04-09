@@ -10,19 +10,6 @@ async function checkResponseStatus(response) {
     return parsedResponse;
 }
 
-// POST Create Youth
-async function createYouth(newYouth) {
-    let response = await fetch(`${BACKENDROUTE}`, {
-        method: 'POST',
-        body: JSON.stringify(newYouth),
-        headers: { 'Content-Type': 'application/json' }
-    });
-    return await checkResponseStatus(response);
-}
-
-
-
-/*
 // GET Get all Youth
 async function getAllYouth() {
     try {
@@ -33,7 +20,22 @@ async function getAllYouth() {
         })
         return await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
+        throw new Error(err)
+    }
+}
+
+// POST Create Youth
+async function createYouth(newYouth) {
+    try {let response = await fetch(`${BACKENDROUTE}`, {
+        method: 'POST',
+        body: JSON.stringify(newYouth),
+        headers: { 'Content-Type': 'application/json' }
+    });
+    return await checkResponseStatus(response);
+    } catch(err) {
+        console.log(err)
+        throw new Error(err)
     }
 }
 
@@ -48,7 +50,8 @@ async function getAllActiveYouth() {
         })
         return await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
+        throw new Error(err)
     }
 }
 
@@ -62,21 +65,23 @@ async function getAllInactiveYouth() {
         })
         return await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
+        throw new Error(err)
     }
 }
 
 // GET Get Youth with email
 async function getYouthByEmail(email) {
     try {
-        let res = await fetch(`${BACKENDROUTE}/?byEmail=${email}`, {
+        let res = await fetch(`${BACKENDROUTE}/byEmail/${email}`, {
             headers: {
                 'Authorization': `Bearer ${this.context.token}`
             }
         })
         return await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
+        throw new Error(err)
     }
 }
 
@@ -84,63 +89,67 @@ async function getYouthByEmail(email) {
 // GET Get all Youth in program
 async function getAllYouthInProgram(program) {
     try {
-        let res = await fetch(`${BACKENDROUTE}/?byProgram=${program}`, {
+        let res = await fetch(`${BACKENDROUTE}/byProgram/${program}`, {
             headers: {
                 'Authorization': `Bearer ${this.context.token}`
             }
         })
         return await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
+        throw new Error(err)
     }
 }
 
 // GET Get Youth with fireID
 async function getYouthByFireID(fireID) {
     try {
-        let res = await fetch(`${BACKENDROUTE}/?byID=${fireID}`, {
+        let res = await fetch(`${BACKENDROUTE}/byID/${fireID}`, {
             headers: {
                 'Authorization': `Bearer ${this.context.token}`
             }
         })
         return await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
+        throw new Error(err)
     }
 }
 
 // GET Get Forms for Youth with fireID
 async function getFormsByFireID(fireID) {
     try {
-        let res = await fetch(`${BACKENDROUTE}/?forms=${fireID}`, {
+        let res = await fetch(`${BACKENDROUTE}/forms/${fireID}`, {
             headers: {
                 'Authorization': `Bearer ${this.context.token}`
             }
         })
         return await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
+        throw new Error(err)
     }
 }
 
 // GET Get Events for Youth with fireID
 async function getEventsByFireID(fireID) {
     try {
-        let res = await fetch(`${BACKENDROUTE}/?events=${fireID}`, {
+        let res = await fetch(`${BACKENDROUTE}/events/${fireID}`, {
             headers: {
                 'Authorization': `Bearer ${this.context.token}`
             }
         })
         return await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
+        throw new Error(err)
     }
 }
 
 // PUT Activate Youth with fireID
 async function activateYouth(fireID) { 
     try {    
-        let res = await fetch(`${BACKENDROUTE}/?activate=${fireID}`, {
+        let res = await fetch(`${BACKENDROUTE}/activate/${fireID}`, {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${this.context.token}`
@@ -148,14 +157,15 @@ async function activateYouth(fireID) {
         })
         return await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
+        throw new Error(err)
     }
 }
 
 // PUT Deactivate Youth with fireID
 async function deactivateYouth(fireID) { 
     try {    
-        let res = await fetch(`${BACKENDROUTE}/?deactivate=${fireID}`, {
+        let res = await fetch(`${BACKENDROUTE}/deactivate/${fireID}`, {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${this.context.token}`
@@ -163,14 +173,15 @@ async function deactivateYouth(fireID) {
         })
         return await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
+        throw new Error(err)
     }
 }
 
 // PUT Add Form to Youth with fireID
 async function addFormToYouth(params) {
     try {
-        let res = await fetch(`${BACKENDROUTE}/?form=${params.fireID}`, {
+        let res = await fetch(`${BACKENDROUTE}/form/${params.fireID}`, {
             method: 'PUT',
             body: JSON.stringify(params.Form),
             headers: {
@@ -179,13 +190,14 @@ async function addFormToYouth(params) {
         })
         return await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
+        throw new Error(err)
     }
-}*/
+}
 
 export {
     createYouth,
-    /*getAllYouth,
+    getAllYouth,
     getAllActiveYouth,
     getAllInactiveYouth,
     getYouthByEmail,
@@ -195,5 +207,5 @@ export {
     getEventsByFireID,
     activateYouth,
     deactivateYouth,
-    addFormToYouth*/
+    addFormToYouth
 }

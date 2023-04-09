@@ -11,185 +11,116 @@ async function checkResponseStatus(response) {
     return parsedResponse;
 }
 
-async function getStaffByID (fireID) {
-    let response = await fetch(`${BACKEND_ROUTE}/api/users/staff/byID/${fireID}`);
-    return await checkResponseStatus(response);
+async function getStaff() {
+    try {
+        let response = await fetch(`${BACKEND_ROUTE}/api/users/staff`);
+        return await checkResponseStatus(response);
+    } catch(error) { 
+        console.log(error)
+        throw new Error(err)
+    }
 }
 
 async function createStaff(newStaff) {
-    let response = await fetch(`${BACKEND_ROUTE}/api/users/staff`, {
-        method: 'POST',
-        body: JSON.stringify(newStaff),
-        headers: {'Content-Type' : 'application/json'}
-    });
-    return await checkResponseStatus(response);
-}
-
-async function createEvent(event) {
-    let response = await fetch(`${BACKEND_ROUTE}/api/events`, {
-        method: 'POST',
-        body: JSON.stringify(event),
-        headers: {'Content-Type' : 'application/json'}
-    });
-    return await checkResponseStatus(response);
-} 
-
-async function attendEvent(options) {
-    let response = await fetch(`${BACKEND_ROUTE}/api/events/attend/${options.eventCode}`, {
-        method: 'PUT',
-        body: JSON.stringify(options.email),
-        headers: {'Content-Type' : 'application/json'}
-    })
-    return response.ok;
-}
-
-async function createYouthForm(fireID, options) {
-    let response = await fetch(`${BACKEND_ROUTE}/api/users/youth/form/${fireID}`, {
-        method: 'PUT',
-        body: JSON.stringify(options),
-        headers: {'Content-Type' : 'application/json'}
-    });
-    return response.ok;
-}
-
-async function createEventForm(eventCode, options) {
-    let response = await fetch(`${BACKEND_ROUTE}/api/events/form/${eventCode}`, {
-        method: 'PUT',
-        body: JSON.stringify(options),
-        headers: {'Content-Type' : 'application/json'}
-    });
-    return response.ok;
-}
-
-/*async function getStaff () {
-
-    try {
-   let response = await fetch(`${BACKEND_ROUTE}/api/users/staff`);
-   return await checkResponseStatus(response);
-
-    }
-
-    catch(error){ 
-        console.log(error);
-    }
-}
-
-async function postStaff (newStaff) {
-
     try {
         let response = await fetch(`${BACKEND_ROUTE}/api/users/staff`, {
-    method: 'POST',
-    body: JSON.stringify(newStaff),
-    headers: {'Content-Type' : 'application/json'}
-    })
-    return await checkResponseStatus(response);
-    }
-
-    catch(error) {
-    console.log(error);
+            method: 'POST',
+            body: JSON.stringify(newStaff),
+            headers: {'Content-Type' : 'application/json'}
+        })
+        return await checkResponseStatus(response);
+    } catch(error) {
+        console.log(error)
+        throw new Error(err)
     }
 }
 
 async function getActiveStaff () {
-
     try { 
         let response = await fetch(`${BACKEND_ROUTE}/api/users/staff/active`);
         return await checkResponseStatus(response);
-    }
-
-    catch(error) {
-        console.log(error);
+    } catch(error) {
+        console.log(error)
+        throw new Error(err)
     }
 }
 
-
 async function getInactiveStaff () {
-
     try {
         let response = await fetch (`${BACKEND_ROUTE}/api/users/staff/inactive`);
         return await checkResponseStatus(response);
-    }
-
-    catch (error) {
-        console.log(error);
+    } catch (error) {
+        console.log(error)
+        throw new Error(err)
     }
 }
-
 
 async function getStaffByEmail (email) {
     try {
-        let response = await fetch(`${BACKEND_ROUTE}/api/users/staff/?byEmail=${email}`)
+        let response = await fetch(`${BACKEND_ROUTE}/api/users/staff/byEmail/${email}`)
         return await checkResponseStatus(response);
     }
     catch (error) {
-        console.log(error);
+        console.log(error)
+        throw new Error(err)
     }
 }
 
-async function getStaffbyProgram (program) {
+async function getStaffByProgram (program) {
     try {
-        let response = await fetch (`${BACKEND_ROUTE}/api/users/staff/?byProgram=${program}`)
+        let response = await fetch (`${BACKEND_ROUTE}/api/users/staff/byProgram/${program}`)
         return await checkResponseStatus(response);
+    } catch (error) {
+        console.log(error)
+        throw new Error(err)
     }
+}
 
-    catch (error) {
-        console.log(error);
+
+async function getStaffByID (fireID) {
+    try {
+        let response = await fetch(`${BACKEND_ROUTE}/api/users/staff/byID/${fireID}`)
+        return await checkResponseStatus(response);
+    } catch (error) {
+        console.log(error)
+        throw new Error(err)
     }
 }
 
 async function activateStaffWithID (fireID) {
-    
     try {
-        let response = await fetch(`${BACKEND_ROUTE}/api/users/staff/?activate=${fireID}`, {
-        method: 'PUT',
-        headers: {'Content Type': 'application/json' }
-    })
-    return await checkResponseStatus(response)
-}
-
-catch (error) {
-    console.log(error)
-}
-
-}
-
-async function deactiveStaffWithID (fireID) {
-
-    try {
-        let response = await fetch(`${BACKEND_ROUTE}/api/users/staff/?deactivate=${fireID}`, {
-        method: 'PUT',
-        headers: {'Content Type': 'application/json' }
-    })
-    return await checkResponseStatus(response)
-}
-
-catch (error) {
-    console.log(error)
-}
-}
-
-
-
-
-async function addStaffToEvent (eventCode, staff) {
-    try {
-        let response = await fetch(`${BACKEND_ROUTE}/api/users/events/?addStaff=${eventCode}`,{
-        method: 'PUT',
-        body: JSON.stringify(staff)
+        let response = await fetch(`${BACKEND_ROUTE}/api/users/staff/activate/${fireID}`, {
+            method: 'PUT',
+            headers: {'Content Type': 'application/json' }
         })
         return await checkResponseStatus(response)
-    }
-
-    catch (error) {
+    } catch (error) {
         console.log(error)
+        throw new Error(err)
     }
-}*/
+}
+
+async function deactivateStaffWithID (fireID) {
+    try {
+        let response = await fetch(`${BACKEND_ROUTE}/api/users/staff/deactivate/${fireID}`, {
+            method: 'PUT',
+            headers: {'Content Type': 'application/json' }
+        })
+        return await checkResponseStatus(response)
+    } catch (error) {
+        console.log(error)
+        throw new Error(err)
+    }
+}
 
 export {
-    getStaffByID,
+    getStaff,
     createStaff,
-    createEvent,
-    attendEvent,
-    createYouthForm,
-    createEventForm,
+    getActiveStaff,
+    getInactiveStaff,
+    getStaffByEmail,
+    getStaffByProgram,
+    getStaffByID,
+    activateStaffWithID,
+    deactivateStaffWithID,
 }

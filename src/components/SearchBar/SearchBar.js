@@ -92,6 +92,7 @@ class SearchBar extends React.Component {
                             <option value="ID">Youth ID</option>
                             <option value="Event-Code">Event Code</option>
                         </select>
+<<<<<<< HEAD
                     
                         <div className='date-header'>From:</div>
                         <input className='date-picker' type='date' value={this.state.startDate} onChange={(e) => {
@@ -111,6 +112,11 @@ class SearchBar extends React.Component {
                             //otherwise log error
                             :this.setState({ endDate: "" }, this.updateResults);  }}/>
                     </div>}
+=======
+
+                    </div>
+                }
+>>>>>>> main
                 </div>
             </div>
         );

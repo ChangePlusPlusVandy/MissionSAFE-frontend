@@ -34,7 +34,6 @@ class LoginPage extends React.Component {
         try {
             const staffID = await Firebase.loginUser(this.state.email, this.state.password);
             const staff = await getStaffByID(staffID);
-            console.log(staff);
             this.props.handleLogin(staff);
             this.setState({
                 redirect: true,
@@ -44,13 +43,12 @@ class LoginPage extends React.Component {
                 errorMessage: "No staff found with that email/password",
             })
             document.getElementById("login-email").value = "";
-            document.getElementById("login-password").value = "";
         }
     }
     
     render() {
         if(this.state.redirect) {
-            return <Navigate to="/search"/>
+            return <Navigate to="/staff-home"/>
         } else {
             return (
                 <div className="page-container" id="login-page">

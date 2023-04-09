@@ -37,17 +37,24 @@ class StaffRegistration extends React.Component {
         if(RegistrationHelpers.validateEmail(this.state.email)) {
                 if(this.state.password.length >= 8) {
                     if(this.state.firstName.length > 0 && this.state.lastName.length > 0) {
-                        let firebaseRegister = await Firebase.registerUser(this.state.email, this.state.password);
-                        let databaseRegister = await createStaff({
-                            firstName: this.state.firstName,
-                            lastName: this.state.lastName,
-                            email: this.state.email,
-                            fireID: firebaseRegister,
-                        })
-                        this.props.handleLogin(databaseRegister);
-                        this.setState({
-                            redirect: true,
-                        })
+                        try {
+                            let firebaseRegister = await Firebase.registerUser(this.state.email, this.state.password);
+                            let databaseRegister = await createStaff({
+                                firstName: this.state.firstName,
+                                lastName: this.state.lastName,
+                                email: this.state.email,
+                                fireID: firebaseRegister,
+                            })
+                            this.props.handleLogin(databaseRegister);
+                            this.setState({
+                                redirect: true,
+                            });
+                        } catch(err) {
+                            this.setState({
+                                errorMessage: "Failed to register, please try again later."
+                            });
+                            console.log(err);
+                        }
                     } else {
                         this.setState({
                             errorMessage: "Please provide a valid name."

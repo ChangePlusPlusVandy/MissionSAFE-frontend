@@ -13,7 +13,7 @@ class YouthResult extends React.Component {
       <div className="youth-result">
         <div className="youth-result-left">
           <div className='user-icon'>
-            <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+            <FontAwesomeIcon icon={faCircleUser}></FontAwesomeIcon>
           </div>
 
           <div>

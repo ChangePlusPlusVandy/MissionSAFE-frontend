@@ -53,7 +53,7 @@ class CreateEvent extends React.Component {
         try {
             if(!this.props.user.active) {
                 return <Navigate to="/unauthorized"/>
-            } else if(this.state.eventCode) {
+            } else if (this.state.eventCode) {
                 return <Navigate to={`/event/${this.state.eventCode}`}/>
             } else {
                 return (
@@ -61,8 +61,9 @@ class CreateEvent extends React.Component {
                         <p className="event-creation-title">Event Creation</p>
                         <div className="event-options">
                             <p>What program is this event associated with?</p>
-                            <input name="program" onChange={this.handleUpdate} type="text" placeholder="Program Name"/>
+                            <input name="program" onChange={this.handleUpdate} type="text"/>
                         </div>
+                        <p>{this.state.errorMessage}</p>
                         <p onClick={this.handleSubmit} className="message-page-button">Create Event</p>
                     </div>
                 )

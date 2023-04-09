@@ -43,6 +43,23 @@ async function attendEvent(options) {
     return response.ok;
 }
 
+async function createYouthForm(fireID, options) {
+    let response = await fetch(`${BACKEND_ROUTE}/api/users/youth/form/${fireID}`, {
+        method: 'PUT',
+        body: JSON.stringify(options),
+        headers: {'Content-Type' : 'application/json'}
+    });
+    return response.ok;
+}
+
+async function createEventForm(eventCode, options) {
+    let response = await fetch(`${BACKEND_ROUTE}/api/events/form/${eventCode}`, {
+        method: 'PUT',
+        body: JSON.stringify(options),
+        headers: {'Content-Type' : 'application/json'}
+    });
+    return response.ok;
+}
 
 /*async function getStaff () {
 
@@ -173,4 +190,6 @@ export {
     createStaff,
     createEvent,
     attendEvent,
+    createYouthForm,
+    createEventForm,
 }

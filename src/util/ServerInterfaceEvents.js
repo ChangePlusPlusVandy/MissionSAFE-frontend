@@ -5,42 +5,44 @@ const BACKENDROUTE = 'localhost://4000/api/events'
 const contextType = UserContext
 
 // Status checker   
-async function checkResponseStatus(res) {
-    if(res.ok){
-        return res.JSON()
-    } else {
-        throw new Error(`The HTTP status of the response: ${res.status} (${res.statusText})`);
+async function checkResponseStatus(response) {
+    if(!response.ok) {
+        throw new Error(response.statusText);
     }
+    let parsedResponse = await response.json();
+    return parsedResponse;
 }
 
 async function createEvent (event) {
     try {
-        response = await fetch(`${BACKEND_ROUTE}`, {
+        let response = await fetch(`${BACKEND_ROUTE}`, {
         method: 'POST',
         body: JSON.stringify(event)
         })
         return await checkResponseStatus(response);
     } catch(error) {
-        console.log(error);
+        console.log(error)
+        throw new Error(err)
     }
 } 
 
 async function addStaffToEvent (eventCode, staff) {
     try {
-        response = await fetch(`${BACKEND_ROUTE}/addStaff/${eventCode}`,{
+        let response = await fetch(`${BACKEND_ROUTE}/addStaff/${eventCode}`,{
         method: 'PUT',
         body: JSON.stringify(staff)
         })
         return await checkResponseStatus(response)
     } catch (error) {
         console.log(error)
+        throw new Error(err)
     }
 }
 
 // PUT Add Youth to Event with eventCode
 async function attendEvent(params) {
     try {         
-        res = await fetch(`${BACKENDROUTE}/attend/${params.eventCode}`, {
+        let res = await fetch(`${BACKENDROUTE}/attend/${params.eventCode}`, {
             method: 'PUT',
             body: JSON.stringify(params.Youth),
             headers: {
@@ -50,13 +52,14 @@ async function attendEvent(params) {
         return await checkResponseStatus(res)
     } catch (err) {
         console.log(err)
+        throw new Error(err)
     }
 }
 
 // PUT Add Form to Event with eventCode
 async function addFormToEvent(params) {
     try {    
-        res = await fetch(`${BACKENDROUTE}/form/${params.eventCode}`, {
+        let res = await fetch(`${BACKENDROUTE}/form/${params.eventCode}`, {
             method: 'PUT',
             body: JSON.stringify(params.form),
             headers: {
@@ -66,6 +69,7 @@ async function addFormToEvent(params) {
         return await checkResponseStatus(res)
     } catch (err) {
         console.log(err)
+        throw new Error(err)
     }
 }
 
@@ -75,6 +79,7 @@ async function getEvent(eventCode) {
         return await checkResponseStatus(response)
     } catch(err) {
         console.log(err)
+        throw new Error(err)
     }
 }
 
@@ -84,6 +89,7 @@ async function createEventForm(eventCode) {
         return await checkResponseStatus(response)
     } catch(err) {
         console.log(err)
+        throw new Error(err)
     }
 }
 
@@ -93,6 +99,7 @@ async function getStaffForEvent(eventCode) {
         return await checkResponseStatus(response)
     } catch(err) {
         console.log(err)
+        throw new Error(err)
     }
 }
 

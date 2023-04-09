@@ -3,13 +3,12 @@
 const BACKEND_ROUTE = "http://localhost:4000";
 const fetch = require('node-fetch');
 
-function checkResponseStatus(res) {
-    if (res.ok) {
-        console.log(json);
-        return res.JSON();
-    } else {
-        throw new Error(`The HTTP status of the response: ${res.status} (${res.statusText})`);
+async function checkResponseStatus(response) {
+    if(!response.ok) {
+        throw new Error(response.statusText);
     }
+    let parsedResponse = await response.json();
+    return parsedResponse;
 }
 
 async function getStaff() {
@@ -17,7 +16,8 @@ async function getStaff() {
         let response = await fetch(`${BACKEND_ROUTE}/api/users/staff`);
         return await checkResponseStatus(response);
     } catch(error) { 
-        console.log(error);
+        console.log(error)
+        throw new Error(err)
     }
 }
 
@@ -30,7 +30,8 @@ async function createStaff(newStaff) {
         })
         return await checkResponseStatus(response);
     } catch(error) {
-        console.log(error);
+        console.log(error)
+        throw new Error(err)
     }
 }
 
@@ -39,7 +40,8 @@ async function getActiveStaff () {
         let response = await fetch(`${BACKEND_ROUTE}/api/users/staff/active`);
         return await checkResponseStatus(response);
     } catch(error) {
-        console.log(error);
+        console.log(error)
+        throw new Error(err)
     }
 }
 
@@ -48,7 +50,8 @@ async function getInactiveStaff () {
         let response = await fetch (`${BACKEND_ROUTE}/api/users/staff/inactive`);
         return await checkResponseStatus(response);
     } catch (error) {
-        console.log(error);
+        console.log(error)
+        throw new Error(err)
     }
 }
 
@@ -58,7 +61,8 @@ async function getStaffByEmail (email) {
         return await checkResponseStatus(response);
     }
     catch (error) {
-        console.log(error);
+        console.log(error)
+        throw new Error(err)
     }
 }
 
@@ -67,7 +71,8 @@ async function getStaffByProgram (program) {
         let response = await fetch (`${BACKEND_ROUTE}/api/users/staff/byProgram/${program}`)
         return await checkResponseStatus(response);
     } catch (error) {
-        console.log(error);
+        console.log(error)
+        throw new Error(err)
     }
 }
 
@@ -77,7 +82,8 @@ async function getStaffByID (fireID) {
         let response = await fetch(`${BACKEND_ROUTE}/api/users/staff/byID/${fireID}`)
         return await checkResponseStatus(response);
     } catch (error) {
-        console.log(error);
+        console.log(error)
+        throw new Error(err)
     }
 }
 
@@ -90,6 +96,7 @@ async function activateStaffWithID (fireID) {
         return await checkResponseStatus(response)
     } catch (error) {
         console.log(error)
+        throw new Error(err)
     }
 }
 
@@ -102,6 +109,7 @@ async function deactivateStaffWithID (fireID) {
         return await checkResponseStatus(response)
     } catch (error) {
         console.log(error)
+        throw new Error(err)
     }
 }
 

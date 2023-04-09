@@ -10,16 +10,6 @@ async function checkResponseStatus(response) {
     return parsedResponse;
 }
 
-// POST Create Youth
-async function createYouth(newYouth) {
-    let response = await fetch(`${BACKENDROUTE}`, {
-        method: 'POST',
-        body: JSON.stringify(newYouth),
-        headers: { 'Content-Type': 'application/json' }
-    });
-    return await checkResponseStatus(response);
-}
-
 // GET Get all Youth
 async function getAllYouth() {
     try {
@@ -30,7 +20,22 @@ async function getAllYouth() {
         })
         return await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
+        throw new Error(err)
+    }
+}
+
+// POST Create Youth
+async function createYouth(newYouth) {
+    try {let response = await fetch(`${BACKENDROUTE}`, {
+        method: 'POST',
+        body: JSON.stringify(newYouth),
+        headers: { 'Content-Type': 'application/json' }
+    });
+    return await checkResponseStatus(response);
+    } catch(err) {
+        console.log(err)
+        throw new Error(err)
     }
 }
 
@@ -45,7 +50,8 @@ async function getAllActiveYouth() {
         })
         return await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
+        throw new Error(err)
     }
 }
 
@@ -59,7 +65,8 @@ async function getAllInactiveYouth() {
         })
         return await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
+        throw new Error(err)
     }
 }
 
@@ -73,7 +80,8 @@ async function getYouthByEmail(email) {
         })
         return await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
+        throw new Error(err)
     }
 }
 
@@ -88,7 +96,8 @@ async function getAllYouthInProgram(program) {
         })
         return await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
+        throw new Error(err)
     }
 }
 
@@ -102,7 +111,8 @@ async function getYouthByFireID(fireID) {
         })
         return await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
+        throw new Error(err)
     }
 }
 
@@ -116,7 +126,8 @@ async function getFormsByFireID(fireID) {
         })
         return await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
+        throw new Error(err)
     }
 }
 
@@ -130,7 +141,8 @@ async function getEventsByFireID(fireID) {
         })
         return await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
+        throw new Error(err)
     }
 }
 
@@ -145,7 +157,8 @@ async function activateYouth(fireID) {
         })
         return await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
+        throw new Error(err)
     }
 }
 
@@ -160,7 +173,8 @@ async function deactivateYouth(fireID) {
         })
         return await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
+        throw new Error(err)
     }
 }
 
@@ -176,7 +190,8 @@ async function addFormToYouth(params) {
         })
         return await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
+        throw new Error(err)
     }
 }
 

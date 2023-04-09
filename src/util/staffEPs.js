@@ -1,9 +1,6 @@
 
 // Server-client interface for Staff Endpoints 
-
-BACKEND_ROUTE = "http://localhost:4000";
-
-
+const BACKEND_ROUTE = "http://localhost:4000";
 const fetch = require('node-fetch');
 
 function checkResponseStatus(res) {
@@ -15,19 +12,18 @@ function checkResponseStatus(res) {
     }
 }
 
-async function getStaff () {
+async function getStaff() {
     try {
-        response = await fetch(`${BACKEND_ROUTE}/api/users/staff`);
+        let response = await fetch(`${BACKEND_ROUTE}/api/users/staff`);
         return await checkResponseStatus(response);
     } catch(error) { 
         console.log(error);
     }
 }
 
-
-async function postStaff (newStaff) {
+async function createStaff(newStaff) {
     try {
-        response = await fetch(`${BACKEND_ROUTE}/api/users/staff`, {
+        let response = await fetch(`${BACKEND_ROUTE}/api/users/staff`, {
             method: 'POST',
             body: JSON.stringify(newStaff),
             headers: {'Content-Type' : 'application/json'}
@@ -40,17 +36,16 @@ async function postStaff (newStaff) {
 
 async function getActiveStaff () {
     try { 
-        response = await fetch(`${BACKEND_ROUTE}/api/users/staff/active`);
+        let response = await fetch(`${BACKEND_ROUTE}/api/users/staff/active`);
         return await checkResponseStatus(response);
     } catch(error) {
         console.log(error);
     }
 }
 
-
 async function getInactiveStaff () {
     try {
-        response = await fetch (`${BACKEND_ROUTE}/api/users/staff/inactive`);
+        let response = await fetch (`${BACKEND_ROUTE}/api/users/staff/inactive`);
         return await checkResponseStatus(response);
     } catch (error) {
         console.log(error);
@@ -59,7 +54,7 @@ async function getInactiveStaff () {
 
 async function getStaffByEmail (email) {
     try {
-        response = await fetch(`${BACKEND_ROUTE}/api/users/staff/byEmail/${email}`)
+        let response = await fetch(`${BACKEND_ROUTE}/api/users/staff/byEmail/${email}`)
         return await checkResponseStatus(response);
     }
     catch (error) {
@@ -67,9 +62,9 @@ async function getStaffByEmail (email) {
     }
 }
 
-async function getStaffbyProgram (program) {
+async function getStaffByProgram (program) {
     try {
-        response = await fetch (`${BACKEND_ROUTE}/api/users/staff/byProgram/${program}`)
+        let response = await fetch (`${BACKEND_ROUTE}/api/users/staff/byProgram/${program}`)
         return await checkResponseStatus(response);
     } catch (error) {
         console.log(error);
@@ -79,7 +74,7 @@ async function getStaffbyProgram (program) {
 
 async function getStaffByID (fireID) {
     try {
-        response = await fetch(`${BACKEND_ROUTE}/api/users/staff/byID/${fireID}`)
+        let response = await fetch(`${BACKEND_ROUTE}/api/users/staff/byID/${fireID}`)
         return await checkResponseStatus(response);
     } catch (error) {
         console.log(error);
@@ -88,7 +83,7 @@ async function getStaffByID (fireID) {
 
 async function activateStaffWithID (fireID) {
     try {
-        response = await fetch(`${BACKEND_ROUTE}/api/users/staff/activate/${fireID}`, {
+        let response = await fetch(`${BACKEND_ROUTE}/api/users/staff/activate/${fireID}`, {
             method: 'PUT',
             headers: {'Content Type': 'application/json' }
         })
@@ -98,9 +93,9 @@ async function activateStaffWithID (fireID) {
     }
 }
 
-async function deactiveStaffWithID (fireID) {
+async function deactivateStaffWithID (fireID) {
     try {
-        response = await fetch(`${BACKEND_ROUTE}/api/users/staff/deactivate/${fireID}`, {
+        let response = await fetch(`${BACKEND_ROUTE}/api/users/staff/deactivate/${fireID}`, {
             method: 'PUT',
             headers: {'Content Type': 'application/json' }
         })
@@ -108,4 +103,16 @@ async function deactiveStaffWithID (fireID) {
     } catch (error) {
         console.log(error)
     }
+}
+
+export {
+    getStaff,
+    createStaff,
+    getActiveStaff,
+    getInactiveStaff,
+    getStaffByEmail,
+    getStaffByProgram,
+    getStaffByID,
+    activateStaffWithID,
+    deactivateStaffWithID,
 }

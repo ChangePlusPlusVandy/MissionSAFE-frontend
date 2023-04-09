@@ -1,16 +1,23 @@
 import fetch from 'node-fetch';
-import UserContext from "../context/UserContext"
 
 const BACKENDROUTE = 'http://localhost:4000/api/users/youth'
-const contextType = UserContext
 
-// Status checker
-async function checkResponseStatus(res) {
-    if (res.ok) {
-        return res.JSON()
-    } else {
-        throw new Error(`The HTTP status of the response: ${res.status} (${res.statusText})`);
+async function checkResponseStatus(response) {
+    if(!response.ok) {
+        throw new Error(response.statusText);
     }
+    let parsedResponse = await response.json();
+    return parsedResponse;
+}
+
+// POST Create Youth
+async function createYouth(newYouth) {
+    let response = await fetch(`${BACKENDROUTE}`, {
+        method: 'POST',
+        body: JSON.stringify(newYouth),
+        headers: { 'Content-Type': 'application/json' }
+    });
+    return await checkResponseStatus(response);
 }
 
 // GET Get all Youth
@@ -27,19 +34,6 @@ async function getAllYouth() {
     }
 }
 
-// POST Create Youth
-async function createYouth(newYouth) {
-    try {    
-        let res = await fetch(`${BACKENDROUTE}`, {
-            method: 'POST',
-            body: JSON.stringify(newYouth),
-            headers: { 'Content-Type': 'application/json' }
-        })
-        return await checkResponseStatus(res)
-    } catch (err) {
-        res.send(err)
-    }   
-}
 
 // GET Get all active Youth
 async function getAllActiveYouth() {
@@ -187,8 +181,8 @@ async function addFormToYouth(params) {
 }
 
 export {
-    getAllYouth,
     createYouth,
+    getAllYouth,
     getAllActiveYouth,
     getAllInactiveYouth,
     getYouthByEmail,

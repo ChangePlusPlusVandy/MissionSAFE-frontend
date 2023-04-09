@@ -15,28 +15,24 @@ async function checkResponseStatus(res) {
 
 async function createEvent (event) {
     try {
-        response = await fetch(`${BACKEND_ROUTE}/api/users/events`, {
+        response = await fetch(`${BACKEND_ROUTE}`, {
         method: 'POST',
         body: JSON.stringify(event)
         })
         return await checkResponseStatus(response);
-    }
-
-    catch(error) {
+    } catch(error) {
         console.log(error);
     }
 } 
 
 async function addStaffToEvent (eventCode, staff) {
     try {
-        response = await fetch(`${BACKEND_ROUTE}/api/users/events/addStaff/${eventCode}`,{
+        response = await fetch(`${BACKEND_ROUTE}/addStaff/${eventCode}`,{
         method: 'PUT',
         body: JSON.stringify(staff)
         })
         return await checkResponseStatus(response)
-    }
-
-    catch (error) {
+    } catch (error) {
         console.log(error)
     }
 }
@@ -51,9 +47,9 @@ async function attendEvent(params) {
                 'Authorization': `Bearer ${this.contextType.token}`
             }
         })
-        await checkResponseStatus(res)
+        return await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
     }
 }
 
@@ -67,13 +63,45 @@ async function addFormToEvent(params) {
                 'Authorization': `Bearer ${this.contextType.token}`
             }
         })
-        await checkResponseStatus(res)
+        return await checkResponseStatus(res)
     } catch (err) {
-        res.send(err)
+        console.log(err)
+    }
+}
+
+async function getEvent(eventCode) {
+    try {
+        let response = await fetch(`${BACKEND_ROUTE}/${eventCode}`)
+        return await checkResponseStatus(response)
+    } catch(err) {
+        console.log(err)
+    }
+}
+
+async function createEventForm(eventCode) {
+    try {
+        let response = await fetch(`${BACKEND_ROUTE}/forms/${eventCode}`)
+        return await checkResponseStatus(response)
+    } catch(err) {
+        console.log(err)
+    }
+}
+
+async function getStaffForEvent(eventCode) {
+    try {
+        let response = await fetch(`${BACKENDROUTE}/staff/${eventCode}`)
+        return await checkResponseStatus(response)
+    } catch(err) {
+        console.log(err)
     }
 }
 
 export default {
+    createEvent,
+    addStaffToEvent,
     attendEvent,
-    addFormToEvent
+    addFormToEvent,
+    getEvent,
+    createEventForm,
+    getStaffForEvent
 }

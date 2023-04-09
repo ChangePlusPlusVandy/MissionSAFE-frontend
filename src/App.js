@@ -9,6 +9,7 @@ import YouthRegistration from "./pages/YouthRegistration/YouthRegistration";
 import StaffHome from "./pages/StaffHome/StaffHome";
 import CreateEvent from "./pages/CreateEvent/CreateEvent";
 import AttendEvent from "./pages/AttendEvent/AttendEvent";
+import CreateForm from "./pages/CreateForm/CreateForm";
 import YouthSuccess from "./pages/YouthSuccess/YouthSuccess";
 import StaffSuccess from "./pages/StaffSuccess/StaffSuccess";
 import AttendSuccess from "./pages/AttendSuccess/AttendSuccess";
@@ -45,7 +46,8 @@ class App extends React.Component {
             <Route path="/records" element={<SearchPage />} />
             <Route path="/admin" element={<StaffHome /> /* TODO */} />
             <Route path="/create-event" element={<CreateEvent user={this.state.user}/>} />
-            <Route path="/attend-event" element={<AttendEvent />} /> 
+            <Route path="/attend-event" element={<AttendEvent />} />
+            <Route path="/create-form/:type/:id" element={<CreateForm />} /> 
             <Route path="/youth/:id" element={<StaffHome /> /* TODO */} />
             <Route path="/event/:code" element={<StaffHome /> /* TODO */} />
             <Route path="/form/:id" element={<StaffHome /> /* TODO */} />

@@ -67,7 +67,7 @@ class StaffRegistration extends React.Component {
 
     render() {
         if(this.state.redirect) {
-            return <Navigate to="/search"/>;
+            return <Navigate to="/staff-success"/>;
         } else {
             return (
                 <div className="page-container" id="staff-registration-page">

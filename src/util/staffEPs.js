@@ -25,6 +25,17 @@ async function createStaff(newStaff) {
     return await checkResponseStatus(response);
 }
 
+async function createEvent(event) {
+    console.log(event);
+    let response = await fetch(`${BACKEND_ROUTE}/api/events`, {
+        method: 'POST',
+        body: JSON.stringify(event),
+        headers: { 'Content-Type': 'application/json' }
+    });
+    return await checkResponseStatus(response);
+} 
+
+
 /*async function getStaff () {
 
     try {
@@ -134,19 +145,6 @@ catch (error) {
 
 
 
-async function createEvent (event) {
-    try {
-        let response = await fetch(`${BACKEND_ROUTE}/api/users/events`, {
-        method: 'POST',
-        body: JSON.stringify(event)
-        })
-        return await checkResponseStatus(response);
-    }
-
-    catch(error) {
-        console.log(error);
-    }
-} 
 
 async function addStaffToEvent (eventCode, staff) {
     try {
@@ -165,4 +163,5 @@ async function addStaffToEvent (eventCode, staff) {
 export {
     getStaffByID,
     createStaff,
+    createEvent,
 }

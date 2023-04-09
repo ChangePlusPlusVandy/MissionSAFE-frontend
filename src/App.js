@@ -9,6 +9,7 @@ import YouthRegistration from "./pages/YouthRegistration/YouthRegistration";
 import YouthSuccess from "./pages/YouthSuccess/YouthSuccess";
 import StaffSuccess from "./pages/StaffSuccess/StaffSuccess";
 import StaffHome from "./pages/StaffHome/StaffHome";
+import CreateEvent from "./pages/CreateEvent/CreateEvent";
 import Unauthorized from "./pages/Unauthorized/Unauthorized";
 import UserContext from "./context/UserContext";
 import "./App.scss"
@@ -38,16 +39,16 @@ class App extends React.Component {
             <Route path="/register" element={<RegistrationPage />} />
             <Route path="/staff-register" element={<StaffRegistration handleLogin={this.handleLogin}/>} />
             <Route path="/youth-register" element={<YouthRegistration />} />
-            <Route path="/youth-success" element={<YouthSuccess />} />
-            <Route path="/staff-success" element={<StaffSuccess />} />
             <Route path="/staff-home" element={<StaffHome user={this.state.user}/>} />
             <Route path="/records" element={<SearchPage />} />
             <Route path="/admin" element={<StaffHome /> /* TODO */} />
-            <Route path="/create-event" element={<StaffHome /> /* TODO */} />
+            <Route path="/create-event" element={<CreateEvent user={this.state.user}/>} />
             <Route path="/attend-event" element={<StaffHome /> /* TODO */} /> 
             <Route path="/youth/:id" element={<StaffHome /> /* TODO */} />
-            <Route path="/event/:id" element={<StaffHome /> /* TODO */} />
+            <Route path="/event/:code" element={<StaffHome /> /* TODO */} />
             <Route path="/form/:id" element={<StaffHome /> /* TODO */} />
+            <Route path="/youth-success" element={<YouthSuccess />} />
+            <Route path="/staff-success" element={<StaffSuccess />} />
             <Route path="/unauthorized" element={<Unauthorized />} />
           </Routes>
         </BrowserRouter>

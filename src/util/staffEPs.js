@@ -20,20 +20,28 @@ async function createStaff(newStaff) {
     let response = await fetch(`${BACKEND_ROUTE}/api/users/staff`, {
         method: 'POST',
         body: JSON.stringify(newStaff),
-        headers: { 'Content-Type': 'application/json' }
+        headers: {'Content-Type' : 'application/json'}
     });
     return await checkResponseStatus(response);
 }
 
 async function createEvent(event) {
-    console.log(event);
     let response = await fetch(`${BACKEND_ROUTE}/api/events`, {
         method: 'POST',
         body: JSON.stringify(event),
-        headers: { 'Content-Type': 'application/json' }
+        headers: {'Content-Type' : 'application/json'}
     });
     return await checkResponseStatus(response);
 } 
+
+async function attendEvent(options) {
+    let response = await fetch(`${BACKEND_ROUTE}/api/events/attend/${options.eventCode}`, {
+        method: 'PUT',
+        body: JSON.stringify(options.email),
+        headers: {'Content-Type' : 'application/json'}
+    })
+    return response.ok;
+}
 
 
 /*async function getStaff () {
@@ -164,4 +172,5 @@ export {
     getStaffByID,
     createStaff,
     createEvent,
+    attendEvent,
 }

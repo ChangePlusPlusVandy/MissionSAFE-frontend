@@ -9,6 +9,7 @@ import YouthRegistration from "./pages/YouthRegistration/YouthRegistration";
 import YouthSuccess from "./pages/YouthSuccess/YouthSuccess";
 import StaffSuccess from "./pages/StaffSuccess/StaffSuccess";
 import StaffHome from "./pages/StaffHome/StaffHome";
+import Unauthorized from "./pages/Unauthorized/Unauthorized";
 import UserContext from "./context/UserContext";
 import "./App.scss"
 
@@ -39,13 +40,15 @@ class App extends React.Component {
             <Route path="/youth-register" element={<YouthRegistration />} />
             <Route path="/youth-success" element={<YouthSuccess />} />
             <Route path="/staff-success" element={<StaffSuccess />} />
-            <Route path="/staff-home" element={<StaffHome /> /* TODO */} />
-            <Route path="/search" element={<SearchPage />} />
+            <Route path="/staff-home" element={<StaffHome user={this.state.user}/>} />
+            <Route path="/records" element={<SearchPage />} />
+            <Route path="/admin" element={<StaffHome /> /* TODO */} />
             <Route path="/create-event" element={<StaffHome /> /* TODO */} />
             <Route path="/attend-event" element={<StaffHome /> /* TODO */} /> 
             <Route path="/youth/:id" element={<StaffHome /> /* TODO */} />
             <Route path="/event/:id" element={<StaffHome /> /* TODO */} />
             <Route path="/form/:id" element={<StaffHome /> /* TODO */} />
+            <Route path="/unauthorized" element={<Unauthorized />} />
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>

@@ -1,17 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./StaffSuccess.scss";
+import "./Unauthorized.scss";
 
-class StaffSuccess extends React.Component {
+class Unauthorized extends React.Component {
     render() {
         return (
             <div className="message-page">
-                <p>You have successfully registered!</p>
-                <p>Please wait for an administrator to activate your account.</p>
+                <p>You do not have access to the requested resource.</p>
+                <p>Please contact an administrator to change your permissions.</p>
                 <Link className="message-page-button" to="/">Return Home</Link>
             </div>
         )
     }
 }
 
-export default StaffSuccess
+export default Unauthorized

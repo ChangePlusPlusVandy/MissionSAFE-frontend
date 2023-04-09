@@ -48,9 +48,11 @@ class YouthRegistration extends React.Component {
                                 ssn: this.state.ssn,
                                 fireID: firebaseRegister,
                             })
-                            this.setState({
-                                redirect: true,
-                            })
+                            if(databaseRegister.firstName.length > 0) {
+                                this.setState({
+                                    redirect: true,
+                                })
+                            }
                         } catch(err) {
                             this.setState({
                                 errorMessage: "Failed to register, please try again later."

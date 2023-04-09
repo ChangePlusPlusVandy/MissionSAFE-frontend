@@ -83,6 +83,7 @@ class SearchBar extends React.Component {
                         </select>
 
                     </div>
+                }
                 </div>
             </div>
         );

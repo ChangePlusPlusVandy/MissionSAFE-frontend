@@ -1,14 +1,20 @@
+import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import SearchPage from "./pages/SearchPage/SearchPage";
-import "./App.scss"
-import React from "react";
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
-import StaffHome from "./pages/StaffHome/StaffHome";
 import StaffRegistration from "./pages/StaffRegistration/StaffRegistration";
 import YouthRegistration from "./pages/YouthRegistration/YouthRegistration";
+import StaffHome from "./pages/StaffHome/StaffHome";
+import CreateEvent from "./pages/CreateEvent/CreateEvent";
+import AttendEvent from "./pages/AttendEvent/AttendEvent";
+import YouthSuccess from "./pages/YouthSuccess/YouthSuccess";
+import StaffSuccess from "./pages/StaffSuccess/StaffSuccess";
+import AttendSuccess from "./pages/AttendSuccess/AttendSuccess";
+import Unauthorized from "./pages/Unauthorized/Unauthorized";
 import UserContext from "./context/UserContext";
+import "./App.scss"
 
 class App extends React.Component {
   constructor(props) {
@@ -17,6 +23,8 @@ class App extends React.Component {
     this.state = {
       user: null,
     };
+
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
   handleLogin = (user) => {
@@ -29,12 +37,22 @@ class App extends React.Component {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/login" element={<LoginPage />} />
+            <Route path="/login" element={<LoginPage handleLogin={this.handleLogin}/>} />
             <Route path="/register" element={<RegistrationPage />} />
-            <Route path="/staffreg" element={<StaffRegistration />} />
-            <Route path="/youthreg" element={<YouthRegistration />} />
-            <Route path="/search" element={<SearchPage />} />
-            <Route path="/staffhome" element={<StaffHome />} />
+            <Route path="/staff-register" element={<StaffRegistration handleLogin={this.handleLogin}/>} />
+            <Route path="/youth-register" element={<YouthRegistration />} />
+            <Route path="/staff-home" element={<StaffHome user={this.state.user}/>} />
+            <Route path="/records" element={<SearchPage />} />
+            <Route path="/admin" element={<StaffHome /> /* TODO */} />
+            <Route path="/create-event" element={<CreateEvent user={this.state.user}/>} />
+            <Route path="/attend-event" element={<AttendEvent />} /> 
+            <Route path="/youth/:id" element={<StaffHome /> /* TODO */} />
+            <Route path="/event/:code" element={<StaffHome /> /* TODO */} />
+            <Route path="/form/:id" element={<StaffHome /> /* TODO */} />
+            <Route path="/youth-success" element={<YouthSuccess />} />
+            <Route path="/staff-success" element={<StaffSuccess />} />
+            <Route path="/attend-success" element={<AttendSuccess />} />
+            <Route path="/unauthorized" element={<Unauthorized />} />
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>

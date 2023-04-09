@@ -1,88 +1,115 @@
 import React from "react";
-import "./StaffRegistration.scss"
 import Firebase from "../../util/Firebase";
 import RegistrationHelpers from "../../util/RegistrationHelpers";
+import { createStaff } from "../../util/staffEPs";
+import "./StaffRegistration.scss"
+import { Navigate } from "react-router";
+
+import Logo from "../../assets/mission-safe-logo.png";
+
 
 class StaffRegistration extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            redirect: false,
+            errorMessage: "",
+        }
 
-        this.handleRegister = this.handleRegister.bind(this);
+        this.handleUpdate = this.handleUpdate.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    async handleRegister(event) {
+    handleUpdate(event) {
         event.preventDefault();
-        let firstName = document.getElementById("first-name").value;
-        let lastName = document.getElementById("last-name").value;
-        let email = document.getElementById("email").value;
-        let employeeID = document.getElementById("employee-id").value;
-        let phone = document.getElementById("phone").value;
-        let password = document.getElementById("password").value;
-        let confirmPassword = document.getElementById("confirm-password").value;
+        this.setState({
+            [event.target.name]: event.target.value,
+            errorMessage: "",
+        });
+    };
 
-        if (!firstName || !lastName || !email || !employeeID || !phone || !password) {
-            alert("Please fill out all required fields");
-            return;
-        }
-
-        if (password !== confirmPassword) {
-            alert("Passwords do not match");
-            return;
-        }
-
-        try {
-            let fireID = await Firebase.registerUser(email, password);
-            console.log(fireID);
-            // TODO: how should the other info be added?
-        } catch (err) {
-            console.log(err.message);
+    async handleSubmit(event) {
+        event.preventDefault();
+        if(RegistrationHelpers.validateEmail(this.state.email)) {
+                if(this.state.password.length >= 8) {
+                    if(this.state.firstName.length > 0 && this.state.lastName.length > 0) {
+                        try {
+                            let firebaseRegister = await Firebase.registerUser(this.state.email, this.state.password);
+                            let databaseRegister = await createStaff({
+                                firstName: this.state.firstName,
+                                lastName: this.state.lastName,
+                                email: this.state.email,
+                                fireID: firebaseRegister,
+                            })
+                            this.props.handleLogin(databaseRegister);
+                            this.setState({
+                                redirect: true,
+                            });
+                        } catch(err) {
+                            this.setState({
+                                errorMessage: "Failed to register, please try again later."
+                            });
+                            console.log(err);
+                        }
+                    } else {
+                        this.setState({
+                            errorMessage: "Please provide a valid name."
+                        })
+                    }
+                } else {
+                    this.setState({
+                        errorMessage: "Please provide a password with at least 8 characters"
+                    })
+                }
+        } else {
+            this.setState({
+                errorMessage: "Please provide a valid email address."
+            })
         }
     }
 
     render() {
-        return (
-            <div className="column-container">
-                <h1>Staff Registration Page</h1>
-                <form onSubmit={this.handleRegister}>
-                    <div className="aligned-row-container">
-                        <div className="input-field">
-                            <label htmlFor="first-name">First Name*</label>
-                            <input type="text" id="first-name" />
+        if(this.state.redirect) {
+            return <Navigate to="/staff-success"/>;
+        } else {
+            return (
+                <div className="page-container" id="staff-registration-page">
+                    <div className="registration-header">
+                        <img src={Logo} alt="MissionSAFE logo"/>
+                        <p className="registration-title">Register</p>
+                        <p className="registration-subtitle">Sign up as MissionSAFE Staff.</p>
+                    </div>
+                    <div className="registration-form" id="staff-registration-form">
+                        <div className="registration-input-row">
+                            <div className="registration-input">
+                                <p className="registration-label">First Name</p>
+                                <input type="text" onChange={this.handleUpdate} name="firstName"/>
+                            </div>
+                            <div className="registration-input">
+                                <p className="registration-label">Last Name</p>
+                                <input type="text" onChange={this.handleUpdate} name="lastName"/>
+                            </div>
                         </div>
-                        <div className="input-field">
-                            <label htmlFor="last-name">Last Name*</label>
-                            <input type="text" id="last-name" />
+                        <div className="registration-input-row">
+                            <div className="registration-input">
+                                <p className="registration-label">Email</p>
+                                <input type="text" onChange={this.handleUpdate} name="email"/>
+                            </div>
+                            <div className="registration-input">
+                                <p className="registration-label">Password</p>
+                                <input type="password" onChange={this.handleUpdate} name="password"/>
+                            </div>
                         </div>
+                        <p id="registration-error-message">{this.state.errorMessage}</p>    
+                        <p className="register-button" onClick={this.handleSubmit}>Register</p>
                     </div>
-                    <div className="input-field full-width">
-                        <label htmlFor="email">Email*</label>
-                        <input type="email" id="email" />
-                    </div>
-                    <div className="aligned-row-container full-width">
-                        <div className="input-field">
-                            <label htmlFor="employee-id">Employee ID*</label>
-                            <input type="number" id="employee-id" />
-                        </div>
-                        <div className="input-field">
-                            <label htmlFor="phone">Phone Number*</label>
-                            <input type="text" id="phone" />
-                        </div>
-                    </div>
-                    {/* <input type="text" id="zip" placeholder="Enter zipcode"/> */}
-                    {/* <input type="text" id="ssn" placeholder="Enter SSN"/> */}
-                    <div className="input-field full-width">
-                        <label htmlFor="password">Password*</label>
-                        <input type="password" id="password" />
-                    </div>
-                    <div className="input-field full-width">
-                        <label htmlFor="confirm-password">Confirm Password*</label>
-                        <input type="password" id="confirm-password" />
-                    </div>
-                    {/* TODO: format this */}
-                    <button type="submit">Create Account</button>
-                </form>
-            </div>
-        )
+                </div>
+            )
+        }
     }
 }
 

@@ -6,10 +6,11 @@ import SearchPage from "./pages/SearchPage/SearchPage";
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
 import StaffRegistration from "./pages/StaffRegistration/StaffRegistration";
 import YouthRegistration from "./pages/YouthRegistration/YouthRegistration";
-import YouthSuccess from "./pages/YouthSuccess/YouthSuccess";
-import StaffSuccess from "./pages/StaffSuccess/StaffSuccess";
 import StaffHome from "./pages/StaffHome/StaffHome";
 import CreateEvent from "./pages/CreateEvent/CreateEvent";
+import AttendEvent from "./pages/AttendEvent/AttendEvent";
+import YouthSuccess from "./pages/YouthSuccess/YouthSuccess";
+import StaffSuccess from "./pages/StaffSuccess/StaffSuccess";
 import Unauthorized from "./pages/Unauthorized/Unauthorized";
 import UserContext from "./context/UserContext";
 import "./App.scss"
@@ -43,7 +44,7 @@ class App extends React.Component {
             <Route path="/records" element={<SearchPage />} />
             <Route path="/admin" element={<StaffHome /> /* TODO */} />
             <Route path="/create-event" element={<CreateEvent user={this.state.user}/>} />
-            <Route path="/attend-event" element={<StaffHome /> /* TODO */} /> 
+            <Route path="/attend-event" element={<AttendEvent />} /> 
             <Route path="/youth/:id" element={<StaffHome /> /* TODO */} />
             <Route path="/event/:code" element={<StaffHome /> /* TODO */} />
             <Route path="/form/:id" element={<StaffHome /> /* TODO */} />

@@ -11,7 +11,9 @@ class SearchBar extends React.Component {
             //Defaults for search for, search by, and text-search
             category: "Youth",
             criteria: "",
-            text: ""
+            text: "",
+            startDate: 0,
+            endDate: 0
         };
     }
     
@@ -20,16 +22,25 @@ class SearchBar extends React.Component {
       }
 
     updateResults() {
+        //Convert Dates to milliseconds since 1980 or 0 if date is invalid
+        let startTime=new Date(this.state.startDate).getTime();
+                if (!startTime){
+                    startTime=0;
+                }
+        let endTime=new Date(this.state.endDate).getTime();
+                if (!endTime){
+                    endTime=0;
+                }
         //Calls correct update function based on what user is searching for
         switch (this.state.category) {
             case "Youth":
                 this.props.updateYouthResults(this.state.criteria, this.state.text);
                 break;
             case "Form":
-                this.props.updateFormResults(this.state.criteria, this.state.text);
+                this.props.updateFormResults(this.state.criteria, this.state.text,startTime,endTime);
                 break;
             case "Event":
-                this.props.updateEventResults(this.state.criteria, this.state.text);
+                this.props.updateEventResults(this.state.criteria, this.state.text, startTime, endTime);
                 break;
             default:
                 console.log("Error: Invalid category");
@@ -54,7 +65,7 @@ class SearchBar extends React.Component {
                         <option value="Event">Event</option>
                     </select>
 
-                </div>
+                    </div>
                 {/* if Search for youth: search by email, program, or ID */}
                 {
                     this.state.category === "Youth" &&
@@ -72,7 +83,7 @@ class SearchBar extends React.Component {
                 }
                 {/* if Search for Form or event: search by Youth ID or Code*/}
                 {(this.state.category === "Form" || this.state.category === "Event") &&
-                    <div>
+                    <div className='form-event-row'>
                         <label htmlFor='dropdown'>By:</label>
                         <select id='dropdown' className='search-by' value={this.state.criteria} onChange={(e) => {
                             this.setState({ criteria: e.target.value }, this.updateResults);
@@ -81,9 +92,31 @@ class SearchBar extends React.Component {
                             <option value="ID">Youth ID</option>
                             <option value="Event-Code">Event Code</option>
                         </select>
+<<<<<<< HEAD
+                    
+                        <div className='date-header'>From:</div>
+                        <input className='date-picker' type='date' value={this.state.startDate} onChange={(e) => {
+                            //is date valid
+                            Date.parse(e.target.value)?
+                            //set state
+                            this.setState({ startDate: e.target.value }, this.updateResults)
+                            //otherwise log error
+                            :this.setState({ startDate: "" }, this.updateResults);  
+                        }}/>
+                        <div className='date-header'>To:</div>
+                        <input className='date-picker' type='date' value={this.state.endDate} onChange={(e) => {
+                            //is date valid
+                            Date.parse(e.target.value)?
+                            //set state
+                            this.setState({ endDate: e.target.value }, this.updateResults)
+                            //otherwise log error
+                            :this.setState({ endDate: "" }, this.updateResults);  }}/>
+                    </div>}
+=======
 
                     </div>
                 }
+>>>>>>> main
                 </div>
             </div>
         );

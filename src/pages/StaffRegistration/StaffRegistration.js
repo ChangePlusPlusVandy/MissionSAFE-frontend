@@ -1,41 +1,115 @@
 import React from "react";
-import "./StaffRegistration.scss"
 import Firebase from "../../util/Firebase";
 import RegistrationHelpers from "../../util/RegistrationHelpers";
+import { createStaff } from "../../util/staffEPs";
+import "./StaffRegistration.scss"
+import { Navigate } from "react-router";
+
+import Logo from "../../assets/mission-safe-logo.png";
+
 
 class StaffRegistration extends React.Component {
     constructor(props) {
         super(props);
-        
-        this.handleRegister = this.handleRegister.bind(this);
-    }  
+        this.state = {
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            redirect: false,
+            errorMessage: "",
+        }
 
-    async handleRegister(event) {
+        this.handleUpdate = this.handleUpdate.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleUpdate(event) {
         event.preventDefault();
-        let email = document.getElementById("staff-register-email").value;
-        let password = document.getElementById("staff-register-password").value;
-        
-        try {
-            let fireID = await Firebase.registerUser(email, password);
-            console.log(fireID);
-        } catch (err) {
-            console.log(err.message);
+        this.setState({
+            [event.target.name]: event.target.value,
+            errorMessage: "",
+        });
+    };
+
+    async handleSubmit(event) {
+        event.preventDefault();
+        if(RegistrationHelpers.validateEmail(this.state.email)) {
+                if(this.state.password.length >= 8) {
+                    if(this.state.firstName.length > 0 && this.state.lastName.length > 0) {
+                        try {
+                            let firebaseRegister = await Firebase.registerUser(this.state.email, this.state.password);
+                            let databaseRegister = await createStaff({
+                                firstName: this.state.firstName,
+                                lastName: this.state.lastName,
+                                email: this.state.email,
+                                fireID: firebaseRegister,
+                            })
+                            this.props.handleLogin(databaseRegister);
+                            this.setState({
+                                redirect: true,
+                            });
+                        } catch(err) {
+                            this.setState({
+                                errorMessage: "Failed to register, please try again later."
+                            });
+                            console.log(err);
+                        }
+                    } else {
+                        this.setState({
+                            errorMessage: "Please provide a valid name."
+                        })
+                    }
+                } else {
+                    this.setState({
+                        errorMessage: "Please provide a password with at least 8 characters"
+                    })
+                }
+        } else {
+            this.setState({
+                errorMessage: "Please provide a valid email address."
+            })
         }
     }
 
     render() {
-        return (
-            <div className="column-container">
-                <p>Staff Registration Page</p>
-                <input type="text" id="name" placeholder="Full Name"/>
-                <input type="text" id="phone" placeholder="Enter Phone number"/>
-                <input type="text" id="zip" placeholder="Enter zipcode"/>
-                <input type="text" id="ssn" placeholder="Enter SSN"/>
-                <input type="email" id="staff-register-email" placeholder="Email"/>
-                <input type="password" id="staff-register-password" placeholder="Create password"/>
-                <input onClick={this.handleRegister} type="submit" value="Submit"/>
-            </div>
-        )
+        if(this.state.redirect) {
+            return <Navigate to="/staff-success"/>;
+        } else {
+            return (
+                <div className="page-container" id="staff-registration-page">
+                    <div className="registration-header">
+                        <img src={Logo} alt="MissionSAFE logo"/>
+                        <p className="registration-title">Register</p>
+                        <p className="registration-subtitle">Sign up as MissionSAFE Staff.</p>
+                    </div>
+                    <div className="registration-form" id="staff-registration-form">
+                        <div className="registration-input-row">
+                            <div className="registration-input">
+                                <p className="registration-label">First Name</p>
+                                <input type="text" onChange={this.handleUpdate} name="firstName"/>
+                            </div>
+                            <div className="registration-input">
+                                <p className="registration-label">Last Name</p>
+                                <input type="text" onChange={this.handleUpdate} name="lastName"/>
+                            </div>
+                        </div>
+                        <div className="registration-input-row">
+                            <div className="registration-input">
+                                <p className="registration-label">Email</p>
+                                <input type="text" onChange={this.handleUpdate} name="email"/>
+                            </div>
+                            <div className="registration-input">
+                                <p className="registration-label">Password</p>
+                                <input type="password" onChange={this.handleUpdate} name="password"/>
+                            </div>
+                        </div>
+                        <p id="registration-error-message">{this.state.errorMessage}</p>    
+                        <p className="register-button" onClick={this.handleSubmit}>Register</p>
+                    </div>
+                </div>
+            )
+        }
     }
 }
 

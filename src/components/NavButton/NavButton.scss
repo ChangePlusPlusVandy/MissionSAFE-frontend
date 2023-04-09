@@ -1,28 +1,32 @@
+@import '../../variables.scss';
+
 .button-container {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     border-radius: 10px;
-    min-width: 100px;
+    width: 142px;
+    height: 35px;
+    margin: 6px;
 }
 
 .available {
     cursor: pointer;
-    background-color: #B0D1F5;
-    border: 2px solid #a1cbff;
-    color: black;
+    background-color: $accent-color;
+    // border: 2px solid #a1cbff;
+    color: $light-text-color;
 }
 
 .unavailable {
     cursor: default;
-    background-color: #b2b7bb;
-    border: 2px solid #b2b7bb;
-    color: gray;
+    background-color: $secondary-color;
+    // border: 2px solid #b2b7bb;
+    color: $secondary-text-color;
 }
 
 .available:hover {
-    background-color: #a1cbff;
+    background-color: lighten($accent-color, 10%);
 }
 
 .filler {
@@ -33,6 +37,7 @@
 }
 
 .button-text {
-    padding: 6px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration: none;
 }

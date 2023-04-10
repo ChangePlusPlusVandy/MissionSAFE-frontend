@@ -1,11 +1,8 @@
-import fetch from 'node-fetch';
-import UserContext from "../context/UserContext"
+// Server-client interface for /api/events
+const BACKEND_ROUTE = "http://localhost:4000/api/events";
 
-const BACKENDROUTE = 'localhost://4000/api/events'
-const contextType = UserContext
-
-// Status checker   
-async function checkResponseStatus(response) {
+// JSON response checker   
+async function checkJSONResponseStatus(response) {
     if(!response.ok) {
         throw new Error(response.statusText);
     }
@@ -13,102 +10,51 @@ async function checkResponseStatus(response) {
     return parsedResponse;
 }
 
+// Miscellaneous response checker
+async function checkMiscResponseStatus(response) {
+    if(!response.ok) {
+        throw new Error(response.statusText);
+    }
+    return true;
+}
+
+// POST new event
 async function createEvent (event) {
-    try {
-        let response = await fetch(`${BACKEND_ROUTE}`, {
+    let response = await fetch(`${BACKEND_ROUTE}`, {
         method: 'POST',
         body: JSON.stringify(event)
-        })
-        return await checkResponseStatus(response);
-    } catch(error) {
-        console.log(error)
-        throw new Error(err)
-    }
+    })
+    return await checkJSONResponseStatus(response);
 } 
 
-async function addStaffToEvent (eventCode, staff) {
-    try {
-        let response = await fetch(`${BACKEND_ROUTE}/addStaff/${eventCode}`,{
+// PUT mark attendance
+async function attendEvent(eventCode, body) {
+    let response = await fetch(`${BACKEND_ROUTE}/attend/${eventCode}`, {
         method: 'PUT',
-        body: JSON.stringify(staff)
-        })
-        return await checkResponseStatus(response)
-    } catch (error) {
-        console.log(error)
-        throw new Error(err)
-    }
+        body: JSON.stringify(body),
+    })
+    return await checkMiscResponseStatus(response)
 }
 
-// PUT Add Youth to Event with eventCode
-async function attendEvent(params) {
-    try {         
-        let res = await fetch(`${BACKENDROUTE}/attend/${params.eventCode}`, {
-            method: 'PUT',
-            body: JSON.stringify(params.Youth),
-            headers: {
-                'Authorization': `Bearer ${this.contextType.token}`
-            }
-        })
-        return await checkResponseStatus(res)
-    } catch (err) {
-        console.log(err)
-        throw new Error(err)
-    }
+// PUT new form form event
+async function createEventForm(eventCode, body) {
+    let response = await fetch(`${BACKEND_ROUTE}/form/${eventCode}`, {
+        method: 'PUT',
+        body: JSON.stringify(body),
+    })
+    return await checkMiscResponseStatus(response)
 }
 
-// PUT Add Form to Event with eventCode
-async function addFormToEvent(params) {
-    try {    
-        let res = await fetch(`${BACKENDROUTE}/form/${params.eventCode}`, {
-            method: 'PUT',
-            body: JSON.stringify(params.form),
-            headers: {
-                'Authorization': `Bearer ${this.contextType.token}`
-            }
-        })
-        return await checkResponseStatus(res)
-    } catch (err) {
-        console.log(err)
-        throw new Error(err)
-    }
-}
-
+// GET event with @eventCode
 async function getEvent(eventCode) {
-    try {
-        let response = await fetch(`${BACKEND_ROUTE}/${eventCode}`)
-        return await checkResponseStatus(response)
-    } catch(err) {
-        console.log(err)
-        throw new Error(err)
-    }
+    let response = await fetch(`${BACKEND_ROUTE}/${eventCode}`)
+    return await checkJSONResponseStatus(response)
 }
 
-async function createEventForm(eventCode) {
-    try {
-        let response = await fetch(`${BACKEND_ROUTE}/forms/${eventCode}`)
-        return await checkResponseStatus(response)
-    } catch(err) {
-        console.log(err)
-        throw new Error(err)
-    }
-}
 
-async function getStaffForEvent(eventCode) {
-    try {
-        let response = await fetch(`${BACKENDROUTE}/staff/${eventCode}`)
-        return await checkResponseStatus(response)
-    } catch(err) {
-        console.log(err)
-        throw new Error(err)
-    }
-}
-
-export default {
+export {
     createEvent,
-    addStaffToEvent,
     attendEvent,
-    addFormToEvent,
     getEvent,
     createEventForm,
-    getStaffForEvent
 }

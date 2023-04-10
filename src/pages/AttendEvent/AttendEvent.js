@@ -1,6 +1,6 @@
 import React from "react";
 import "./AttendEvent.scss";
-import { attendEvent } from "../../util/staffEPs";
+import { attendEvent } from "../../util/ServerInterfaceEvents";
 import { Navigate } from "react-router";
 
 class AttendEvent extends React.Component {
@@ -30,9 +30,8 @@ class AttendEvent extends React.Component {
         event.preventDefault();
         if(this.state.code.length === 5 && this.state.email.length > 0) {
             try {
-                let attendanceResult = await attendEvent({
-                    eventCode: this.state.code,
-                    email: {email: this.state.email},
+                let attendanceResult = await attendEvent(this.state.code, {
+                    email: this.state.email
                 });
                 if(attendanceResult) {
                     this.setState({

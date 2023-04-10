@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router";
-import { createEvent } from "../../util/staffEPs";
+import { createEvent } from "../../util/ServerInterfaceEvents";
 import "./CreateEvent.scss";
 
 class CreateEvent extends React.Component {

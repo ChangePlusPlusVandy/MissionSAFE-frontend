@@ -1,9 +1,10 @@
 import React from "react";
 import Firebase from "../../util/Firebase";
 import RegistrationHelpers from "../../util/RegistrationHelpers";
-import { createStaff } from "../../util/staffEPs";
-import "./StaffRegistration.scss"
+import { createStaff } from "../../util/ServerIntefaceStaff";
 import { Navigate } from "react-router";
+import "./StaffRegistration.scss"
+
 
 import Logo from "../../assets/mission-safe-logo.png";
 

@@ -1,8 +1,8 @@
-import fetch from 'node-fetch';
+// Server-client interface for /api/users/youth
+const BACKEND_ROUTE = "http://localhost:4000/api/users/youth";
 
-const BACKENDROUTE = 'http://localhost:4000/api/users/youth'
-
-async function checkResponseStatus(response) {
+// JSON response checker   
+async function checkJSONResponseStatus(response) {
     if(!response.ok) {
         throw new Error(response.statusText);
     }
@@ -10,189 +10,98 @@ async function checkResponseStatus(response) {
     return parsedResponse;
 }
 
-// GET Get all Youth
+// Miscellaneous response checker
+async function checkMiscResponseStatus(response) {
+    if(!response.ok) {
+        throw new Error(response.statusText);
+    }
+    return true;
+}
+
+// GET all Youth
 async function getAllYouth() {
-    try {
-        let res = await fetch(`${BACKENDROUTE}`, {
-            headers: {
-                'Authorization': `Bearer ${this.context.token}`
-            }
-        })
-        return await checkResponseStatus(res)
-    } catch (err) {
-        console.log(err)
-        throw new Error(err)
-    }
+    let response = await fetch(`${BACKEND_ROUTE}`);
+    return await checkJSONResponseStatus(response);
 }
 
-// POST Create Youth
-async function createYouth(newYouth) {
-    try {let response = await fetch(`${BACKENDROUTE}`, {
+// POST create Youth
+async function createYouth(body) {
+    let response = await fetch(`${BACKEND_ROUTE}`, {
         method: 'POST',
-        body: JSON.stringify(newYouth),
-        headers: { 'Content-Type': 'application/json' }
+        body: JSON.stringify(body),
+        headers: {'Content-Type' : 'application/json'}
     });
-    return await checkResponseStatus(response);
-    } catch(err) {
-        console.log(err)
-        throw new Error(err)
-    }
+    return await checkJSONResponseStatus(response);
 }
 
 
-// GET Get all active Youth
+// GET all active youth
 async function getAllActiveYouth() {
-    try {
-        let res = await fetch(`${BACKENDROUTE}/active`, {
-            headers: {
-                'Authorization': `Bearer ${this.context.token}`
-            }
-        })
-        return await checkResponseStatus(res)
-    } catch (err) {
-        console.log(err)
-        throw new Error(err)
-    }
+    let response = await fetch(`${BACKEND_ROUTE}/active`);
+    return await checkJSONResponseStatus(response);
 }
 
-// GET Get all inactive Youth
+// GET all inactive youth
 async function getAllInactiveYouth() {
-    try {
-        let res = await fetch(`${BACKENDROUTE}/inactive`, {
-            headers: {
-                'Authorization': `Bearer ${this.context.token}`
-            }
-        })
-        return await checkResponseStatus(res)
-    } catch (err) {
-        console.log(err)
-        throw new Error(err)
-    }
+    let response = await fetch(`${BACKEND_ROUTE}/inactive`);
+    return await checkJSONResponseStatus(response);
 }
 
-// GET Get Youth with email
+// GET youth with @email
 async function getYouthByEmail(email) {
-    try {
-        let res = await fetch(`${BACKENDROUTE}/byEmail/${email}`, {
-            headers: {
-                'Authorization': `Bearer ${this.context.token}`
-            }
-        })
-        return await checkResponseStatus(res)
-    } catch (err) {
-        console.log(err)
-        throw new Error(err)
-    }
+    let response = await fetch(`${BACKEND_ROUTE}/byEmail/${email}`);
+    return await checkJSONResponseStatus(response);
 }
 
 
-// GET Get all Youth in program
+// GET all youth in @program
 async function getAllYouthInProgram(program) {
-    try {
-        let res = await fetch(`${BACKENDROUTE}/byProgram/${program}`, {
-            headers: {
-                'Authorization': `Bearer ${this.context.token}`
-            }
-        })
-        return await checkResponseStatus(res)
-    } catch (err) {
-        console.log(err)
-        throw new Error(err)
-    }
+    let response = await fetch(`${BACKEND_ROUTE}/byProgram/${program}`);
+    return await checkJSONResponseStatus(response);
 }
 
-// GET Get Youth with fireID
+// GET youth with @fireID
 async function getYouthByFireID(fireID) {
-    try {
-        let res = await fetch(`${BACKENDROUTE}/byID/${fireID}`, {
-            headers: {
-                'Authorization': `Bearer ${this.context.token}`
-            }
-        })
-        return await checkResponseStatus(res)
-    } catch (err) {
-        console.log(err)
-        throw new Error(err)
-    }
+    let response = await fetch(`${BACKEND_ROUTE}/byID/${fireID}`);
+    return await checkJSONResponseStatus(response);
 }
 
-// GET Get Forms for Youth with fireID
+// GET get Forms for youth with @fireID
 async function getFormsByFireID(fireID) {
-    try {
-        let res = await fetch(`${BACKENDROUTE}/forms/${fireID}`, {
-            headers: {
-                'Authorization': `Bearer ${this.context.token}`
-            }
-        })
-        return await checkResponseStatus(res)
-    } catch (err) {
-        console.log(err)
-        throw new Error(err)
-    }
+    let response = await fetch(`${BACKEND_ROUTE}/forms/${fireID}`);
+    return await checkJSONResponseStatus(response);
 }
 
-// GET Get Events for Youth with fireID
+// GET get Events for youth with @fireID
 async function getEventsByFireID(fireID) {
-    try {
-        let res = await fetch(`${BACKENDROUTE}/events/${fireID}`, {
-            headers: {
-                'Authorization': `Bearer ${this.context.token}`
-            }
-        })
-        return await checkResponseStatus(res)
-    } catch (err) {
-        console.log(err)
-        throw new Error(err)
-    }
+    let response = await fetch(`${BACKEND_ROUTE}/events/${fireID}`);
+    return await checkJSONResponseStatus(response);
 }
 
-// PUT Activate Youth with fireID
+// PUT activate youth with @fireID
 async function activateYouth(fireID) { 
-    try {    
-        let res = await fetch(`${BACKENDROUTE}/activate/${fireID}`, {
-            method: 'PUT',
-            headers: {
-                'Authorization': `Bearer ${this.context.token}`
-            }
-        })
-        return await checkResponseStatus(res)
-    } catch (err) {
-        console.log(err)
-        throw new Error(err)
-    }
+    let response = await fetch(`${BACKEND_ROUTE}/activate/${fireID}`, {
+        method: 'PUT',
+    });
+    return await checkMiscResponseStatus(response);
 }
 
-// PUT Deactivate Youth with fireID
+// PUT deactivate youth with @fireID
 async function deactivateYouth(fireID) { 
-    try {    
-        let res = await fetch(`${BACKENDROUTE}/deactivate/${fireID}`, {
-            method: 'PUT',
-            headers: {
-                'Authorization': `Bearer ${this.context.token}`
-            }
-        })
-        return await checkResponseStatus(res)
-    } catch (err) {
-        console.log(err)
-        throw new Error(err)
-    }
+    let response = await fetch(`${BACKEND_ROUTE}/deactivate/${fireID}`, {
+        method: 'PUT',
+    });
+    return await checkMiscResponseStatus(response);
 }
 
-// PUT Add Form to Youth with fireID
-async function addFormToYouth(params) {
-    try {
-        let res = await fetch(`${BACKENDROUTE}/form/${params.fireID}`, {
-            method: 'PUT',
-            body: JSON.stringify(params.Form),
-            headers: {
-                'Authorization': `Bearer ${this.context.token}`
-            }
-        })
-        return await checkResponseStatus(res)
-    } catch (err) {
-        console.log(err)
-        throw new Error(err)
-    }
+// PUT add form to youth with @fireID
+async function createYouthForm(fireID, body) {
+    let res = await fetch(`${BACKEND_ROUTE}/form/${fireID}`, {
+        method: 'PUT',
+        body: JSON.stringify(body),
+        headers: {'Content-Type' : 'application/json'}
+    })
+    return await checkMiscResponseStatus(res)
 }
 
 export {
@@ -207,5 +116,5 @@ export {
     getEventsByFireID,
     activateYouth,
     deactivateYouth,
-    addFormToYouth
+    createYouthForm
 }

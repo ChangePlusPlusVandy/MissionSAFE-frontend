@@ -19,11 +19,12 @@ async function checkMiscResponseStatus(response) {
 }
 
 // POST new event
-async function createEvent (event) {
+async function createEvent (body) {
     let response = await fetch(`${BACKEND_ROUTE}`, {
         method: 'POST',
-        body: JSON.stringify(event)
-    })
+        body: JSON.stringify(body),
+        headers: {'Content-Type' : 'application/json'}
+    });
     return await checkJSONResponseStatus(response);
 } 
 
@@ -32,6 +33,7 @@ async function attendEvent(eventCode, body) {
     let response = await fetch(`${BACKEND_ROUTE}/attend/${eventCode}`, {
         method: 'PUT',
         body: JSON.stringify(body),
+        headers: {'Content-Type' : 'application/json'}
     })
     return await checkMiscResponseStatus(response)
 }
@@ -41,6 +43,7 @@ async function createEventForm(eventCode, body) {
     let response = await fetch(`${BACKEND_ROUTE}/form/${eventCode}`, {
         method: 'PUT',
         body: JSON.stringify(body),
+        headers: {'Content-Type' : 'application/json'}
     })
     return await checkMiscResponseStatus(response)
 }

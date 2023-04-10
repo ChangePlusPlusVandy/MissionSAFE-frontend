@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import SearchPage from "./pages/SearchPage/SearchPage";
+import AdminHome from "./pages/AdminHome/AdminHome";
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
 import StaffRegistration from "./pages/StaffRegistration/StaffRegistration";
 import YouthRegistration from "./pages/YouthRegistration/YouthRegistration";
@@ -42,7 +43,7 @@ class App extends React.Component {
           <Route path="/youth-register" element={<YouthRegistration />} />
           <Route path="/staff-home" element={<StaffHome user={this.state.user}/>} />
           <Route path="/records" element={<SearchPage />} />
-          <Route path="/admin" element={<StaffHome /> /* TODO */} />
+          <Route path="/admin" element={<AdminHome user={this.state.user}/> } />
           <Route path="/create-event" element={<CreateEvent user={this.state.user}/>} />
           <Route path="/attend-event" element={<AttendEvent />} />
           <Route path="/create-form/:type/:id" element={<CreateForm />} /> 

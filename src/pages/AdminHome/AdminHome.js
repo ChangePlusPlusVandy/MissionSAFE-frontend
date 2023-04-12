@@ -1,6 +1,13 @@
 import React from "react";
 import { Navigate } from "react-router";
-import { getActiveStaff, getInactiveStaff } from "../../util/ServerIntefaceStaff";
+import { getStaff, 
+    activateStaff, 
+    deactivateStaff, 
+    setStaffAsAdmin, 
+    removeStaffAsAdmin,
+    setStaffAsCounselor,
+    removeStaffAsCounselor 
+} from "../../util/ServerIntefaceStaff";
 import "./AdminHome.scss";
 
 class AdminHome extends React.Component {
@@ -8,31 +15,88 @@ class AdminHome extends React.Component {
         super(props);
 
         this.state = {
-            activeStaff: [],
-            inactiveStaff: [],
+            staff: {},
         }
-
-        this.renderStaff = this.renderStaff.bind(this)
+        this.renderStaff = this.renderStaff.bind(this);
+        this.handleToggle = this.handleToggle.bind(this);
     }
 
     async componentDidMount() {
-        let activeStaff = await getActiveStaff();
-        let inactiveStaff = await getInactiveStaff();
-
-        this.setState({
-            activeStaff,
-            inactiveStaff
-        })
+        let staffList = await getStaff();
+        let idIndexedStaff = staffList.reduce((map, staff) => {
+            map[staff.fireID] = staff;
+            return map;
+        }, {}); 
+        this.setState({ staff: idIndexedStaff });
     }
 
-    renderStaff(staffList) {
-        return staffList.map(staff => {
+    async handleToggle(event) {
+        let fireID = event.target.name.split("|")[0];
+        let attribute = event.target.name.split("|")[1];
+        try {
+            let activate = !this.state.staff[fireID][attribute];
+            let status = null;
+            if(activate) {
+                console.log("Activating ...")
+                switch(attribute) {
+                    case "active":
+                        console.log("active")
+                        status = await activateStaff(fireID);
+                        break;
+                    case "counselor":
+                        console.log("counselor")
+                        status = await setStaffAsCounselor(fireID);
+                        break;
+                    case "admin":
+                        console.log("admin")
+                        status = await setStaffAsAdmin(fireID);
+                        break;
+                    default:
+                        throw new Error("Update unavailable.")
+                }
+            } else {
+                console.log("Deactivating ...")
+                switch(attribute) {
+                    case "active":
+                        console.log("active")
+                        status = await deactivateStaff(fireID);
+                        break;
+                    case "counselor":
+                        console.log("counselor")
+                        status = await removeStaffAsCounselor(fireID);
+                        break;
+                    case "admin":
+                        console.log("admin")
+                        status = await removeStaffAsAdmin(fireID);
+                        break;
+                    default:
+                        throw new Error("Update unavailable.")
+                }
+            }
+            if(!status) {
+                throw new Error("Failed to make update.");
+            }
+            
+            let oldStaff = this.state.staff;
+            oldStaff[fireID][attribute] = activate;
+            this.setState({
+                staff: oldStaff
+            }); 
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
+    renderStaff(staffMap) {
+        return Object.keys(staffMap).map((fireID) => {
+            let staff = this.state.staff[fireID];
             return (
-                <div className="staff" key={staff.fireID}>
-                    <p>{staff.firstName} {staff.lastName}</p>
-                    <p>Counselor: {staff.counselor}</p>
-                    <p>Admin: {staff.admin}</p>
-                </div>
+                <tr className="staff-row" key={fireID}>
+                    <td className="staff-name">{staff.firstName} {staff.lastName}</td>
+                    <td><input onChange={this.handleToggle} name={`${fireID}|active`} type="checkbox" checked={staff.active}/></td>
+                    <td><input onChange={this.handleToggle} name={`${fireID}|counselor`} type="checkbox" checked={staff.counselor}/></td>
+                    <td><input onChange={this.handleToggle} name={`${fireID}|admin`} type="checkbox" checked={staff.admin}/></td>
+                </tr>
             );
         });
     }
@@ -45,14 +109,17 @@ class AdminHome extends React.Component {
                 return (
                     <div className="page-container">
                         <p id="admin-title">Admin Dashboard</p>
-                        <p>Active Staff</p>
-                        <div className="staff-container">
-                            {this.renderStaff(this.state.activeStaff)}
-                        </div>
-                        <p>Inactive Staff</p>
-                        <div className="staff-container">
-                            {this.renderStaff(this.state.inactiveStaff)}
-                        </div>
+                        <table className="staff-container">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Active?</th>
+                                    <th>Counselor?</th>
+                                    <th>Admin?</th>
+                                </tr>
+                                {this.renderStaff(this.state.staff)}
+                            </tbody>
+                        </table>
                     </div>
                 )
             }

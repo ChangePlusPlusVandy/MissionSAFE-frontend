@@ -1,9 +1,8 @@
-import React from "react"
-import Firebase from "../../util/Firebase"
-import { Navigate } from "react-router-dom"
-import { Link } from "react-router-dom"
-import { getStaffByID } from "../../util/staffEPs";
-import "./LoginPage.scss"
+import React from "react";
+import Firebase from "../../util/Firebase";
+import { getStaffByID } from "../../util/ServerIntefaceStaff";
+import { Link, Navigate } from "react-router-dom";
+import "./LoginPage.scss";
 
 import Logo from "../../assets/mission-safe-logo.png";
 

@@ -6,7 +6,6 @@ import Logo from "../../assets/mission-safe-logo.png";
 import Youth from "../../assets/youth.png";
 import Staff from "../../assets/staff.png";
 
-
 class RegistrationPage extends React.Component {
     render() {
         return (

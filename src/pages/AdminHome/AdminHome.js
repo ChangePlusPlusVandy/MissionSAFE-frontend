@@ -37,36 +37,28 @@ class AdminHome extends React.Component {
             let activate = !this.state.staff[fireID][attribute];
             let status = null;
             if(activate) {
-                console.log("Activating ...")
                 switch(attribute) {
                     case "active":
-                        console.log("active")
                         status = await activateStaff(fireID);
                         break;
                     case "counselor":
-                        console.log("counselor")
                         status = await setStaffAsCounselor(fireID);
                         break;
                     case "admin":
-                        console.log("admin")
                         status = await setStaffAsAdmin(fireID);
                         break;
                     default:
                         throw new Error("Update unavailable.")
                 }
             } else {
-                console.log("Deactivating ...")
                 switch(attribute) {
                     case "active":
-                        console.log("active")
                         status = await deactivateStaff(fireID);
                         break;
                     case "counselor":
-                        console.log("counselor")
                         status = await removeStaffAsCounselor(fireID);
                         break;
                     case "admin":
-                        console.log("admin")
                         status = await removeStaffAsAdmin(fireID);
                         break;
                     default:
@@ -83,7 +75,7 @@ class AdminHome extends React.Component {
                 staff: oldStaff
             }); 
         } catch(error) {
-            console.log(error)
+            alert(error);
         }
     }
 
@@ -111,7 +103,7 @@ class AdminHome extends React.Component {
                         <p id="admin-title">Admin Dashboard</p>
                         <table className="staff-container">
                             <tbody>
-                                <tr>
+                                <tr className="header">
                                     <th>Name</th>
                                     <th>Active?</th>
                                     <th>Counselor?</th>

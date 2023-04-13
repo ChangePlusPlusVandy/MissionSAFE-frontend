@@ -32,8 +32,8 @@ class CreateEvent extends React.Component {
         if(this.state.program.length > 0) { // DUMMY PROGRAM CHECKING
             try {
                 let event = await createEvent({
-                    name: [this.state.name],
-                    description: [this.state.description],
+                    name: this.state.name,
+                    description: this.state.description,
                     programs: [this.state.program],
                 });
                 this.setState({

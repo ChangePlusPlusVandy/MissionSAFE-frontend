@@ -1,5 +1,6 @@
 import React from "react";
-import { createYouthForm, createEventForm } from "../../util/staffEPs";
+import { createEventForm } from "../../util/ServerInterfaceEvents";
+import { createYouthForm } from "../../util/ServerInterfaceYouth";
 import { Navigate } from "react-router";
 import "./CreateForm.scss"
 

@@ -1,51 +1,63 @@
-import fetch from 'node-fetch';
-import UserContext from "../context/UserContext"
+// Server-client interface for /api/events
+const BACKEND_ROUTE = "http://localhost:4000/api/events";
 
-const BACKENDROUTE = 'localhost://4000/api/events'
-const contextType = UserContext
-
-// Status checker   
-async function checkResponseStatus(res) {
-    if(res.ok){
-        return res.JSON()
-    } else {
-        throw new Error(`The HTTP status of the response: ${res.status} (${res.statusText})`);
+// JSON response checker   
+async function checkJSONResponseStatus(response) {
+    if(!response.ok) {
+        throw new Error(response.statusText);
     }
+    let parsedResponse = await response.json();
+    return parsedResponse;
 }
 
-// PUT Add Youth to Event with eventCode
-async function attendEvent(params) {
-    try {         
-        res = await fetch(`${BACKENDROUTE}/?attend=${params.eventCode}`, {
-            method: 'PUT',
-            body: JSON.stringify(params.Youth),
-            headers: {
-                'Authorization': `Bearer ${this.contextType.token}`
-            }
-        })
-        await checkResponseStatus(res)
-    } catch (err) {
-        res.send(err)
+// Miscellaneous response checker
+async function checkMiscResponseStatus(response) {
+    if(!response.ok) {
+        throw new Error(response.statusText);
     }
+    return true;
 }
 
-// PUT Add Form to Event with eventCode
-async function addFormToEvent(params) {
-    try {    
-        res = await fetch(`${BACKENDROUTE}/?form=${params.eventCode}`, {
-            method: 'PUT',
-            body: JSON.stringify(params.form),
-            headers: {
-                'Authorization': `Bearer ${this.contextType.token}`
-            }
-        })
-        await checkResponseStatus(res)
-    } catch (err) {
-        res.send(err)
-    }
+// POST new event
+async function createEvent (body) {
+    let response = await fetch(`${BACKEND_ROUTE}`, {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: {'Content-Type' : 'application/json'}
+    });
+    return await checkJSONResponseStatus(response);
+} 
+
+// PUT mark attendance
+async function attendEvent(eventCode, body) {
+    let response = await fetch(`${BACKEND_ROUTE}/attend/${eventCode}`, {
+        method: 'PUT',
+        body: JSON.stringify(body),
+        headers: {'Content-Type' : 'application/json'}
+    })
+    return await checkMiscResponseStatus(response)
 }
 
-export default {
+// PUT new form form event
+async function createEventForm(eventCode, body) {
+    let response = await fetch(`${BACKEND_ROUTE}/form/${eventCode}`, {
+        method: 'PUT',
+        body: JSON.stringify(body),
+        headers: {'Content-Type' : 'application/json'}
+    })
+    return await checkMiscResponseStatus(response)
+}
+
+// GET event with @eventCode
+async function getEvent(eventCode) {
+    let response = await fetch(`${BACKEND_ROUTE}/${eventCode}`)
+    return await checkJSONResponseStatus(response)
+}
+
+
+export {
+    createEvent,
     attendEvent,
-    addFormToEvent
+    getEvent,
+    createEventForm,
 }

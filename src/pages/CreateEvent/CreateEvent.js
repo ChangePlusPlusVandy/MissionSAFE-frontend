@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router";
-import { createEvent } from "../../util/staffEPs";
+import { createEvent } from "../../util/ServerInterfaceEvents";
 import "./CreateEvent.scss";
 
 class CreateEvent extends React.Component {
@@ -9,8 +9,8 @@ class CreateEvent extends React.Component {
 
         this.state = {
             program: "",
-            errorMessage: "",
             eventCode: null,
+            errorMessage: "",
         }
 
         this.handleUpdate = this.handleUpdate.bind(this);
@@ -29,19 +29,13 @@ class CreateEvent extends React.Component {
         event.preventDefault();
         if(this.state.program.length > 0) { // DUMMY PROGRAM CHECKING
             try {
-                console.log({
-                    fireID: this.props.user.fireID,
-                    programs: [this.state.program],
-                })
                 let event = await createEvent({
-                    fireID: this.props.user.fireID,
                     programs: [this.state.program],
                 });
                 this.setState({
                     eventCode: event.code,
                 })
             } catch(err) {
-                console.log(err);
                 this.setState({
                     errorMessage: "Failed to create event, please try again."
                 });

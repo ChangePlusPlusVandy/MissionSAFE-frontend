@@ -82,22 +82,34 @@ async function deactivateStaff (fireID) {
 
 // PUT set staff as counselor
 async function setStaffAsCounselor (fireID) {
-    // TODO add-admin
+    let response = await fetch(`${BACKEND_ROUTE}/giveCounselor/${fireID}`, {
+        method: 'PUT',
+    });
+    return await checkMiscResponseStatus(response);
 }
 
 // PUT set staff as non-counselor
 async function removeStaffAsCounselor (fireID) {
-    // TODO add-admin
+    let response = await fetch(`${BACKEND_ROUTE}/removeCounselor/${fireID}`, {
+        method: 'PUT',
+    });
+    return await checkMiscResponseStatus(response);
 }
 
 // PUT set staff as admin
 async function setStaffAsAdmin (fireID) {
-    // TODO add-admin
+    let response = await fetch(`${BACKEND_ROUTE}/giveAdmin/${fireID}`, {
+        method: 'PUT',
+    });
+    return await checkMiscResponseStatus(response);
 }
 
 // PUT set staff as non-admin
 async function removeStaffAsAdmin (fireID) {
-    // TODO add-admin
+    let response = await fetch(`${BACKEND_ROUTE}/removeAdmin/${fireID}`, {
+        method: 'PUT',
+    });
+    return await checkMiscResponseStatus(response);
 }
 
 export {

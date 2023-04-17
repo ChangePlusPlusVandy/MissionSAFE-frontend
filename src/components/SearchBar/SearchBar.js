@@ -56,7 +56,7 @@ class SearchBar extends React.Component {
                     <div>
                     <label htmlFor='dropdown'>For:</label>
                     <select id='dropdown' className='search-for' value={this.state.category} onChange={(e) => {
-                        this.setState({ category: e.target.value, criteria: "" }, () => {
+                        this.setState({ category: e.target.value, criteria: "ID" }, () => {
                             this.updateResults()
                         });
                     }}>
@@ -88,7 +88,6 @@ class SearchBar extends React.Component {
                         <select id='dropdown' className='search-by' value={this.state.criteria} onChange={(e) => {
                             this.setState({ criteria: e.target.value }, this.updateResults);
                         }}>
-                            <option value=""></option>
                             <option value="ID">Youth ID</option>
                             <option value="Event-Code">Event Code</option>
                         </select>

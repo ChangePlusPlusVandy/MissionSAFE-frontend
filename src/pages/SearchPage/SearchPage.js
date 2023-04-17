@@ -21,21 +21,11 @@ const SearchPage = () => {
     category: "Youth",
     criteria: "",
     text: "",
-    startDate: 0,
-    endDate: 0,
+    startDate: null,
+    endDate: null,
   });
 
   const onSearchButtonClick = () => {
-    //Convert Dates to milliseconds since 1980 or 0 if date is invalid
-    let startTime = searchState.startDate.getTime();
-    if (!startTime) {
-      startTime = 0;
-    }
-    let endTime = searchState.endDate.getTime();
-    if (!endTime) {
-      endTime = 0;
-    }
-
     switch (searchState.category) {
       case "Youth":
         updateYouthResults(searchState.criteria, searchState.text);
@@ -44,16 +34,16 @@ const SearchPage = () => {
         updateFormResults(
           searchState.criteria,
           searchState.text,
-          startTime,
-          endTime
+          searchState.startDate,
+          searchState.endDate
         );
         break;
       case "Event":
         updateEventResults(
           searchState.criteria,
           searchState.text,
-          startTime,
-          endTime
+          searchState.startDate,
+          searchState.endDate
         );
         break;
       default:
@@ -62,35 +52,22 @@ const SearchPage = () => {
     }
   };
 
-  const dateFilter = (results, startTime, endTime) => {
-    function checkStartDate(result) {
-      return new Date(result.date).getTime() >= startTime;
-    }
-    function checkEndDate(result) {
-      return new Date(result.date).getTime() <= endTime;
+  const dateFilter = (givenDate, startDate, endDate) => {
+    function isWithinDateRange(givenDate) {
+      const isAfterStartDate =
+        startDate === null || givenDate.getTime() >= startDate.getTime();
+      const isBeforeEndDate =
+        endDate === null || givenDate.getTime() <= endDate.getTime();
+
+      return isAfterStartDate && isBeforeEndDate;
     }
 
-    if (startTime > 0) {
-      results = results.filter(checkStartDate);
-    }
-    if (endTime > 0) {
-      endTime += 1000 * 60 * 60 * 24;
-      results = results.filter(checkEndDate);
-    }
-    return results;
+    return givenDate.filter(isWithinDateRange);
   };
 
   const updateFormResults = (criteria, text, startTime, endTime) => {
-    //Call to backend for results later
-    var summary = "Showing results";
-    if (text.length > 0) {
-      summary += ' for "' + text + '"';
-    }
-    if (criteria.length > 0) {
-      summary += " by " + criteria;
-    }
-    summary += " within Forms";
-    //Dummy Results
+    const summary = getSummary("Youth", criteria, text);
+
     let promise;
     switch (criteria) {
       case "ID":
@@ -109,7 +86,7 @@ const SearchPage = () => {
       promise.then(
         (result) => {
           //add results to eventResults
-          setFormResults(dateFilter(result, startTime, endTime));
+          setFormResults(dateFilter(result.date, startTime, endTime));
           setSearchSummary(summary);
           // everything else should be empty
           setYouthResults([]);
@@ -124,15 +101,7 @@ const SearchPage = () => {
   };
 
   const updateYouthResults = (criteria, text) => {
-    //Call to backend for results later
-    var summary = "Showing results";
-    if (text.length > 0) {
-      summary += ' for "' + text + '"';
-    }
-    if (criteria.length > 0) {
-      summary += " by " + criteria;
-    }
-    summary += " within Youth";
+    const summary = getSummary("Youth", criteria, text);
 
     let promise;
     switch (criteria) {
@@ -172,16 +141,8 @@ const SearchPage = () => {
   };
 
   const updateEventResults = (criteria, text, startTime, endTime) => {
-    //call backend for real results later
-    var summary = "Showing results";
-    if (text.length > 0) {
-      summary += ' for "' + text + '"';
-    }
-    if (criteria.length > 0) {
-      summary += " by " + criteria;
-    }
-    summary += " within Events";
-    //dummy results
+    const summary = getSummary("Youth", criteria, text);
+
     let promise;
     switch (criteria) {
       case "ID":
@@ -198,7 +159,7 @@ const SearchPage = () => {
       promise.then(
         (result) => {
           //add results to eventResults
-          setEventResults(dateFilter(result, startTime, endTime));
+          setEventResults(dateFilter(result.date, startTime, endTime));
           setSearchSummary(summary);
           // everything else should be empty
           setFormResults([]);
@@ -210,6 +171,18 @@ const SearchPage = () => {
         }
       );
     }
+  };
+
+  const getSummary = (category, criteria, text) => {
+    var summary = "Showing results";
+    if (text.length > 0) {
+      summary += ' for "' + text + '"';
+    }
+    if (criteria.length > 0) {
+      summary += " by " + criteria;
+    }
+    summary += " within " + category;
+    return summary;
   };
 
   return (

@@ -33,6 +33,7 @@ const SearchBar = ({ searchState, setSearchState }) => {
           setSearchState({ ...searchState, text: e.target.value })
         }
         radius="lg"
+        disabled={searchState.criteria === ""}
       />
       <Group>
         <Select
@@ -84,6 +85,7 @@ const SearchBar = ({ searchState, setSearchState }) => {
                 startDate: date,
               });
             }}
+            clearable
           />
           <DatePickerInput
             w="140px"
@@ -97,6 +99,7 @@ const SearchBar = ({ searchState, setSearchState }) => {
                 endDate: date,
               });
             }}
+            clearable
           />
         </Group>
       )}

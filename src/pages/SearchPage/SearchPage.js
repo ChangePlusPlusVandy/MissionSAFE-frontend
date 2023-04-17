@@ -75,7 +75,7 @@ const SearchPage = () => {
   };
 
   const updateFormResults = (criteria, text, startTime, endTime) => {
-    const summary = getSummary("Youth", criteria, text);
+    const summary = getSummary("Form", criteria, text);
 
     let promise;
     switch (criteria) {
@@ -154,7 +154,7 @@ const SearchPage = () => {
   };
 
   const updateEventResults = (criteria, text, startTime, endTime) => {
-    const summary = getSummary("Youth", criteria, text);
+    const summary = getSummary("Event", criteria, text);
 
     let promise;
     switch (criteria) {

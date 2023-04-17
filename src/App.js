@@ -15,6 +15,7 @@ import YouthSuccess from "./pages/YouthSuccess/YouthSuccess";
 import StaffSuccess from "./pages/StaffSuccess/StaffSuccess";
 import AttendSuccess from "./pages/AttendSuccess/AttendSuccess";
 import Unauthorized from "./pages/Unauthorized/Unauthorized";
+import IndividualForm from "./pages/FormDetails/IndividualForm";
 import "./App.scss"
 import IndividualYouth from "./pages/IndividualYouth/IndividualYouth";
 
@@ -50,7 +51,7 @@ class App extends React.Component {
           <Route path="/create-form/:type/:id" element={<CreateForm />} /> 
           <Route path="/youth/:id" element={<IndividualYouth /> /* TODO */} />
           <Route path="/event/:code" element={<StaffHome /> /* TODO */} />
-          <Route path="/form/:id" element={<StaffHome /> /* TODO */} />
+          <Route path="/form/:id" element={<IndividualForm /> /* TODO */} />
           <Route path="/youth-success" element={<YouthSuccess />} />
           <Route path="/staff-success" element={<StaffSuccess />} />
           <Route path="/attend-success" element={<AttendSuccess />} />

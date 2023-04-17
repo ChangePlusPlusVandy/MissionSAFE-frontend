@@ -35,6 +35,7 @@ const SearchBar = ({ searchState, setSearchState }) => {
         <Select
           w="140px"
           label="Search for"
+          labelProps={{ style: { color: "white" } }}
           id="dropdown"
           size="xs"
           width={20}
@@ -43,6 +44,7 @@ const SearchBar = ({ searchState, setSearchState }) => {
             setSearchState({
               ...searchState,
               category: value,
+              criteria: searchByData[value][0].value,
             })
           }
           data={[
@@ -55,6 +57,7 @@ const SearchBar = ({ searchState, setSearchState }) => {
           w="140px"
           id="search-by-dropdown"
           label="Search by"
+          labelProps={{ style: { color: "white" } }}
           size="xs"
           value={searchState.criteria}
           onChange={(value) =>
@@ -70,6 +73,7 @@ const SearchBar = ({ searchState, setSearchState }) => {
             w="140px"
             size="xs"
             label="From"
+            labelProps={{ style: { color: "white" } }}
             value={searchState.startDate}
             onChange={(date) => {
               setSearchState({
@@ -82,6 +86,7 @@ const SearchBar = ({ searchState, setSearchState }) => {
             w="140px"
             size="xs"
             label="To"
+            labelProps={{ style: { color: "white" } }}
             value={searchState.endDate}
             onChange={(date) => {
               setSearchState({

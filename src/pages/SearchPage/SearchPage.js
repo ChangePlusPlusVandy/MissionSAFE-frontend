@@ -6,7 +6,7 @@ import "./SearchPage.scss";
 import dateFormat from "dateformat";
 import * as serverUtils from "../../util/ServerInterfaceYouth";
 import { getEvent } from "../../util/ServerInterfaceEvents";
-import { getFormsByEventCode } from "../../util/ServerInterfaceForm";
+import { getFormsByEventCode, getAllForms } from "../../util/ServerInterfaceForm";
 // import ReportGenerator from "../../components/ReportGenerator";
 // import { PDFDownloadLink } from "@react-pdf/renderer";
 import { Button } from "@mantine/core";
@@ -62,6 +62,9 @@ const SearchPage = () => {
 
 		let promise;
 		switch (criteria) {
+            case "":
+                promise = getAllForms();
+                break;
 			case "ID":
 				promise = serverUtils.getFormsByFireID(text);
 				break;

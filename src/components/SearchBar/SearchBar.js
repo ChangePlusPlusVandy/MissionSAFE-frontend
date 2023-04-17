@@ -12,6 +12,7 @@ const SearchBar = ({ searchState, setSearchState }) => {
       { value: "ID", label: "Youth ID" },
     ],
     Form: [
+      { value: "", label: "Get All" },
       { value: "ID", label: "Youth ID" },
       { value: "Event-Code", label: "Event Code" },
     ],

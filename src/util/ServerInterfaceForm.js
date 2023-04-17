@@ -27,7 +27,14 @@ async function getFormsByEventCode(eventCode) {
     return await checkResponseStatus(res)
 }
 
+// GET all forms
+async function getAllForms() {
+    let res = await fetch(`${BACKEND_ROUTE}`)
+    return await checkResponseStatus(res)
+}
+
 export {
     getFormByID,
-    getFormsByEventCode
+    getFormsByEventCode,
+    getAllForms
 }

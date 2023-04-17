@@ -6,7 +6,10 @@ import dateFormat from "dateformat";
 import * as youthServerUtils from "../../util/ServerInterfaceYouth";
 import * as eventServerUtils from "../../util/ServerInterfaceEvents";
 import { getEvent } from "../../util/ServerInterfaceEvents";
-import { getFormsByEventCode } from "../../util/ServerInterfaceForm";
+import {
+  getFormsByEventCode,
+  getAllForms,
+} from "../../util/ServerInterfaceForm";
 import { Button, Divider, Box } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 import HeaderResponsive from "../../components/Header/Header";
@@ -76,6 +79,9 @@ const SearchPage = () => {
 
     let promise;
     switch (criteria) {
+      case "":
+        promise = getAllForms();
+        break;
       case "ID":
         promise = youthServerUtils.getFormsByFireID(text);
         break;

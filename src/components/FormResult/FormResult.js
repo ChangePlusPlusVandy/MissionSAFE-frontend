@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Avatar, Text, Button, Stack, Group, Divider } from "@mantine/core";
 import { IconForms } from "@tabler/icons-react";
+import dateFormat from "dateformat";
 
 class FormResult extends React.Component {
   state = {
@@ -20,7 +21,7 @@ class FormResult extends React.Component {
             <Stack spacing={0}>
               <Text>{this.props.form.name}</Text>
               <Text size="sm" color="gray">
-                {"For " + this.props.form.staff}
+                {"For " + dateFormat(this.props.form.date, "longDate")}
               </Text>
             </Stack>
           </Group>

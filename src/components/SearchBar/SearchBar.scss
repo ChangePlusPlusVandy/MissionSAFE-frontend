@@ -1,92 +1,90 @@
-.search-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-top: 0px;
+.search-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 0px;
 }
 
-.search-icon{
-    height: 50px;
+.search-icon {
+  height: 50px;
 }
 
-.search-for{
-    margin: 5px;
-    height: 30px;
-    width: 80px;
-    background: #F4F4F4;
-    border-radius: 12px;
-    font-size: 15px;
+.search-for {
+  margin: 5px;
+  height: 30px;
+  width: 80px;
+  background: #f4f4f4;
+  border-radius: 12px;
+  font-size: 15px;
 }
 
-.search-by{
-    margin: 5px;
-    height: 30px;
-    width: 110px;
-    background: #F4F4F4;
-    border-radius: 12px;
-    font-size: 15px;
+.search-by {
+  margin: 5px;
+  height: 30px;
+  width: 110px;
+  background: #f4f4f4;
+  border-radius: 12px;
+  font-size: 15px;
 }
 
-.text-search{
-    position: absolute;
-    background: #F4F4F4;
-    border-radius: 18px;
-    margin-top: 20px;
-    left: 40%;
-    right: 40%;
-    height: 40px;
-    font-size: 18px;
-    padding-left: 30px;
-    display: block;
-    border-top-style: hidden;
-    border-right-style: hidden;
-    border-left-style: hidden;
-    border-bottom-style: groove;
-    background-position-x: 10px;
-    background-position-y: center;
-    background-image:url("./assets/search-icon.png");
-    background-size: 15px;
-    background-repeat: no-repeat;
+.text-search {
+  position: absolute;
+  background: #f4f4f4;
+  border-radius: 18px;
+  margin-top: 20px;
+  left: 40%;
+  right: 40%;
+  height: 40px;
+  font-size: 18px;
+  padding-left: 30px;
+  display: block;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: groove;
+  background-position-x: 10px;
+  background-position-y: center;
+  background-image: url("./assets/search-icon.png");
+  background-size: 15px;
+  background-repeat: no-repeat;
 }
 
-
-.both-dropdowns{
-    display: flex;
-    flex-direction: row;
-    margin-top: 70px;
-    font-family: 'Arial';
-    font-style: normal;
-    font-weight: 500;
-    color: white;
-    font-size: 22px;
-    line-height: 18px;
-    letter-spacing: 0.01em;
-    justify-content: center;
-    align-items: center;
+.both-dropdowns {
+  //   display: flex;
+  //   flex-direction: row;
+  //   margin-top: 10px;
+  //   font-style: normal;
+  //   font-weight: 500;
+  //   color: white;
+  //   font-size: 22px;
+  //   line-height: 18px;
+  //   letter-spacing: 0.01em;
+  //   justify-content: center;
+  //   align-items: center;
 }
 
-.form-event-row{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.form-event-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
-.date-picker-holder{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-.date-picker-header{
-    width: 80px;
-    background: #F4F4F4;
-    border-radius: 12px;
-    font-size: 15px;
+.date-picker-holder {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
-.date-picker{
-    border-radius: 12px;
-    height: 30px;
-    width: 110px;
-    margin: 5px;
+.date-picker-header {
+  width: 80px;
+  background: #f4f4f4;
+  border-radius: 12px;
+  font-size: 15px;
+}
+
+.date-picker {
+  border-radius: 12px;
+  height: 30px;
+  width: 110px;
+  margin: 5px;
 }

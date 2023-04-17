@@ -16,8 +16,9 @@ import StaffSuccess from "./pages/StaffSuccess/StaffSuccess";
 import AttendSuccess from "./pages/AttendSuccess/AttendSuccess";
 import Unauthorized from "./pages/Unauthorized/Unauthorized";
 import IndividualForm from "./pages/FormDetails/IndividualForm";
-import "./App.scss"
+import "./App.scss";
 import IndividualYouth from "./pages/IndividualYouth/IndividualYouth";
+import { MantineProvider } from "@mantine/core";
 
 class App extends React.Component {
   constructor(props) {
@@ -36,29 +37,50 @@ class App extends React.Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage handleLogin={this.handleLogin}/>} />
-          <Route path="/register" element={<RegistrationPage />} />
-          <Route path="/staff-register" element={<StaffRegistration handleLogin={this.handleLogin}/>} />
-          <Route path="/youth-register" element={<YouthRegistration />} />
-          <Route path="/staff-home" element={<StaffHome user={this.state.user}/>} />
-          <Route path="/records" element={<SearchPage />} />
-          <Route path="/admin" element={<AdminHome user={this.state.user}/> } />
-          <Route path="/create-event" element={<CreateEvent user={this.state.user}/>} />
-          <Route path="/attend-event" element={<AttendEvent />} />
-          <Route path="/create-form/:type/:id" element={<CreateForm />} /> 
-          <Route path="/youth/:id" element={<IndividualYouth /> /* TODO */} />
-          <Route path="/event/:code" element={<StaffHome /> /* TODO */} />
-          <Route path="/form/:id" element={<IndividualForm /> /* TODO */} />
-          <Route path="/youth-success" element={<YouthSuccess />} />
-          <Route path="/staff-success" element={<StaffSuccess />} />
-          <Route path="/attend-success" element={<AttendSuccess />} />
-          <Route path="/unauthorized" element={<Unauthorized />} />
-        </Routes>
-      </BrowserRouter>
-    )
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        theme={{ primaryColor: "red" }}
+      >
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route
+              path="/login"
+              element={<LoginPage handleLogin={this.handleLogin} />}
+            />
+            <Route path="/register" element={<RegistrationPage />} />
+            <Route
+              path="/staff-register"
+              element={<StaffRegistration handleLogin={this.handleLogin} />}
+            />
+            <Route path="/youth-register" element={<YouthRegistration />} />
+            <Route
+              path="/staff-home"
+              element={<StaffHome user={this.state.user} />}
+            />
+            <Route path="/records" element={<SearchPage />} />
+            <Route
+              path="/admin"
+              element={<AdminHome user={this.state.user} />}
+            />
+            <Route
+              path="/create-event"
+              element={<CreateEvent user={this.state.user} />}
+            />
+            <Route path="/attend-event" element={<AttendEvent />} />
+            <Route path="/create-form/:type/:id" element={<CreateForm />} />
+            <Route path="/youth/:id" element={<IndividualYouth />} />
+            <Route path="/event/:code" element={<StaffHome /> /* TODO */} />
+            <Route path="/form/:id" element={<IndividualForm />} />
+            <Route path="/youth-success" element={<YouthSuccess />} />
+            <Route path="/staff-success" element={<StaffSuccess />} />
+            <Route path="/attend-success" element={<AttendSuccess />} />
+            <Route path="/unauthorized" element={<Unauthorized />} />
+          </Routes>
+        </BrowserRouter>
+      </MantineProvider>
+    );
   }
 }
 

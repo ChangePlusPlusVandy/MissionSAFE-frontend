@@ -1,117 +1,109 @@
-import './SearchBar.scss'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
-import React from "react"
+import "./SearchBar.scss";
+import React from "react";
+import { TextInput, Select, Group } from "@mantine/core";
+import { DatePickerInput } from "@mantine/dates";
+import { IconSearch } from "@tabler/icons-react";
 
-
-class SearchBar extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            //Defaults for search for, search by, and text-search
-            category: "Youth",
-            criteria: "",
-            text: "",
-            startDate: 0,
-            endDate: 0
-        };
-    }
-    
-    componentDidMount() {
-        this.props.updateYouthResults("","");
-      }
-
-    updateResults() {
-        //Convert Dates to milliseconds since 1980 or 0 if date is invalid
-        let startTime=new Date(this.state.startDate).getTime();
-                if (!startTime){
-                    startTime=0;
-                }
-        let endTime=new Date(this.state.endDate).getTime();
-                if (!endTime){
-                    endTime=0;
-                }
-        //Calls correct update function based on what user is searching for
-        switch (this.state.category) {
-            case "Youth":
-                this.props.updateYouthResults(this.state.criteria, this.state.text);
-                break;
-            case "Form":
-                this.props.updateFormResults(this.state.criteria, this.state.text,startTime,endTime);
-                break;
-            case "Event":
-                this.props.updateEventResults(this.state.criteria, this.state.text, startTime, endTime);
-                break;
-            default:
-                console.log("Error: Invalid category");
-                break;
+const SearchBar = ({ searchState, setSearchState }) => {
+  const searchByData = {
+    Youth: [
+      { value: "", label: "Get All" },
+      { value: "Email", label: "Email" },
+      { value: "Program", label: "Program" },
+      { value: "ID", label: "Youth ID" },
+    ],
+    Form: [
+      { value: "", label: "Get All" },
+      { value: "ID", label: "Youth ID" },
+      { value: "Event-Code", label: "Event Code" },
+    ],
+    Event: [
+      { value: "", label: "Get All" },
+      { value: "ID", label: "Youth ID" },
+      { value: "Event-Code", label: "Event Code" },
+    ],
+  };
+  return (
+    <div className="search-container">
+      <TextInput
+        placeholder="Search"
+        icon={<IconSearch size="0.8rem" />}
+        value={searchState.text}
+        onChange={(e) =>
+          setSearchState({ ...searchState, text: e.target.value })
         }
-    }
-    render() {
-        return (
-            <div className='search-container'>
-                <input type='text' className='text-search'  onChange={(e) => {
-                    this.setState({ text: e.target.value }, this.updateResults)}}/>
-                <div className='both-dropdowns'>
-                    <div>
-                    <label htmlFor='dropdown'>For:</label>
-                    <select id='dropdown' className='search-for' value={this.state.category} onChange={(e) => {
-                        this.setState({ category: e.target.value, criteria: "ID" }, () => {
-                            this.updateResults()
-                        });
-                    }}>
-                        <option value="Youth">Youth</option>
-                        <option value="Form">Form</option>
-                        <option value="Event">Event</option>
-                    </select>
-
-                    </div>
-                {/* if Search for youth: search by email, program, or ID */}
-                {
-                    this.state.category === "Youth" &&
-                    <div>
-                        <label htmlFor='dropdown'>By:</label>
-                        <select id='dropdown' className='search-by' value={this.state.criteria} onChange={(e) => {
-                            this.setState({ criteria: e.target.value }, this.updateResults);
-                        }}>
-                            <option value=""></option>
-                            <option value="Email">Email</option>
-                            <option value="Program">Program</option>
-                            <option value="ID">Youth ID</option>
-                        </select>
-                    </div>
-                }
-                {/* if Search for Form or event: search by Youth ID or Code*/}
-                {(this.state.category === "Form" || this.state.category === "Event") &&
-                    <div className='form-event-row'>
-                        <label htmlFor='dropdown'>By:</label>
-                        <select id='dropdown' className='search-by' value={this.state.criteria} onChange={(e) => {
-                            this.setState({ criteria: e.target.value }, this.updateResults);
-                        }}>
-                            <option value="ID">Youth ID</option>
-                            <option value="Event-Code">Event Code</option>
-                        </select>
-                    
-                        <div className='date-header'>From:</div>
-                        <input className='date-picker' type='date' value={this.state.startDate} onChange={(e) => {
-                            //is date valid
-                            Date.parse(e.target.value)?
-                            //set state
-                            this.setState({ startDate: e.target.value }, this.updateResults)
-                            //otherwise log error
-                            :this.setState({ startDate: "" }, this.updateResults);  
-                        }}/>
-                        <div className='date-header'>To:</div>
-                        <input className='date-picker' type='date' value={this.state.endDate} onChange={(e) => {
-                            //is date valid
-                            Date.parse(e.target.value)?
-                            //set state
-                            this.setState({ endDate: e.target.value }, this.updateResults)
-                            //otherwise log error
-                            :this.setState({ endDate: "" }, this.updateResults);  }}/>
-                    </div>}
-                </div>
-            </div>
-        );
-    }
-} export default SearchBar;
+        radius="lg"
+        disabled={searchState.criteria === ""}
+      />
+      <Group>
+        <Select
+          w="140px"
+          label="Search for"
+          labelProps={{ style: { color: "white" } }}
+          id="dropdown"
+          size="xs"
+          width={20}
+          value={searchState.category}
+          onChange={(value) =>
+            setSearchState({
+              ...searchState,
+              category: value,
+              criteria: searchByData[value][0].value,
+            })
+          }
+          data={[
+            { value: "Youth", label: "Youth" },
+            { value: "Form", label: "Form" },
+            { value: "Event", label: "Event" },
+          ]}
+        />
+        <Select
+          w="140px"
+          id="search-by-dropdown"
+          label="Search by"
+          labelProps={{ style: { color: "white" } }}
+          size="xs"
+          value={searchState.criteria}
+          onChange={(value) =>
+            setSearchState({ ...searchState, criteria: value })
+          }
+          data={searchByData[searchState.category]}
+        />
+      </Group>
+      {(searchState.category === "Form" ||
+        searchState.category === "Event") && (
+        <Group align="center" justify="center">
+          <DatePickerInput
+            w="140px"
+            size="xs"
+            label="From"
+            labelProps={{ style: { color: "white" } }}
+            value={searchState.startDate}
+            onChange={(date) => {
+              setSearchState({
+                ...searchState,
+                startDate: date,
+              });
+            }}
+            clearable
+          />
+          <DatePickerInput
+            w="140px"
+            size="xs"
+            label="To"
+            labelProps={{ style: { color: "white" } }}
+            value={searchState.endDate}
+            onChange={(date) => {
+              setSearchState({
+                ...searchState,
+                endDate: date,
+              });
+            }}
+            clearable
+          />
+        </Group>
+      )}
+    </div>
+  );
+};
+export default SearchBar;

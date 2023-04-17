@@ -6,8 +6,9 @@ import "./SearchPage.scss";
 import dateFormat from "dateformat";
 import * as serverUtils from "../../util/ServerInterfaceYouth";
 import { getEvent } from "../../util/ServerInterfaceEvents";
-import ReportGenerator from "../../components/ReportGenerator";
-import { PDFDownloadLink } from "@react-pdf/renderer";
+// import ReportGenerator from "../../components/ReportGenerator";
+// import { PDFDownloadLink } from "@react-pdf/renderer";
+import { Button } from "@mantine/core";
 
 const SearchPage = () => {
   const [youthResults, setYouthResults] = useState([]);
@@ -15,6 +16,51 @@ const SearchPage = () => {
   const [eventResults, setEventResults] = useState([]);
   const [date, setDate] = useState(dateFormat(new Date(), "fullDate"));
   const [searchSummary, setSearchSummary] = useState("");
+
+  const [searchState, setSearchState] = useState({
+    category: "Youth",
+    criteria: "",
+    text: "",
+    startDate: 0,
+    endDate: 0,
+  });
+
+  const onSearchButtonClick = () => {
+    //Convert Dates to milliseconds since 1980 or 0 if date is invalid
+    let startTime = searchState.startDate.getTime();
+    if (!startTime) {
+      startTime = 0;
+    }
+    let endTime = searchState.endDate.getTime();
+    if (!endTime) {
+      endTime = 0;
+    }
+
+    switch (searchState.category) {
+      case "Youth":
+        updateYouthResults(searchState.criteria, searchState.text);
+        break;
+      case "Form":
+        updateFormResults(
+          searchState.criteria,
+          searchState.text,
+          startTime,
+          endTime
+        );
+        break;
+      case "Event":
+        updateEventResults(
+          searchState.criteria,
+          searchState.text,
+          startTime,
+          endTime
+        );
+        break;
+      default:
+        console.log("Error: Invalid category");
+        break;
+    }
+  };
 
   const dateFilter = (results, startTime, endTime) => {
     function checkStartDate(result) {
@@ -172,12 +218,11 @@ const SearchPage = () => {
         <img className="logo" src={logo} alt="" />
       </div>
       <div className="bar-container">
-        <h1 className="date">{date}</h1>
-        <SearchBar
-          updateYouthResults={updateYouthResults}
-          updateFormResults={updateFormResults}
-          updateEventResults={updateEventResults}
-        />
+        <div className="date">{date}</div>
+        <SearchBar searchState={searchState} setSearchState={setSearchState} />
+        <Button size="sm" onClick={onSearchButtonClick} mt="xs">
+          Search
+        </Button>
       </div>
       <div className="search-summary">
         <p>{searchSummary}</p>

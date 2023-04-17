@@ -91,9 +91,9 @@ const IndividualYouth = () => {
 const YouthForm = ({ name, date, description }) => {
   return (
     <div className="forms-info">
-      <h3>Form Name: {name}</h3>
-      <h3>Date: {dateFormat(date, "paddedShortDate")}</h3>
-      <h3>Description: {description}</h3>
+      <h3>Form Name: <p>{name}</p> </h3>
+      <h3>Date: <p>{dateFormat(date, "paddedShortDate")}</p></h3>
+      <h3>Description: <p> {description} </p></h3>
     </div>
   );
 };
@@ -101,9 +101,9 @@ const YouthForm = ({ name, date, description }) => {
 const YouthEvent = ({ name, date, description }) => {
   return (
     <div className="events-info">
-      <h3>Event Name: {name}</h3>
-      <h3>Date: {dateFormat(date, "paddedShortDate")}</h3>
-      <h3>Description: {description}</h3>
+      <h3>Event Name: <p> {name} </p></h3>
+      <h3>Date: <p> {dateFormat(date, "paddedShortDate")}</p> </h3>
+      <h3>Description: <p>{description}</p></h3>
     </div>
   );
 };

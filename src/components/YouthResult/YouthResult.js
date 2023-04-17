@@ -1,32 +1,34 @@
-import './YouthResult.scss';
+import "./YouthResult.scss";
 import React from "react";
-import {Link} from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
+import { Link } from "react-router-dom";
+import { Avatar, Text, Button, Stack, Group } from "@mantine/core";
 
 class YouthResult extends React.Component {
   state = {
-    url: "/youth/" + this.props.youth.fireID
-  }
+    url: "/youth/" + this.props.youth.fireID,
+  };
   render() {
     return (
-      <div className="youth-result">
-          <div className='user-icon'>
-            <FontAwesomeIcon icon={faCircleUser} size ="3x"></FontAwesomeIcon>
-          </div>
+      <Group align="center" position="apart">
+        <Group>
+          <Avatar color="red" radius="xl">
+            {this.props.youth.firstName.charAt(0) +
+              this.props.youth.lastName.charAt(0)}
+          </Avatar>
+          <Stack>
+            <Text>
+              {this.props.youth.firstName + " " + this.props.youth.lastName}
+            </Text>
+            <Text size="sm" color="gray">
+              {this.props.youth.email}
+            </Text>
+          </Stack>
+        </Group>
 
-          <div className='text-holder'>
-            <p className="youth-name">{this.props.youth.firstName + " " + this.props.youth.lastName}</p>
-            <p className='description'>Youth</p>
-          </div>
-          <div className='button-holder'>
-          <Link to = {this.state.url} target = "_blank">
-            <button className="det-button">
-              Details
-            </button>
-          </Link>
-          </div>
-      </div>
+        <Link to={this.state.url} target="_blank">
+          <Button variant="light">Details</Button>
+        </Link>
+      </Group>
     );
   }
 }

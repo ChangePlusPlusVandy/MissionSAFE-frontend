@@ -3,6 +3,8 @@ import "./AttendEvent.scss";
 import { attendEvent } from "../../util/ServerInterfaceEvents";
 import { Navigate } from "react-router";
 
+import Logo from "../../assets/mission-safe-logo.png";
+
 class AttendEvent extends React.Component {
     constructor(props) {
         super(props)
@@ -53,15 +55,19 @@ class AttendEvent extends React.Component {
             return <Navigate to="/attend-success"/>
         } else {
             return (
-                <div className="page-container">
-                    <p>Event Attendance</p>
+                <div className="page-container" id="attendance-page">
+                    <div id="header">
+                        <img src={Logo} alt="MissionSAFE logo"/>
+                        <p id="title">Event Attendance</p>
+                        <p id="subtitle">Enter your information below.</p>
+                    </div>
                     <div className="attendace-form">
                         <div className="attendance-input">
-                            <p>Email</p>
+                            <p className="form-label">Email</p>
                             <input onChange={this.handleUpdate} name="email" type="text" placeholder="example@email.com"/>
                         </div>
                         <div className="attendance-input">
-                            <p>Event Code</p>
+                            <p className="form-label">Event Code</p>
                             <input onChange={this.handleUpdate} id="code-input" name="code" type="text" placeholder="XXXXX"/>
                         </div>
                     </div>

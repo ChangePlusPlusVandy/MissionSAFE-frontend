@@ -61,7 +61,7 @@ class CreateEvent extends React.Component {
                             <p>What is the name of this event?</p>
                             <input name="name" onChange={this.handleUpdate} type="text"/>
                             <p>Please provide a description of this event</p>
-                            <input description="program" onChange={this.handleUpdate} type="text"/>
+                            <input name="description" onChange={this.handleUpdate} type="text"/>
                             <p>What program is this event associated with?</p>
                             <input name="program" onChange={this.handleUpdate} type="text"/>
                         </div>

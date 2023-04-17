@@ -1,23 +1,23 @@
 import React, { useState } from "react";
 import SearchResults from "../../components/SearchResults/SearchResults";
 import SearchBar from "../../components/SearchBar/SearchBar";
-import logo from "./assets/mission-safe-logo1.png";
 import "./SearchPage.scss";
 import dateFormat from "dateformat";
 import * as serverUtils from "../../util/ServerInterfaceYouth";
 import { getEvent } from "../../util/ServerInterfaceEvents";
-// import ReportGenerator from "../../components/ReportGenerator";
-// import { PDFDownloadLink } from "@react-pdf/renderer";
+import { getFormsByEventCode } from "../../util/ServerInterfaceForm";
 import { Button, Divider, Box } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 import HeaderResponsive from "../../components/Header/Header";
+// import ReportGenerator from "../../components/ReportGenerator";
+// import { PDFDownloadLink } from "@react-pdf/renderer";
 
 const SearchPage = () => {
   const [youthResults, setYouthResults] = useState([]);
   const [formResults, setFormResults] = useState([]);
   const [eventResults, setEventResults] = useState([]);
-  const [date, setDate] = useState(dateFormat(new Date(), "fullDate"));
   const [searchSummary, setSearchSummary] = useState("");
+  const date = dateFormat(new Date(), "fullDate");
 
   const [searchState, setSearchState] = useState({
     category: "Youth",
@@ -54,7 +54,7 @@ const SearchPage = () => {
     }
   };
 
-  const dateFilter = (givenDate, startDate, endDate) => {
+  const dateFilter = (result, startDate, endDate) => {
     function isWithinDateRange(givenDate) {
       const isAfterStartDate =
         startDate === null || givenDate.getTime() >= startDate.getTime();
@@ -64,7 +64,10 @@ const SearchPage = () => {
       return isAfterStartDate && isBeforeEndDate;
     }
 
-    return givenDate.filter(isWithinDateRange);
+    return result.filter((item) => {
+      const itemDate = new Date(item.date);
+      return isWithinDateRange(itemDate);
+    });
   };
 
   const updateFormResults = (criteria, text, startTime, endTime) => {
@@ -76,8 +79,7 @@ const SearchPage = () => {
         promise = serverUtils.getFormsByFireID(text);
         break;
       case "Event-Code":
-        //Uncomment this code if getFormsByEventCode is implemented
-        // promise = getFormsByEventCode(text);
+        promise = getFormsByEventCode(text);
 
         break;
       default:
@@ -87,8 +89,10 @@ const SearchPage = () => {
     if (promise) {
       promise.then(
         (result) => {
+          console.dir(result);
+
           //add results to eventResults
-          setFormResults(dateFilter(result.date, startTime, endTime));
+          setFormResults(dateFilter(result, startTime, endTime));
           setSearchSummary(summary);
           // everything else should be empty
           setYouthResults([]);
@@ -161,7 +165,7 @@ const SearchPage = () => {
       promise.then(
         (result) => {
           //add results to eventResults
-          setEventResults(dateFilter(result.date, startTime, endTime));
+          setEventResults(dateFilter(result, startTime, endTime));
           setSearchSummary(summary);
           // everything else should be empty
           setFormResults([]);

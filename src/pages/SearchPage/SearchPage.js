@@ -8,7 +8,8 @@ import * as serverUtils from "../../util/ServerInterfaceYouth";
 import { getEvent } from "../../util/ServerInterfaceEvents";
 // import ReportGenerator from "../../components/ReportGenerator";
 // import { PDFDownloadLink } from "@react-pdf/renderer";
-import { Button } from "@mantine/core";
+import { Button, Divider, Box } from "@mantine/core";
+import { IconSearch } from "@tabler/icons-react";
 
 const SearchPage = () => {
   const [youthResults, setYouthResults] = useState([]);
@@ -197,9 +198,19 @@ const SearchPage = () => {
           Search
         </Button>
       </div>
-      <div className="search-summary">
-        <p>{searchSummary}</p>
-      </div>
+      <Divider
+        w={"95%"}
+        my="xs"
+        variant="dashed"
+        color="gray"
+        labelPosition="center"
+        label={
+          <>
+            <IconSearch size={12} />
+            <Box ml={5}>{searchSummary}</Box>
+          </>
+        }
+      />
       <div className="results-container">
         <SearchResults
           youthResults={youthResults}

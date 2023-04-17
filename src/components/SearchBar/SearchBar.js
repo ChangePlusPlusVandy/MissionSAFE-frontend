@@ -7,15 +7,18 @@ import { IconSearch } from "@tabler/icons-react";
 const SearchBar = ({ searchState, setSearchState }) => {
   const searchByData = {
     Youth: [
+      { value: "", label: "Get All" },
       { value: "Email", label: "Email" },
       { value: "Program", label: "Program" },
       { value: "ID", label: "Youth ID" },
     ],
     Form: [
+      { value: "", label: "Get All" },
       { value: "ID", label: "Youth ID" },
       { value: "Event-Code", label: "Event Code" },
     ],
     Event: [
+      { value: "", label: "Get All" },
       { value: "ID", label: "Youth ID" },
       { value: "Event-Code", label: "Event Code" },
     ],

@@ -3,7 +3,8 @@ import SearchResults from "../../components/SearchResults/SearchResults";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import "./SearchPage.scss";
 import dateFormat from "dateformat";
-import * as serverUtils from "../../util/ServerInterfaceYouth";
+import * as youthServerUtils from "../../util/ServerInterfaceYouth";
+import * as eventServerUtils from "../../util/ServerInterfaceEvents";
 import { getEvent } from "../../util/ServerInterfaceEvents";
 import { getFormsByEventCode } from "../../util/ServerInterfaceForm";
 import { Button, Divider, Box } from "@mantine/core";
@@ -76,7 +77,7 @@ const SearchPage = () => {
     let promise;
     switch (criteria) {
       case "ID":
-        promise = serverUtils.getFormsByFireID(text);
+        promise = youthServerUtils.getFormsByFireID(text);
         break;
       case "Event-Code":
         promise = getFormsByEventCode(text);
@@ -112,16 +113,16 @@ const SearchPage = () => {
     let promise;
     switch (criteria) {
       case "":
-        promise = serverUtils.getAllYouth();
+        promise = youthServerUtils.getAllYouth();
         break;
       case "Email":
-        promise = serverUtils.getYouthByEmail(text);
+        promise = youthServerUtils.getYouthByEmail(text);
         break;
       case "Program":
-        promise = serverUtils.getAllYouthInProgram(text);
+        promise = youthServerUtils.getAllYouthInProgram(text);
         break;
       case "ID":
-        promise = serverUtils.getYouthByFireID(text);
+        promise = youthServerUtils.getYouthByFireID(text);
         break;
       default:
         console.log("unrecognized path");
@@ -151,8 +152,11 @@ const SearchPage = () => {
 
     let promise;
     switch (criteria) {
+      case "":
+        promise = eventServerUtils.getAllEvents();
+        break;
       case "ID":
-        promise = serverUtils.getEventsByFireID(text);
+        promise = youthServerUtils.getEventsByFireID(text);
         break;
       case "Event-Code":
         promise = getEvent(text);

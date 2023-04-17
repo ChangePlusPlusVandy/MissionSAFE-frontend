@@ -19,7 +19,7 @@ class LoginPage extends React.Component {
         this.handleUpdate = this.handleUpdate.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    
+
     handleUpdate(event) {
         event.preventDefault();
         this.setState({
@@ -37,33 +37,33 @@ class LoginPage extends React.Component {
             this.setState({
                 redirect: true,
             })
-        } catch(err) {
+        } catch (err) {
             this.setState({
                 errorMessage: "No staff found with that email/password",
             })
             document.getElementById("login-email").value = "";
         }
     }
-    
+
     render() {
-        if(this.state.redirect) {
-            return <Navigate to="/staff-home"/>
+        if (this.state.redirect) {
+            return <Navigate to="/staff-home" />
         } else {
             return (
                 <div className="page-container" id="login-page">
                     <div id="login-header">
-                        <img src={Logo} alt="MissionSAFE logo"/>
+                        <img src={Logo} alt="MissionSAFE logo" />
                         <p id="login-title">Login</p>
                         <p id="login-subtitle">Please sign in to continue.</p>
                     </div>
                     <div id="login-form">
                         <div className="login-form-input">
                             <p className="login-form-label">Email</p>
-                            <input id="login-email" name="email" onChange={this.handleUpdate} type="email"/>
+                            <input id="login-email" name="email" onChange={this.handleUpdate} type="email" />
                         </div>
                         <div className="login-form-input">
                             <p className="login-form-label">Password</p>
-                            <input id="login-password" name="password" onChange={this.handleUpdate} type="password"/>
+                            <input id="login-password" name="password" onChange={this.handleUpdate} type="password" />
                         </div>
                         <p id="login-error-message">{this.state.errorMessage}</p>
                         <p id="login-button" onClick={this.handleSubmit}>Login</p>

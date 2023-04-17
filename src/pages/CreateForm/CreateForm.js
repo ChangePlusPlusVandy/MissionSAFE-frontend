@@ -4,6 +4,8 @@ import { createYouthForm } from "../../util/ServerInterfaceYouth";
 import { Navigate } from "react-router";
 import "./CreateForm.scss"
 
+import Logo from "../../assets/mission-safe-logo.png";
+
 class CreateForm extends React.Component {
     constructor(props) {
         super(props);
@@ -31,14 +33,14 @@ class CreateForm extends React.Component {
 
     async handleSubmit(event) {
         event.preventDefault();
-        if(this.state.program.length > 0 && this.state.content.length > 0) {
+        if (this.state.program.length > 0 && this.state.content.length > 0) {
             try {
-                if(this.state.type === "event") {
+                if (this.state.type === "event") {
                     let form = await createEventForm(this.state.id, {
                         programs: [this.state.program],
                         content: this.state.content
                     });
-                    if(form.ok) {
+                    if (form.ok) {
                         this.setState({
                             redirect: true,
                         })
@@ -47,12 +49,12 @@ class CreateForm extends React.Component {
                             errorMessage: "Something went wrong. Please try again."
                         })
                     }
-                } else if(this.state.type === "youth") {
+                } else if (this.state.type === "youth") {
                     let form = await createYouthForm(this.state.id, {
                         programs: [this.state.program],
                         content: this.state.content
                     });
-                    if(form.ok) {
+                    if (form.ok) {
                         this.setState({
                             redirect: true,
                         })
@@ -62,7 +64,7 @@ class CreateForm extends React.Component {
                         })
                     }
                 }
-            } catch(err) {
+            } catch (err) {
                 this.setState({
                     errorMessage: "Failed to create form. Please try again."
                 })
@@ -77,25 +79,28 @@ class CreateForm extends React.Component {
             } else if(this.state.redirect) {
                 return <Navigate to="/records"/>
             } else {
-                return (
-                    <div className="page-container">
-                        <p className="form-creation-title">Form Creation</p>
-                        <div className="form-options">
-                            <div className="form-option">
-                                <p>What program is this form associated with?</p>
-                                <input name="program" onChange={this.handleUpdate} type="text"/>
-                            </div>
-                            <div className="form-option">
-                                <p>Content</p>
-                                <textarea name="content" onChange={this.handleUpdate}/>
-                            </div>
-                        </div>
-                        <p onClick={this.handleSubmit} className="message-page-button">Create Form</p>
+            return (
+                <div className="page-container" id="form-create-page">
+                    <div id="form-create-header">
+                        <img src={Logo} alt="MissionSAFE logo" />
+                        <p className="form-creation-title">Create Form</p>
                     </div>
-                )
+                    <div className="form-option">
+                        <div className="form-option">
+                            <p className="form-label">What program is this form associated with?</p>
+                            <input name="program" onChange={this.handleUpdate} type="text" />
+                        </div>
+                        <div className="form-option">
+                            <p className="form-label">Content</p>
+                            <textarea name="content" onChange={this.handleUpdate} />
+                        </div>
+                    </div>
+                    <p onClick={this.handleSubmit} className="message-page-button">Create Form</p>
+                </div>
+            )
             }
-        } catch(err) {
-            return <Navigate to="/unauthorized"/>
+        } catch (err) {
+            return <Navigate to="/unauthorized" />
         }
     }
 }

@@ -1,17 +1,27 @@
-.form-creation-title {
-    font-size: 30px;
-    font-weight: 500;
-    color: #5A5A5A;
-    font-family: Arial, Helvetica, sans-serif;
-    margin-top: 30px;
+#form-create-page img {
+    height: 110px;
+    width: 110px;
 }
 
-.form-options {
+#form-create-header {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    margin-bottom: 10px;
+    justify-content: flex-start;
+    margin-top: 36px;
+
+    img {
+        margin-bottom: 25px;
+    }
+}
+
+.form-creation-title {
+    font-size: 38px;
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
 }
 
 .form-option {
@@ -19,35 +29,42 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
+
+    p {
+        margin-bottom: 2px;
+    }
+
+    input {
+        width: 300px;
+        margin-top: 0;
+        background-color: #F4F4F4;
+        border: 1px solid #D9D9D9;
+        border-radius: 5px;
+        color: black;
+        padding: 6px;
+        color: #5A5A5A;
+        font-size: 14px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    textarea {
+        width: 300px;
+        height: 180px;
+        margin-top: 0;
+        background-color: #F4F4F4;
+        border: 1px solid #D9D9D9;
+        border-radius: 5px;
+        color: black;
+        padding: 6px;
+        color: #5A5A5A;
+        font-size: 14px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
 }
 
-.form-option p {
-    margin-bottom: 2px;
-}
-
-.form-option input {
-    width: 300px;
-    margin-top: 0;
-    background-color: #F4F4F4;
-    border: 1px solid #D9D9D9;
-    border-radius: 5px;
-    color: black;
-    padding: 6px;
-    color:#5A5A5A;
+.form-label {
+    margin-bottom: 1px;
+    color: #5A5A5A;
     font-size: 14px;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.form-option textarea {
-    width: 300px;
-    height: 180px;
-    margin-top: 0;
-    background-color: #F4F4F4;
-    border: 1px solid #D9D9D9;
-    border-radius: 5px;
-    color: black;
-    padding: 6px;
-    color:#5A5A5A;
-    font-size: 14px;
-    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 1px;
 }

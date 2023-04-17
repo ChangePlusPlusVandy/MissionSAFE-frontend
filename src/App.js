@@ -37,7 +37,11 @@ class App extends React.Component {
 
   render() {
     return (
-      <MantineProvider withGlobalStyles withNormalizeCSS>
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        theme={{ primaryColor: "red" }}
+      >
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<LandingPage />} />

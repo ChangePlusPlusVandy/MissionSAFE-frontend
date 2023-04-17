@@ -4,6 +4,8 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import logo from './assets/mission-safe-logo1.png'
 import './SearchPage.scss'
 import dateFormat from "dateformat";
+import * as serverUtils from '../../util/ServerInterfaceYouth';
+import {getEvent} from '../../util/ServerInterfaceEvents';
 import ReportGenerator from "../../components/ReportGenerator";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 
@@ -27,15 +29,41 @@ class SearchPage extends React.Component {
         }
         summary+=" within Youth"
         //Dummy Results
-        var results = [{fireID: 1, firstName: "first", lastName: "Test", email: "test1.com", programs: ["1","2","3"], active: true},
-            {fireID: 2, firstName: "second", lastName: "Test", email: "test2.com", programs: ["1","2","3"], active: true}];
-             //add results to youthResults
-        this.setState({
-            youthResults: results,
-            formResults: [],
-            eventResults: [],
-            searchSummary: summary
-        });
+        let promise;
+        switch (criteria){
+            case "":
+                promise = serverUtils.getAllYouth();
+                break;
+            case "Email":
+                promise = serverUtils.getYouthByEmail(text);
+                break;
+            case "Program":
+                promise = serverUtils.getAllYouthInProgram(text);
+                break;
+            case "ID":
+                promise = serverUtils.getYouthByFireID(text);
+                break;
+            default:
+                console.log("unrecognized path");
+                break;
+        }
+        if (promise){
+            promise.then(
+                (result) => {
+                //add results to youthResults
+                this.setState({
+                    youthResults: result,
+                    formResults: [],
+                    eventResults: [],
+                    searchSummary: summary
+                });
+                },
+                (error) => {
+                    //log error on failure
+                    console.error(`Error: ${error.message}`);
+                },
+            );  
+        } 
     }
 
     updateEventResults = (criteria, text, startTime, endTime) =>{
@@ -49,32 +77,35 @@ class SearchPage extends React.Component {
         }
         summary += " within Events"
         //dummy results
-        var results = [{
-            name: "Event 1",
-            programs: ["1", "2", "3"],
-            date: "01/01/2000",
-            attended_youth: ["Youth1", "Youth2", "Youth3"],
-            attached_forms: ["Form1", "Form2", "form3"],
-            _id: 1
-            },{
-                name: "Event 2" ,
-                programs: ["1","2","3"],
-                date: "02/01/2001",
-                attended_youth: ["Youth1", "Youth2", "Youth3"],
-                attached_forms: ["Form1", "Form2", "form3"], 
-                _id: 2
-                }];
-        
-        //Filter by dates
-        results=this.dateFilter(results,startTime,endTime);
-        
-        //set State
-        this.setState({
-            youthResults: [],
-            formResults: [],
-            eventResults: results,
-            searchSummary: summary
-        });
+        let promise;
+        switch (criteria){
+            case "ID":
+                promise = serverUtils.getEventsByFireID(text);
+                break;
+            case "Event-Code":
+                promise = getEvent(text);
+                break;
+            default:
+                console.log("Unexpected search criteria");
+                break;
+        }
+        if (promise){
+            promise.then(
+                (result) => {
+                    //add results to eventResults
+                    this.setState({
+                        youthResults: [],
+                        formResults: [],
+                        eventResults: this.dateFilter(result,startTime,endTime),
+                        searchSummary: summary
+                    });
+                },
+                (error) => {
+                    //log error on failure
+                    console.error(`Error: ${error.message}`);
+                },
+            ); 
+        } 
     }
    
     updateFormResults = (criteria, text,startTime, endTime) =>{
@@ -88,18 +119,37 @@ class SearchPage extends React.Component {
         }
         summary += " within Forms"
         //Dummy Results
-        var results = [{name: "Form 1" , _id: 1 , date: "01/01/2000", programs: ["1","2","3"], staff: "John"},
-        {name: "Form 2" , _id: 2 , date: "02/01/2000", programs: ["1","2","3"], staff: "John"}]
+        let promise;
+        switch (criteria){
+            case "ID":
+                promise = serverUtils.getFormsByFireID(text);
+                break;
+            case "Event-Code":
+                //Uncomment this code if getFormsByEventCode is implemented
+                // promise = getFormsByEventCode(text);
 
-        //Filter by dates
-        results = this.dateFilter(results,startTime,endTime);
-
-        this.setState({
-            youthResults: [],
-            formResults: results,
-            eventResults: [],
-            searchSummary: summary
-        });
+                break;
+            default:
+                console.log("Unexpected search criteria");
+                break;
+        }
+        if (promise){
+            promise.then(
+                (result) => {
+                    //add results to eventResults
+                    this.setState({
+                        youthResults: [],
+                        formResults: this.dateFilter(result,startTime,endTime),
+                        eventResults: [],
+                        searchSummary: summary
+                    });
+                },
+                (error) => {
+                    //log error on failure
+                    console.error(`Error: ${error.message}`);
+                },
+            );  
+        }
     }
 
     dateFilter = (results,startTime,endTime) =>{
@@ -140,7 +190,9 @@ class SearchPage extends React.Component {
                     <SearchResults youthResults={this.state.youthResults} formResults={this.state.formResults} eventResults={this.state.eventResults} />
                 </div>
 
-                <PDFDownloadLink document={<ReportGenerator youthResults={[1, 2, 3, 4]} formResults={this.state.formResults} eventResults={this.state.eventResults} />} fileName="FORM">
+                {/* In Progress */}
+
+                {/* <PDFDownloadLink document={<ReportGenerator youthResults={[1, 2, 3, 4]} formResults={this.state.formResults} eventResults={this.state.eventResults} />} fileName="FORM">
                     {({ loading }) =>
                         loading ? (
                             <button>Loading Document ...</button>
@@ -149,7 +201,7 @@ class SearchPage extends React.Component {
                         )
                     }
 
-                </PDFDownloadLink>
+                </PDFDownloadLink> */}
 
             </div>
         )

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { useParams } from "react-router-dom";
 import {getFormByID} from "../../util/ServerInterfaceForm";
-import "./FormDetails.scss";
+import "./IndividualForm.scss";
 import logo from "../../assets/mission-safe-logo.png"
 import dateFormat from "dateformat";
 

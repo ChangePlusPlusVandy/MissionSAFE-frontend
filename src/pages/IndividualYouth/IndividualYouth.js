@@ -8,6 +8,7 @@ import {
 } from "../../util/ServerInterfaceYouth";
 import logo from "../../assets/mission-safe-logo.png";
 import dateFormat from "dateformat";
+import HeaderResponsive from "../../components/Header/Header";
 
 const today_date = dateFormat(new Date(), "fullDate");
 
@@ -43,9 +44,7 @@ const IndividualYouth = () => {
 
   return (
     <div>
-      <div className="logo-container">
-        <img className="logo" src={logo} alt="" />
-      </div>
+      <HeaderResponsive />
 
       <div className="bar-container">
         <h1 className="date">{today_date}</h1>

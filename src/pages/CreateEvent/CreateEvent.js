@@ -8,6 +8,8 @@ class CreateEvent extends React.Component {
         super(props);
 
         this.state = {
+            name: "",
+            description: "",
             program: "",
             eventCode: null,
             errorMessage: "",
@@ -30,6 +32,8 @@ class CreateEvent extends React.Component {
         if(this.state.program.length > 0) { // DUMMY PROGRAM CHECKING
             try {
                 let event = await createEvent({
+                    name: this.state.name,
+                    description: this.state.description,
                     programs: [this.state.program],
                 });
                 this.setState({
@@ -54,6 +58,10 @@ class CreateEvent extends React.Component {
                     <div className="page-container">
                         <p className="event-creation-title">Event Creation</p>
                         <div className="event-options">
+                            <p>What is the name of this event?</p>
+                            <input name="name" onChange={this.handleUpdate} type="text"/>
+                            <p>Please provide a description of this event</p>
+                            <input name="description" onChange={this.handleUpdate} type="text"/>
                             <p>What program is this event associated with?</p>
                             <input name="program" onChange={this.handleUpdate} type="text"/>
                         </div>

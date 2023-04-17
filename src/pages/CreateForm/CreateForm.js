@@ -11,6 +11,8 @@ class CreateForm extends React.Component {
         this.state = {
             type: window.location.pathname.split("/")[2], // "event" or "youth"
             id: window.location.pathname.split("/")[3], // eventCode or fireID
+            name: "",
+            description: "",
             program: "",
             content: "",
             errorMessage: "",
@@ -35,6 +37,8 @@ class CreateForm extends React.Component {
             try {
                 if(this.state.type === "event") {
                     let form = await createEventForm(this.state.id, {
+                        name: this.state.name,
+                        description: this.state.description,
                         programs: [this.state.program],
                         content: this.state.content
                     });
@@ -49,6 +53,8 @@ class CreateForm extends React.Component {
                     }
                 } else if(this.state.type === "youth") {
                     let form = await createYouthForm(this.state.id, {
+                        name: this.state.name,
+                        description: this.state.description,
                         programs: [this.state.program],
                         content: this.state.content
                     });
@@ -82,6 +88,10 @@ class CreateForm extends React.Component {
                         <p className="form-creation-title">Form Creation</p>
                         <div className="form-options">
                             <div className="form-option">
+                                <p>What is the name of this form?</p>
+                                <input name="name" onChange={this.handleUpdate} type="text"/>
+                                <p>Please provide a description of this form</p>
+                                <input name="description" onChange={this.handleUpdate} type="text"/>
                                 <p>What program is this form associated with?</p>
                                 <input name="program" onChange={this.handleUpdate} type="text"/>
                             </div>

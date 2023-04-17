@@ -10,6 +10,7 @@ import { getEvent } from "../../util/ServerInterfaceEvents";
 // import { PDFDownloadLink } from "@react-pdf/renderer";
 import { Button, Divider, Box } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
+import HeaderResponsive from "../../components/Header/Header";
 
 const SearchPage = () => {
   const [youthResults, setYouthResults] = useState([]);
@@ -187,41 +188,43 @@ const SearchPage = () => {
   };
 
   return (
-    <div className="column-container">
-      <div className="logo-container">
-        <img className="logo" src={logo} alt="" />
-      </div>
-      <div className="bar-container">
-        <div className="date">{date}</div>
-        <SearchBar searchState={searchState} setSearchState={setSearchState} />
-        <Button size="sm" onClick={onSearchButtonClick} mt="xs">
-          Search
-        </Button>
-      </div>
-      <Divider
-        w={"95%"}
-        my="xs"
-        variant="dashed"
-        color="gray"
-        labelPosition="center"
-        label={
-          <>
-            <IconSearch size={12} />
-            <Box ml={5}>{searchSummary}</Box>
-          </>
-        }
-      />
-      <div className="results-container">
-        <SearchResults
-          youthResults={youthResults}
-          formResults={formResults}
-          eventResults={eventResults}
+    <>
+      <div className="column-container">
+        <HeaderResponsive />
+        <div className="bar-container">
+          <div className="date">{date}</div>
+          <SearchBar
+            searchState={searchState}
+            setSearchState={setSearchState}
+          />
+          <Button size="sm" onClick={onSearchButtonClick} mt="xs">
+            Search
+          </Button>
+        </div>
+        <Divider
+          w={"95%"}
+          my="xs"
+          variant="dashed"
+          color="gray"
+          labelPosition="center"
+          label={
+            <>
+              <IconSearch size={12} />
+              <Box ml={5}>{searchSummary}</Box>
+            </>
+          }
         />
-      </div>
+        <div className="results-container">
+          <SearchResults
+            youthResults={youthResults}
+            formResults={formResults}
+            eventResults={eventResults}
+          />
+        </div>
 
-      {/* In Progress */}
+        {/* In Progress */}
 
-      {/* <PDFDownloadLink document={<ReportGenerator youthResults={[1, 2, 3, 4]} formResults={formResults} eventResults={eventResults} />} fileName="FORM">
+        {/* <PDFDownloadLink document={<ReportGenerator youthResults={[1, 2, 3, 4]} formResults={formResults} eventResults={eventResults} />} fileName="FORM">
           {({ loading }) =>
             loading ? (
               <button>Loading Document ...</button>
@@ -230,7 +233,8 @@ const SearchPage = () => {
             )
           }
       </PDFDownloadLink> */}
-    </div>
+      </div>
+    </>
   );
 };
 

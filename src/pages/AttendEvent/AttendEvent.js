@@ -1,76 +1,82 @@
-import React from "react";
+import React, { useState } from "react";
 import "./AttendEvent.scss";
 import { attendEvent } from "../../util/ServerInterfaceEvents";
 import { Navigate } from "react-router";
+import HeaderResponsive from "../../components/Header/Header";
+import { Button, TextInput, Text } from "@mantine/core";
 
-class AttendEvent extends React.Component {
-    constructor(props) {
-        super(props)
+const AttendEvent = () => {
+  const [code, setCode] = useState("");
+  const [email, setEmail] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [redirect, setRedirect] = useState(false);
 
-        this.state = {
-            code: "",
-            email: "",
-            errorMessage: "",
-            redirect: false,
-        }
-
-        this.handleUpdate = this.handleUpdate.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+  const handleUpdate = (event) => {
+    event.preventDefault();
+    if (event.target.name === "code") {
+      setCode(event.target.value);
     }
+    if (event.target.name === "email") {
+      setEmail(event.target.value);
+    }
+    setErrorMessage("");
+  };
 
-    handleUpdate(event) {
-        event.preventDefault();
-        this.setState({
-            [event.target.name]: event.target.value,
-            errorMessage: "",
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (code.length === 5 && email.length > 0) {
+      try {
+        let attendanceResult = await attendEvent(code, {
+          email: email,
         });
-    }
-
-    async handleSubmit(event) {
-        event.preventDefault();
-        console.log(this.state);
-        if(this.state.code.length === 5 && this.state.email.length > 0) {
-            try {
-                let attendanceResult = await attendEvent(this.state.code, {
-                    email: this.state.email
-                });
-                if(attendanceResult) {
-                    this.setState({
-                        redirect: true,
-                    })
-                }
-            } catch(err) {
-                this.setState({
-                    errorMessage: "Failed to register attendance. Please try again."
-                })
-                document.getElementById("code-input").value = "";
-            }
+        if (attendanceResult) {
+          setRedirect(true);
         }
+      } catch (err) {
+        setErrorMessage("Failed to register attendance. Please try again.");
+        document.getElementById("code-input").value = "";
+      }
     }
+  };
 
-    render() {
-        if(this.state.redirect) {
-            return <Navigate to="/attend-success"/>
-        } else {
-            return (
-                <div className="page-container">
-                    <p>Event Attendance</p>
-                    <div className="attendace-form">
-                        <div className="attendance-input">
-                            <p>Email</p>
-                            <input onChange={this.handleUpdate} name="email" type="text" placeholder="example@email.com"/>
-                        </div>
-                        <div className="attendance-input">
-                            <p>Event Code</p>
-                            <input onChange={this.handleUpdate} id="code-input" name="code" type="text" placeholder="XXXXX"/>
-                        </div>
-                    </div>
-                    <p className="attendance-error">{this.state.errorMessage}</p>
-                    <p onClick={this.handleSubmit} className="message-page-button">Mark Attendance</p>
-                </div>
-            )
-        }
-    }
-}
+  if (redirect) return <Navigate to="/attend-success" />;
 
-export default AttendEvent
+  return (
+    <>
+      <HeaderResponsive />
+      <div className="page-container">
+        <Text weight="700" size="xl" mb="xl">
+          Event Attendance
+        </Text>
+
+        <div className="attendance-input">
+          <TextInput
+            label="Email"
+            onChange={handleUpdate}
+            name="email"
+            type="text"
+            placeholder="example@email.com"
+            value={email}
+            mb="sm"
+          />
+        </div>
+        <div className="attendance-input">
+          <TextInput
+            label="Event Code"
+            onChange={handleUpdate}
+            name="code"
+            type="text"
+            placeholder="XXXXX"
+            value={code}
+          />
+        </div>
+        <p className="attendance-error">{errorMessage}</p>
+        <Button onClick={handleSubmit} className="message-page-button">
+          Mark Attendance
+        </Button>
+      </div>
+    </>
+  );
+};
+
+export default AttendEvent;

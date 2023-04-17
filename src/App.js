@@ -16,6 +16,7 @@ import StaffSuccess from "./pages/StaffSuccess/StaffSuccess";
 import AttendSuccess from "./pages/AttendSuccess/AttendSuccess";
 import Unauthorized from "./pages/Unauthorized/Unauthorized";
 import "./App.scss"
+import IndividualYouth from "./pages/IndividualYouth/IndividualYouth";
 
 class App extends React.Component {
   constructor(props) {
@@ -47,7 +48,7 @@ class App extends React.Component {
           <Route path="/create-event" element={<CreateEvent user={this.state.user}/>} />
           <Route path="/attend-event" element={<AttendEvent />} />
           <Route path="/create-form/:type/:id" element={<CreateForm />} /> 
-          <Route path="/youth/:id" element={<StaffHome /> /* TODO */} />
+          <Route path="/youth/:id" element={<IndividualYouth /> /* TODO */} />
           <Route path="/event/:code" element={<StaffHome /> /* TODO */} />
           <Route path="/form/:id" element={<StaffHome /> /* TODO */} />
           <Route path="/youth-success" element={<YouthSuccess />} />

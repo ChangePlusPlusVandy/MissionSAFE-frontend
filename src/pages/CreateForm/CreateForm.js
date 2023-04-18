@@ -13,6 +13,8 @@ class CreateForm extends React.Component {
         this.state = {
             type: window.location.pathname.split("/")[2], // "event" or "youth"
             id: window.location.pathname.split("/")[3], // eventCode or fireID
+            name: "",
+            description: "",
             program: "",
             content: "",
             errorMessage: "",
@@ -74,30 +76,38 @@ class CreateForm extends React.Component {
 
     render() {
         try {
-            if(!this.props.user.active) {
-                return <Navigate to="/unauthorized"/>
-            } else if(this.state.redirect) {
-                return <Navigate to="/records"/>
+            if (!this.props.user.active) {
+                return <Navigate to="/unauthorized" />
+            } else if (this.state.redirect) {
+                return <Navigate to="/records" />
             } else {
-            return (
-                <div className="page-container" id="form-create-page">
-                    <div id="form-create-header">
-                        <img src={Logo} alt="MissionSAFE logo" />
-                        <p className="form-creation-title">Create Form</p>
-                    </div>
-                    <div className="form-option">
-                        <div className="form-option">
-                            <p className="form-label">What program is this form associated with?</p>
-                            <input name="program" onChange={this.handleUpdate} type="text" />
+                return (
+                    <div className="page-container" id="form-create-page">
+                        <div id="form-create-header">
+                            <img src={Logo} alt="MissionSAFE logo" />
+                            <p className="form-creation-title">Create Form</p>
                         </div>
                         <div className="form-option">
-                            <p className="form-label">Content</p>
-                            <textarea name="content" onChange={this.handleUpdate} />
+                            <div className="form-option">
+                                <p className="form-label">Form Name</p>
+                                <input name="name" onChange={this.handleUpdate} type="text" />
+                            </div>
+                            <div className="form-option">
+                                <p className="form-label">What program is this form associated with?</p>
+                                <input name="program" onChange={this.handleUpdate} type="text" />
+                            </div>
+                            <div className="form-option">
+                                <p className="form-label">Form Description</p>
+                                <input name="description" onChange={this.handleUpdate} type="text" />
+                            </div>
+                            <div className="form-option">
+                                <p className="form-label">Content</p>
+                                <textarea name="content" onChange={this.handleUpdate} />
+                            </div>
                         </div>
+                        <p onClick={this.handleSubmit} className="message-page-button">Create Form</p>
                     </div>
-                    <p onClick={this.handleSubmit} className="message-page-button">Create Form</p>
-                </div>
-            )
+                )
             }
         } catch (err) {
             return <Navigate to="/unauthorized" />

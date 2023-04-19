@@ -98,7 +98,7 @@ class CreateForm extends React.Component {
                             </div>
                             <div className="form-option">
                                 <p className="form-label">Form Description</p>
-                                <input name="description" onChange={this.handleUpdate} type="text" />
+                                <textarea name="description" onChange={this.handleUpdate} />
                             </div>
                             <div className="form-option">
                                 <p className="form-label">Content</p>
